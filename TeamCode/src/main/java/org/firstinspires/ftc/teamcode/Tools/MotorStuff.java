@@ -22,15 +22,14 @@ public class MotorStuff extends LinearOpMode{
             hwchssH.motor_back_left.setPower(SpeedBackLeft);
             hwchssH.motor_back_right.setPower(SpeedFrontRight);
 
-        }else if(isHitlIGS){
+        }else{
             hwchssM.motor_front_left.setPower(SpeedFrontLeft);
             hwchssM.motor_front_right.setPower(SpeedFrontRight);
             hwchssM.motor_back_left.setPower(SpeedBackLeft);
             hwchssM.motor_back_right.setPower(SpeedFrontRight);
 
-        }else{
-            telemetry.addData("FATAL ERROR isHitlIGS:", isHitlIGS);
-            telemetry.update();
         }
+        //telemetry.addLine("[FATAL ERROR] isHitlIGS");
+        //telemetry.update();
     }
 }
