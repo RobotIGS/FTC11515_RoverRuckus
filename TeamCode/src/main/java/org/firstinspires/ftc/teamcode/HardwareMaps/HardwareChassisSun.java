@@ -1,3 +1,6 @@
+/*This class is used to set the chassi specific terms directions and more to come
+ * created by coolPseudonym
+ */
 package org.firstinspires.ftc.teamcode.HardwareMaps;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -5,14 +8,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class HardwareChassisSun extends HardwareChassis{
-
+    //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
     public HardwareChassisSun(HardwareMap ahwMap) {
         super(ahwMap);
-        super.init(ahwMap);
+        //super.init(ahwMap);
     }
 
     @Override
     protected void setDirections() {
+        //set all directions of the motors to be used more intuitively
         motor_front_right.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_front_left.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_back_right.setDirection(DcMotorSimple.Direction.REVERSE);
