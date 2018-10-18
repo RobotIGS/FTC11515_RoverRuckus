@@ -7,6 +7,7 @@ public class HardwareChassisMerkelIGS extends HardwareChassis {
 
     public HardwareChassisMerkelIGS(HardwareMap ahwMap) {
         super(ahwMap);
+        super.init(ahwMap);
     }
 
     @Override

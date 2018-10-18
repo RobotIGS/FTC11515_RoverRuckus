@@ -19,10 +19,10 @@ public abstract class HardwareChassis {
 
     public void init(HardwareMap hwMap) {
 
-        motor_front_right = hwMap.get(DcMotor.class, "motor_vorne_rechts");
-        motor_front_left = hwMap.get(DcMotor.class, "motor_vorne_links");
-        motor_back_right = hwMap.get(DcMotor.class, "motor_hinten_rechts");
-        motor_back_left = hwMap.get(DcMotor.class, "motor_vorne_links");
+        motor_front_right = hwMap.get(DcMotor.class, "motor_front_right");
+        motor_front_left = hwMap.get(DcMotor.class, "motor_front_left");
+        motor_back_right = hwMap.get(DcMotor.class, "motor_back_right");
+        motor_back_left = hwMap.get(DcMotor.class, "motor_back_left");
 
 
         motor_front_right.setPower(0);
@@ -35,6 +35,11 @@ public abstract class HardwareChassis {
         motor_front_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor_back_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motor_back_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motor_front_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_front_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_back_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     abstract protected void setDirections();

@@ -1,21 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisMerkelIGS;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
+@TeleOp
 public class TestDriveTrainMerkelIGS extends OpMode {
 
-    private double driveSpeed;
+    private float driveSpeed;
 
-    HardwareChassisMerkelIGS hwchss;
+    HardwareChassisMerkelIGS ghwchss;
     MotorStuff motstff;
+
 
     @Override
     public void init() {
-        hwchss = new HardwareChassisMerkelIGS(hardwareMap);
-        motstff = new MotorStuff(hwchss);
+        ghwchss = new HardwareChassisMerkelIGS(hardwareMap);
+        motstff = new MotorStuff(ghwchss);
     }
 
     @Override
