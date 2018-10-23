@@ -54,7 +54,7 @@ public class Gamepad_Threads extends LinearOpMode {
         });
 
         waitForStart();
-        
+
         dPadLeft.start();
         dPadRight.start();
 
