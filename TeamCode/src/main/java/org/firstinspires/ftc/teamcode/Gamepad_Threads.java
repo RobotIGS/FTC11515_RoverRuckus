@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /*
     Created by @Paul 22.10.18
@@ -12,20 +13,26 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
  */
 
+@TeleOp (name = "GamepadThreads")
 public class Gamepad_Threads extends LinearOpMode {
-    private DcMotor motor_left; //Test Motors
-    private DcMotor motor_right; //Test Motors
+    private DcMotor motor_front_left; //Test Motors
+    private DcMotor motor_front_right; //Test Motors
 
     @Override
     public void runOpMode() {
-        motor_left = hardwareMap.dcMotor.get("motor_left");
-        motor_right = hardwareMap.dcMotor.get("motor_right");
+        motor_front_right = hardwareMap.get(DcMotor.class, "motor_vorne_rechts");
+        motor_front_right.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        motor_front_left = hardwareMap.get(DcMotor.class, "motor_vorne_links");
+        motor_front_left.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Thread dPadLeft = new Thread(new Runnable() {
             @Override
             public void run() {
-                if (gamepad1.dpad_left) {
-                    System.out.println(true);
+                if (gamepad1.b) {
+                    motor_front_right.setPower(0.5);
+                } else {
+                    motor_front_right.setPower(0);
                 }
                 try {
                     Thread.sleep(1);
@@ -40,8 +47,10 @@ public class Gamepad_Threads extends LinearOpMode {
         Thread dPadRight = new Thread(new Runnable() {
             @Override
             public void run() {
-                if (gamepad1.dpad_right) {
-                    System.out.println(true);
+                if (gamepad1.a) {
+                    motor_front_left.setPower(0.5);
+                } else {
+                    motor_front_left.setPower(0);
                 }
                 try {
                     Thread.sleep(1);
@@ -57,6 +66,10 @@ public class Gamepad_Threads extends LinearOpMode {
 
         dPadLeft.start();
         dPadRight.start();
+
+        while (true) {
+
+        }
 
 
     }
