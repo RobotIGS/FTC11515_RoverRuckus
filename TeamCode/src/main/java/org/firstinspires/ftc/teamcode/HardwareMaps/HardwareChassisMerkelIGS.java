@@ -20,6 +20,8 @@ public class HardwareChassisMerkelIGS extends HardwareChassis {
         motor_front_left.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_back_right.setDirection(DcMotorSimple.Direction.REVERSE);
         motor_back_left.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //motor_arm.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
 

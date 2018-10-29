@@ -45,5 +45,17 @@ public class TestDriveTrainMerkelIGS extends OpMode {
             //set all motors to 0 if no button is pressed
             motstff.setAllMotors(0,0,0,0);
         }
+
+
+
+        if (gamepad1.a) {
+            ghwchss.motor_front_left.setPower(0.5);
+        }
+        if (gamepad1.b){
+            ghwchss.motor_front_left.setPower(-0.5);
+        }
+        if(!gamepad1.a && !gamepad1.b){
+            ghwchss.motor_front_left.setPower(0.0);
+        }
     }
 }
