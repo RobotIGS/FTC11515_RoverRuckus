@@ -15,13 +15,13 @@ public class CleanOpMode extends LinearOpModeCamera {
     CameraHelper helper;
     @Override
     public void runOpMode() {
-        Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
-        helper = new CameraHelper(malte);
+        //Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
+        //helper = new CameraHelper(malte);
         waitForStart();
-        helper = new CameraHelper(helper.getBitmap());
-        telemetry.addData("test", helper.bild.getPixel(1, 1));
-        HSV[][] transformiert = helper.bitmapToHsv(helper.getBitmap());
-        telemetry.update();
+        //helper = new CameraHelper(helper.getBitmap());
+        //telemetry.addData("test", helper.bild.getPixel(1, 1));
+        //HSV[][] transformiert = helper.bitmapToHsv(helper.getBitmap());
+        //telemetry.update();
     }
 
 }
