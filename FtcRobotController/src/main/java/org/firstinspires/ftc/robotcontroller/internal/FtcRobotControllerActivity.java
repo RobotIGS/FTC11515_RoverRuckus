@@ -40,7 +40,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Camera;
+import android.hardware.Camera;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.net.wifi.WifiManager;
@@ -181,8 +181,55 @@ public class FtcRobotControllerActivity extends Activity
 
   }
 
+    /////////////////////////////////////////////////////////
+    // ADDED FOR CAMERA!!!
 
-  protected ServiceConnection connection = new ServiceConnection() {
+    public void initPreview(final Camera camera, final OpModeCamera context, final Camera.PreviewCallback previewCallback) {
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          context.preview = new CameraPreview(FtcRobotControllerActivity.this, camera, previewCallback);
+          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
+          previewLayout.addView(context.preview);
+        }
+      });
+    }
+
+    // poor coding style here.  Shouldn't have to duplicate these routines for regular and linear OpModes.
+    public void initPreviewLinear(final Camera camera, final LinearOpModeCamera context, final Camera.PreviewCallback previewCallback) {
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          context.preview = new CameraPreview(FtcRobotControllerActivity.this, camera, previewCallback);
+          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
+          previewLayout.addView(context.preview);
+        }
+      });
+    }
+
+
+    public void removePreview(final OpModeCamera context) {
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
+          previewLayout.removeAllViews();
+        }
+      });
+    }
+
+    public void removePreviewLinear(final LinearOpModeCamera context) {
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
+          previewLayout.removeAllViews();
+        }
+      });
+    }
+
+
+    protected ServiceConnection connection = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
       FtcRobotControllerBinder binder = (FtcRobotControllerBinder) service;
