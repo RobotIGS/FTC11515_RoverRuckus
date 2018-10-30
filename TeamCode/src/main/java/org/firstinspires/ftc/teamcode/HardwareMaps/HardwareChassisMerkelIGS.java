@@ -3,13 +3,19 @@
  */
 package org.firstinspires.ftc.teamcode.HardwareMaps;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class HardwareChassisMerkelIGS extends HardwareChassis {
+    public DcMotor lift = null;
+    public DcMotor liftExtend = null;
+
     //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
     public HardwareChassisMerkelIGS(HardwareMap ahwMap) {
         super(ahwMap);
+        lift = ahwMap.get(DcMotor.class, "");
+        liftExtend = ahwMap.get(DcMotor.class, "");
         //super.init(ahwMap);
     }
 

@@ -31,10 +31,20 @@ public class TestDriveTrainMerkelIGS extends OpMode {
     //MAIN THESE CONCEPTS WILL BE OVERTHROWN IN THE NEAR FUTURE SINCE THIS IS JUST A PROOF OF CONCEPT AND TESTING
     public void loop() {
         //set drivespeed as value of the right trigger to have a variable speed
-        driveSpeed = gamepad1.right_trigger;
+        //driveSpeed = gamepad1.right_trigger;
         //This if else statements will be changed to event listeners if there`s time also the ability to drive in all 360 degrees
-        if(gamepad1.dpad_up){
-            motstff.setAllMotors(driveSpeed,driveSpeed,driveSpeed,driveSpeed);
+        if(gamepad1.right_stick_y != 0) {
+            motstff.setAllMotors(gamepad1.right_stick_y, gamepad1.right_stick_y, gamepad1.right_stick_y, gamepad1.right_stick_y);
+        }
+        //Turn
+        if(gamepad1.left_stick_x < 0 ) {
+            motstff.setAllMotors(gamepad1.left_stick_x, -gamepad1.left_stick_x, gamepad1.left_stick_x,-gamepad1.left_stick_x);
+        }
+        if(gamepad1.left_stick_x > 0 ) {
+            motstff.setAllMotors(-gamepad1.left_stick_x, gamepad1.left_stick_x, -gamepad1.left_stick_x, gamepad1.left_stick_x);
+        }
+
+            /*
         } else if(gamepad1.dpad_down){
             motstff.setAllMotors(-driveSpeed,-driveSpeed,-driveSpeed,-driveSpeed);
         }else if(gamepad1.dpad_left){
@@ -45,17 +55,22 @@ public class TestDriveTrainMerkelIGS extends OpMode {
             //set all motors to 0 if no button is pressed
             motstff.setAllMotors(0,0,0,0);
         }
+        */
+        if (gamepad1.left_trigger != 0) {
+            ghwchss.lift.setPower(gamepad1.left_trigger);
 
-
-
-        if (gamepad1.a) {
-            ghwchss.motor_front_left.setPower(0.5);
+        } else if (gamepad1.right_trigger != 0) {
+            ghwchss.lift.setPower(-gamepad1.left_trigger);
+        } else {
+            ghwchss.lift.setPower(0);
         }
-        if (gamepad1.b){
-            ghwchss.motor_front_left.setPower(-0.5);
-        }
-        if(!gamepad1.a && !gamepad1.b){
-            ghwchss.motor_front_left.setPower(0.0);
+
+        if (gamepad1.dpad_up){
+            ghwchss.liftExtend.setPower(0.5);
+        } else if (gamepad1.dpad_down) {
+            ghwchss.liftExtend.setPower(0.5);
+        } else {
+            ghwchss.liftExtend.setPower(0);
         }
     }
 }
