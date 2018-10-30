@@ -40,6 +40,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Camera;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.net.wifi.WifiManager;
@@ -55,6 +56,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -122,6 +124,10 @@ import org.firstinspires.inspection.RcInspectionActivity;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import for_camera_opmodes.CameraPreview;
+import for_camera_opmodes.LinearOpModeCamera;
+import for_camera_opmodes.OpModeCamera;
+
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity
   {
@@ -174,6 +180,7 @@ public class FtcRobotControllerActivity extends Activity
     }
 
   }
+
 
   protected ServiceConnection connection = new ServiceConnection() {
     @Override
