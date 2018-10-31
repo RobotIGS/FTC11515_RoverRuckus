@@ -14,8 +14,8 @@ public class HardwareChassisMerkelIGS extends HardwareChassis {
     //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
     public HardwareChassisMerkelIGS(HardwareMap ahwMap) {
         super(ahwMap);
-        lift = ahwMap.get(DcMotor.class, "");
-        liftExtend = ahwMap.get(DcMotor.class, "");
+        lift = ahwMap.get(DcMotor.class, "lift");
+        liftExtend = ahwMap.get(DcMotor.class, "lift_extend");
         //super.init(ahwMap);
     }
 
