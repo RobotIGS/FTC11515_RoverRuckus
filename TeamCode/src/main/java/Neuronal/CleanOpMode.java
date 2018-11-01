@@ -1,6 +1,8 @@
 package Neuronal;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,10 +20,29 @@ public class CleanOpMode extends LinearOpModeCamera {
         //Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
         //helper = new CameraHelper(malte);
         waitForStart();
-        //helper = new CameraHelper(helper.getBitmap());
-        //telemetry.addData("test", helper.bild.getPixel(1, 1));
-        //HSV[][] transformiert = helper.bitmapToHsv(helper.getBitmap());
-        //telemetry.update();
+        startCamera();
+
+        Camera.PictureCallback jpeg = new Camera.PictureCallback() {
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
+                telemetry.addData("Byte length, ", data.length);
+                telemetry.update();
+            }
+        };
+        Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+            @Override
+            public void onShutter() {
+
+            }
+        };
+        camera.takePicture(shutterCallback, null, jpeg);
+
+        /*Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
+        helper = new CameraHelper(malte);
+        helper = new CameraHelper(helper.getBitmap());
+        telemetry.addData("test", helper.bild.getPixel(1, 1));
+        HSV[][] transformiert = helper.bitmapToHsv(helper.getBitmap());
+        telemetry.update();*/
     }
 
 }
