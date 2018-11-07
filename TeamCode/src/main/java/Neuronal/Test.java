@@ -14,7 +14,7 @@ public class Test extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         waitForStart();
         helper = new CameraHelper(helper.getBitmap());
-        telemetry.addData("test", helper.bild.getPixel(1, 1));
+        telemetry.addData("test", helper.picture.getPixel(1, 1));
         HSV[][] transformiert = helper.bitmapToHsv(helper.getBitmap());
         telemetry.update();
     }

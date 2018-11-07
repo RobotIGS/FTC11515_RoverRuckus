@@ -2,6 +2,7 @@ package Neuronal;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import for_camera_opmodes.OpModeCamera;
 /*
@@ -11,21 +12,33 @@ Also able to convert HSV[][] to bitmap
  */
 
 public class CameraHelper extends OpModeCamera {
-     Bitmap bild;
-    int width; // initializing  lenght
-    int height; // initializing  height
-    HSV[][] hsv_pic; // initializing  the foundation of the HSV matrix
+     Bitmap picture;
+    private int width; // initializing  lenght
+    private int height; // initializing  height
+    private HSV[][] hsv_pic; // initializing  the foundation of the HSV matrix
 
-    // @ bild
-    // is the bitmap containing the RGB information of the picture
-    public CameraHelper(Bitmap bild) {
-        this.bild = bild;
-        this.hsv_pic = bitmapToHsv(bild);
-        this.width = bild.getWidth();
-        this.height = bild.getHeight();
+    /**
+     *Constructor. Sets the attributes according to the bitmap
+     *
+     * @param picture The bitmap that the class will use (the picture to be analyzed)
+     */
+    public CameraHelper(Bitmap picture) {
+        this.picture = picture;
+        this.hsv_pic = bitmapToHsv(picture);
+        this.width = picture.getWidth();
+        this.height = picture.getHeight();
     }
+
+    /**
+     * Standard empty constructor
+     */
     public CameraHelper() { }
 
+    /**
+     *Receive bitmap
+     * @return Took image of inherited camera class
+     */
+    //todo untested
     public Bitmap getBitmap() {
         //super.init();
         Bitmap platz =  convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds); //todo
@@ -33,7 +46,11 @@ public class CameraHelper extends OpModeCamera {
         return  platz;
     }
 
-
+    /**
+     * Simplifies image to an hsv table (double array)
+     * @param bit The bitmap that should be converted
+     * @return
+     */
     public HSV[][] bitmapToHsv(Bitmap bit){
         HSV[][] hsv = new HSV[this.height][this.width];
 
@@ -49,9 +66,14 @@ public class CameraHelper extends OpModeCamera {
 
             return hsv;
     }
-    // @ r,g,b
-    // the r,g,b values
-    //returns the hsv values of the RGB values
+
+    /**
+     * Converts a rgb to hsv value
+     * @param r red value
+     * @param g green value
+     * @param b blue value
+     * @return hsv value, as float
+     */
     private float[] convert_RGB_To_HSV(int r, int g, int b){
         float[] hsv = new float[3];
         double test;
@@ -59,9 +81,14 @@ public class CameraHelper extends OpModeCamera {
         return hsv;
     }
 
+    /**
+     * Converts hsv images to a bitmaps
+     * @param hsv table (double array) of hsv objects
+     * @return desired bitmap
+     */
     public Bitmap HSVtoBitmap(HSV[][] hsv){
         int color;
-        Bitmap bit = this.bild;
+        Bitmap bit = this.picture;
         for (int i = 0; i < hsv.length; i++ ){ //For width
             for (int j = 0; j < hsv[i].length; j++) { // For length
                 float[] pixelHSV = new float[3];
@@ -77,42 +104,14 @@ public class CameraHelper extends OpModeCamera {
         return bit;
     }
 
-    public void visualize(){
 
+    public void visualize(){ }
 
-
-
-    }
-
-
-
-    public Bitmap getBild() {
-        return bild;
-    }
-
-    public void setBild(Bitmap bild) {
-        this.bild = bild;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }
 
-
-// helper class for HSV
+/**
+ * Helper class, contains three floats and thus a hsv value.
+ */
 class HSV{
     float v;
     float s;
