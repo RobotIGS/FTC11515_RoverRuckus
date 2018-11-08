@@ -24,9 +24,9 @@ public class MotorStuff {
     }
     public void turn (int speed, String direction){
             if (direction == "RIGHT"){
-                setAllMotors(speed,-speed,speed,-speed);
+                setAllMotors(speed,-speed,-speed,speed);
             }else if(direction == "LEFT"){
-                setAllMotors(-speed,speed,-speed,speed);
+                setAllMotors(-speed,speed,speed,-speed);
             }else{
                 /* ERROR MESSAGE TO ADD */
             }

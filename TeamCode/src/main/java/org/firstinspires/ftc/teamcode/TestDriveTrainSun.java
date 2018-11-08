@@ -65,6 +65,11 @@ public class TestDriveTrainSun extends OpMode{
             mode = 0;
         }
 
+        if (gamepad1.right_bumper){
+            motstff.turn(1,"RIGHT");
+        }else if(gamepad1.left_bumper){
+            motstff.turn(1,"LEFT");
+        }
         /*telemetry.addData("SpeedX", driveOp.driveSpeedX);
         telemetry.addData("SpeedY", driveOp.driveSpeedY);
 */
