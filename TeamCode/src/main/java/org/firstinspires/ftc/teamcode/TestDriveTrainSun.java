@@ -5,18 +5,31 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
+import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverUnOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp
 public class TestDriveTrainSun extends OpMode{
     //declare variable to be used for setting the power of the motors
-    private double driveSpeed;
+    DriveHoverUnOptimized driveUnOp;
+    DriveHoverOptimized driveOp;
+
+    //private double proportion;
+
     //declare given hardwaremap as MerkelIGS
     private HardwareChassisSun ghwchss;
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
+
+    private double X;
+    private double Y;
+
+
+    private byte mode;
 
     @Override
     public void init() {
@@ -24,30 +37,40 @@ public class TestDriveTrainSun extends OpMode{
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
         motstff = new MotorStuff(ghwchss);
+
+        driveOp = new DriveHoverOptimized();
+        driveUnOp = new DriveHoverUnOptimized();
+
+        mode = 0;
     }
 
     @Override
     //MAIN THESE CONCEPTS WILL BE OVERTHROWN IN THE NEAR FUTURE SINCE THIS IS JUST A PROOF OF CONCEPT AND TESTING
     public void loop() {
-        driveSpeed = gamepad1.right_trigger;
-        //This if else statements will be changed to event listeners if there`s time also the ability to drive in all 360 degrees
+        driveOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
+        driveUnOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
 
-        if (gamepad1.dpad_up) {
-            motstff.setAllMotors(driveSpeed, 0, 0, driveSpeed);
-        } else if (gamepad1.dpad_down) {
-            motstff.setAllMotors(-driveSpeed, 0, 0, -driveSpeed);
-        } else if (gamepad1.dpad_right) {
-            motstff.setAllMotors(0, driveSpeed, driveSpeed, 0);
-        } else if (gamepad1.dpad_left) {
-            motstff.setAllMotors(0, -driveSpeed, -driveSpeed, 0);
-        } else if (gamepad1.a) {
-            motstff.setAllMotors(0, 0.5, 0, 0);
-        } else if(gamepad1.b){
-            motstff.setAllMotors(0, -0.25, 0, 0);
-        }else{
-            //set all motors to 0 if no button is pressed
-            motstff.setAllMotors(0,0,0,0);
+        telemetry.addData("Mode:", mode);
+        if(gamepad1.y){
+            mode++;
         }
-    }
+
+        if (mode == 0){
+            X = driveOp.driveSpeedX;
+            Y = driveOp.driveSpeedY;
+        } else if(mode == 1){
+            X = driveUnOp.driveSpeedX;
+            Y = driveUnOp.driveSpeedY;
+        }else{
+            mode = 0;
+        }
+
+        /*telemetry.addData("SpeedX", driveOp.driveSpeedX);
+        telemetry.addData("SpeedY", driveOp.driveSpeedY);
+*/
+        telemetry.update();
+
+        motstff.setAllMotors(Y,X,Y,X);
+        }
 }
 

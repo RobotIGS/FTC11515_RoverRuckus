@@ -16,10 +16,19 @@ public class MotorStuff {
     }
 
     //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
-    public void setAllMotors(double SpeedFrontLeft, double SpeedFrontRight, double SpeedBackLeft, double SpeedBackRight){
+    public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
             hwchss.motor_front_left.setPower(SpeedFrontLeft);
             hwchss.motor_front_right.setPower(SpeedFrontRight);
             hwchss.motor_back_left.setPower(SpeedBackLeft);
             hwchss.motor_back_right.setPower(SpeedBackRight);
+    }
+    public void turn (int speed, String direction){
+            if (direction == "RIGHT"){
+                setAllMotors(speed,-speed,speed,-speed);
+            }else if(direction == "LEFT"){
+                setAllMotors(-speed,speed,-speed,speed);
+            }else{
+                /* ERROR MESSAGE TO ADD */
+            }
     }
 }
