@@ -6,14 +6,14 @@ import android.test.suitebuilder.annotation.SmallTest;
 
 import for_camera_opmodes.OpModeCamera;
 /*
-This class recieves an Image and converts it to an HSV[][]
+This class receives an Image and converts it to an HSV[][]
 Also able to convert HSV[][] to bitmap
 
  */
 
 public class CameraHelper extends OpModeCamera {
      Bitmap picture;
-    private int width; // initializing  lenght
+    private int width; // initializing  length
     private int height; // initializing  height
     private HSV[][] hsv_pic; // initializing  the foundation of the HSV matrix
 
