@@ -2,10 +2,7 @@ package Neuronal;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ImageFormat;
-import android.graphics.YuvImage;
 import android.hardware.Camera;
-import android.view.SurfaceHolder;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,36 +14,32 @@ This Class inherits from the LinerOpMode class, and we hope that therefore we ca
 
 @TeleOp(name = "Malte")
 public class CleanOpMode extends LinearOpModeCamera {
+    CameraHelper helper;
     @Override
     public void runOpMode() {
         //Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
         //helper = new CameraHelper(malte);
         waitForStart();
-
         startCamera();
-        System.out.println("TEST");
-        telemetry.addData("Test", true);
-        telemetry.update();
-        Camera.PreviewCallback callback = new Camera.PreviewCallback() {
+        camera.startPreview();
+        Camera.PictureCallback jpeg = new Camera.PictureCallback() {
             @Override
-            public void onPreviewFrame(byte[] data, Camera camera) {
-                Camera.Parameters paramters = camera.getParameters();
-                width = paramters.getPreviewSize().width;
-                height = paramters.getPictureSize().height;
-                YuvImage yuv = new YuvImage(data, ImageFormat.NV21, width, height, null);
-                for (int r = 0; r < 100; r++) {
-                    System.out.println("Malte");
-                }
-                telemetry.addData("Test", false);
+            public void onPictureTaken(byte[] data, Camera camera) {
+                telemetry.addData("Byte length, ", data.length);
                 telemetry.update();
             }
         };
+        Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+            @Override
+            public void onShutter() {
 
-        camera.setPreviewCallback(callback);
-        camera.startPreview();
-      
-
-
+            }
+        };
+        try {
+            camera.takePicture(shutterCallback, null, jpeg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         /*Bitmap malte = convertYuvImageToRgb(super.yuvImage, super.width, super.height, super.ds);
