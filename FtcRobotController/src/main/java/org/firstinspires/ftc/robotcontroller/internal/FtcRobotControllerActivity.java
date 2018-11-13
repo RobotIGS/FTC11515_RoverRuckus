@@ -40,7 +40,6 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.hardware.Camera;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.net.wifi.WifiManager;
@@ -56,9 +55,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -124,10 +123,6 @@ import org.firstinspires.inspection.RcInspectionActivity;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import for_camera_opmodes.CameraPreview;
-import for_camera_opmodes.LinearOpModeCamera;
-import for_camera_opmodes.OpModeCamera;
-
 @SuppressWarnings("WeakerAccess")
 public class FtcRobotControllerActivity extends Activity
   {
@@ -181,55 +176,7 @@ public class FtcRobotControllerActivity extends Activity
 
   }
 
-    /////////////////////////////////////////////////////////
-    // ADDED FOR CAMERA!!!
-
-    public void initPreview(final Camera camera, final OpModeCamera context, final Camera.PreviewCallback previewCallback) {
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          context.preview = new CameraPreview(FtcRobotControllerActivity.this, camera, previewCallback);
-          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
-          previewLayout.addView(context.preview);
-        }
-      });
-    }
-
-    // poor coding style here.  Shouldn't have to duplicate these routines for regular and linear OpModes.
-    public void initPreviewLinear(final Camera camera, final LinearOpModeCamera context, final Camera.PreviewCallback previewCallback) {
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          context.preview = new CameraPreview(FtcRobotControllerActivity.this, camera, previewCallback);
-          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
-          previewLayout.addView(context.preview);
-        }
-      });
-    }
-
-
-    public void removePreview(final OpModeCamera context) {
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
-          previewLayout.removeAllViews();
-        }
-      });
-    }
-
-    public void removePreviewLinear(final LinearOpModeCamera context) {
-      runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-          FrameLayout previewLayout = (FrameLayout) findViewById(R.id.previewLayout);
-          previewLayout.removeAllViews();
-        }
-      });
-    }
-
-
-    protected ServiceConnection connection = new ServiceConnection() {
+  protected ServiceConnection connection = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
       FtcRobotControllerBinder binder = (FtcRobotControllerBinder) service;
@@ -339,6 +286,8 @@ public class FtcRobotControllerActivity extends Activity
         popupMenu.show();
       }
     });
+
+    updateMonitorLayout(getResources().getConfiguration());
 
     BlocksOpMode.setActivityAndWebView(this, (WebView) findViewById(R.id.webViewBlocksRuntime));
 
@@ -610,6 +559,31 @@ public class FtcRobotControllerActivity extends Activity
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     // don't destroy assets on screen rotation
+    updateMonitorLayout(newConfig);
+  }
+
+  /**
+   * Updates the orientation of monitorContainer (which contains cameraMonitorView and
+   * tfodMonitorView) based on the given configuration. Makes the children split the space.
+   */
+  private void updateMonitorLayout(Configuration configuration) {
+    LinearLayout monitorContainer = (LinearLayout) findViewById(R.id.monitorContainer);
+    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      // When the phone is landscape, lay out the monitor views horizontally.
+      monitorContainer.setOrientation(LinearLayout.HORIZONTAL);
+      for (int i = 0; i < monitorContainer.getChildCount(); i++) {
+        View view = monitorContainer.getChildAt(i);
+        view.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1 /* weight */));
+      }
+    } else {
+      // When the phone is portrait, lay out the monitor views vertically.
+      monitorContainer.setOrientation(LinearLayout.VERTICAL);
+      for (int i = 0; i < monitorContainer.getChildCount(); i++) {
+        View view = monitorContainer.getChildAt(i);
+        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1 /* weight */));
+      }
+    }
+    monitorContainer.requestLayout();
   }
 
   @Override
