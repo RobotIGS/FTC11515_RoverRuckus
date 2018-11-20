@@ -18,15 +18,13 @@ public class TestDriveTrainSun extends OpMode{
     private DriveHoverUnOptimized driveUnOp;
     private DriveHoverOptimized driveOp;
 
-    //private double proportion;
-
     //declare given hardwaremap as MerkelIGS
     private HardwareChassisSun ghwchss;
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
 
-    private double X;
-    private double Y;
+    private double driveSpeedX;
+    private double driveSpeedY;
 
 
     private byte mode;
@@ -37,15 +35,14 @@ public class TestDriveTrainSun extends OpMode{
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
         motstff = new MotorStuff(ghwchss);
-
+        //get objects from DriveMode Classes
         driveOp = new DriveHoverOptimized();
         driveUnOp = new DriveHoverUnOptimized();
-
+        //default mode is 0
         mode = 0;
     }
 
     @Override
-    //MAIN THESE CONCEPTS WILL BE OVERTHROWN IN THE NEAR FUTURE SINCE THIS IS JUST A PROOF OF CONCEPT AND TESTING
     public void loop() {
         driveOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
         driveUnOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
@@ -54,28 +51,23 @@ public class TestDriveTrainSun extends OpMode{
         if(gamepad1.y){
             mode++;
         }
-
         if (mode == 0){
-            X = driveOp.driveSpeedX;
-            Y = driveOp.driveSpeedY;
+            this.driveSpeedX = driveOp.driveSpeedX;
+            this.driveSpeedY = driveOp.driveSpeedY;
         } else if(mode == 1){
-            X = driveUnOp.driveSpeedX;
-            Y = driveUnOp.driveSpeedY;
+            this.driveSpeedX = driveUnOp.driveSpeedX;
+            this.driveSpeedY = driveUnOp.driveSpeedY;
         }else{
             mode = 0;
         }
-
         if (gamepad1.right_bumper){
             motstff.turn(1,Direction_Enum.Right);
         }else if(gamepad1.left_bumper){
             motstff.turn(1,Direction_Enum.Left);
         }
-        /*telemetry.addData("SpeedX", driveOp.driveSpeedX);
-        telemetry.addData("SpeedY", driveOp.driveSpeedY);
-*/
         telemetry.update();
 
-        motstff.setAllMotors(Y,X,Y,X);
+        motstff.setAllMotors(this.driveSpeedY, this.driveSpeedX, this.driveSpeedY, this.driveSpeedX);
         }
 }
 
