@@ -2,14 +2,15 @@
 * created by coolPseudonym
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Deprecated.java.Depracated;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisMerkelIGS;
+import org.firstinspires.ftc.teamcode.Deprecated.java.Depracated.HardwareChassisMerkelIGS;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
+@Deprecated
 @TeleOp
 public class TestDriveTrainMerkelIGS extends OpMode {
     //declare variable to be used for setting the power of the motors
