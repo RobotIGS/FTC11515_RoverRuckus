@@ -15,6 +15,7 @@ public class HardwareChassisSun extends HardwareChassis{
     }
 
     @Override
+    //Inherited from parent
     protected void setDirections() {
         //set all directions of the motors to be used more intuitively
         motor_front_right.setDirection(DcMotorSimple.Direction.FORWARD);
