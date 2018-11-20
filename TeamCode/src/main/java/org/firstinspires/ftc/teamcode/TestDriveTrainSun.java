@@ -5,18 +5,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverUnOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp
 public class TestDriveTrainSun extends OpMode{
     //declare variable to be used for setting the power of the motors
-    DriveHoverUnOptimized driveUnOp;
-    DriveHoverOptimized driveOp;
+    private DriveHoverUnOptimized driveUnOp;
+    private DriveHoverOptimized driveOp;
 
     //private double proportion;
 
@@ -66,9 +66,9 @@ public class TestDriveTrainSun extends OpMode{
         }
 
         if (gamepad1.right_bumper){
-            motstff.turn(1,"RIGHT");
+            motstff.turn(1,Direction_Enum.Right);
         }else if(gamepad1.left_bumper){
-            motstff.turn(1,"LEFT");
+            motstff.turn(1,Direction_Enum.Left);
         }
         /*telemetry.addData("SpeedX", driveOp.driveSpeedX);
         telemetry.addData("SpeedY", driveOp.driveSpeedY);

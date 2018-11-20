@@ -12,6 +12,7 @@ public class GyroToolsTest extends OpMode {
      */
 
     private MotorStuff motorstuff = new MotorStuff(new HardwareChassisSun(hardwareMap) );
+
     public void turn(double Degrees){
         while(Degrees>360){
             Degrees -= 360;
