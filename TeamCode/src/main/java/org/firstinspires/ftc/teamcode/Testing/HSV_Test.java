@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Testing;
 
 import android.graphics.Color;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,8 +12,8 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 
 import java.util.Locale;
-
-@TeleOp(name = "HSV_Testkuchen")
+@Disabled
+@TeleOp(name = "HSV_Test")
 public class HSV_Test extends LinearOpMode {
 
     ColorSensor sensorColor;
@@ -20,7 +21,7 @@ public class HSV_Test extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        sensorColor = hardwareMap.colorSensor.get("color");
+        sensorColor = hardwareMap.colorSensor.get("SensorColor");
         float[] hsvValues = new float[3];
 
         waitForStart();

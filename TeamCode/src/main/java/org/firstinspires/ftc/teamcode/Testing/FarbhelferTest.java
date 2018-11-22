@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 
+
 @TeleOp(name = "Farbhelfer Test")
 public class FarbhelferTest extends OpMode {
 
@@ -16,6 +17,7 @@ public class FarbhelferTest extends OpMode {
     public void init() {
         sensorColor = hardwareMap.colorSensor.get("color");
         farbHelfer = new FarbHelfer();
+
     }
 
     @Override
@@ -23,5 +25,6 @@ public class FarbhelferTest extends OpMode {
         telemetry.addData("isRed: ", farbHelfer.isRed(sensorColor));
         telemetry.addData("isBlue: ", farbHelfer.isBlue(sensorColor));
         telemetry.addData("colorChange: ", farbHelfer.colorChange(sensorColor));
+        telemetry.update();
     }
 }

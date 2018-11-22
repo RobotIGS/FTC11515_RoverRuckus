@@ -29,14 +29,14 @@ public class FarbHelfer {
 
     /**
      * it returns true if the color is red
-     * red is between 0-60° or 330-360° (hue)
+     * red is between 0-60° or 330-360° (hue) and with saturation over 0.3
      * @param colorSenseRed is the color sensor we get our values from
-     * @return it returns true or false
+     * @return it true or false
      */
     public boolean isRed(ColorSensor colorSenseRed){
         float[] hsvIsRed = showHSV(colorSenseRed);
 
-        if (hsvIsRed[0] >= 0 && hsvIsRed[0] <= 60 ) {
+        if (hsvIsRed[0] >= 0 && hsvIsRed[0] <= 60 && hsvIsRed[1] >= 0.27) {
             return true;
         }
 
@@ -50,14 +50,14 @@ public class FarbHelfer {
 
     /**
      * it returns true if the color is blue
-     * blue is between 120-290° (hue)
+     * blue is between 120-290° (hue) and with saturation over 0.3
      * @param colorSenseBlue is the color sensor we get our values from
-     * @return it returns true or false
+     * @return true or false
      */
     public boolean isBlue(ColorSensor colorSenseBlue) {
         float[] hsvIsBlue = showHSV(colorSenseBlue);
 
-        if (hsvIsBlue[0] >= 120 && hsvIsBlue[0] <= 290){
+        if (hsvIsBlue[0] >= 120 && hsvIsBlue[0] <= 290 && hsvIsBlue[1] >= 0.27){
             return true;
         }
 
@@ -67,8 +67,11 @@ public class FarbHelfer {
 
     /**
      * the boolean gives a true back if the color has changed
+     * it checks if the queue is larger than 100 and adds values while it isn't
+     * if the list is as long as 100 it deletes a value and adds a new one
+     * it calculates the average of the queue and compares it to the average a second ago
      * @param colorSenseChange is the color sensor we get our values from
-     * @return it returns a true or false
+     * @return true or false
      */
     public boolean colorChange(ColorSensor colorSenseChange) {
         colorList = new LinkedList<>();
@@ -78,40 +81,22 @@ public class FarbHelfer {
         listSize = colorList.size();
         averageLastHue = 0;
         total = 0;
-        isColorChangend = false;
+        isColorChangend = true;
 
-        /**
-         * the thread checks if the list size of the queue colorList is under or equal 100
-         * while the list size of the colorList is under or equal 100 it adds a new hue value
-         * if the size is above 100 it delets the first value and replaces it
-         * @param Runnable
-         * @return
-         */
-        Thread aboutListSizeThread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
                 while (listSize <= 100) {
-                    colorList.add(colorHSVnow);;
+                    colorList.add(colorHSVnow);
+
                 }
+
                 if (listSize == 100) {
                     colorList.remove(0);
                     colorList.add(colorHSVnow);
                 }
-            }
-        });
 
 
-        /**
-         * the thread calculates the average of all hue values form colorList (Queue)
-         * and checks if the average is 3 under or 3 over the average x seconds ago
-         * and sets boolean is ColorChanged to true if average has changed
-         * @param Runnable
-         * @return
-         */
-        Thread colorListAverageThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+
+
                 for (int hue: colorList){
                     total = total + hue;
                 }
@@ -125,8 +110,7 @@ public class FarbHelfer {
                 if((averageLastHue < wertvorxsekunden-3 && averageLastHue > wertvorxsekunden+3)){
                     isColorChangend = true;
                 }
-            }
-        });
+
 
         return isColorChangend;
 
