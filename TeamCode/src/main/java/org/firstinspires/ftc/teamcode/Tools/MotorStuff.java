@@ -10,7 +10,9 @@ public class MotorStuff {
 
     //Declare a variable to hand over the right wanted hardwaremap for the right layout
     private HardwareChassis hwchss;
-
+    private final int SMOOTHNESS = 80;
+    private double turnSpeed;
+    private float prevDegrees;
     /**
      * Constructor
      * @param ghwchss the hardwaremap object that should be used
@@ -32,11 +34,20 @@ public class MotorStuff {
      * @param speed The speed at which the robot should drive (higher values not recommended, not accurate
      * @param direction Direction enum, whether it should turn to the left or to the right (enum added by paul)
      */
-    public void turn (int speed, Direction_Enum direction){
+    public void turn (double speed, Direction_Enum direction){
             if (direction.equals(Direction_Enum.Right)){
                 setAllMotors(speed,-speed,-speed,speed);
             }else if(direction.equals(Direction_Enum.Left)){
                 setAllMotors(-speed,speed,speed,-speed);
             }
+    }/* not yet
+    public void turnToDegree(double degrees){
+        while (degrees > 0.1 || degrees < -0.1){
+            prevDegrees =
+            turnSpeed = Math.tanh(degrees/SMOOTHNESS);
+            turn(turnSpeed, Direction_Enum.Right);
+
+            degrees =
+        }*/
     }
 }
