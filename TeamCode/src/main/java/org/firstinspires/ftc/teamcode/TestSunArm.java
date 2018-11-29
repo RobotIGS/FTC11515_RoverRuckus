@@ -17,7 +17,7 @@ public class TestSunArm extends OpMode {
         //initialize given hardwaremap to Sun
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
-        motstff = new MotorStuff(ghwchss);
+        motstff = new MotorStuff(ghwchss, hardwareMap);
     }
 
     @Override

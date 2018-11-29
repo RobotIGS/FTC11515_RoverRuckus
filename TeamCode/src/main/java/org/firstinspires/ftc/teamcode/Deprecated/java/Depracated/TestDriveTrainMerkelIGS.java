@@ -25,7 +25,7 @@ public class TestDriveTrainMerkelIGS extends OpMode {
         //initialize given hardwaremap to MerkelIGS
         ghwchss = new HardwareChassisMerkelIGS(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
-        motstff = new MotorStuff(ghwchss);
+        motstff = new MotorStuff(ghwchss, hardwareMap);
     }
 
     @Override

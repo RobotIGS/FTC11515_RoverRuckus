@@ -4,22 +4,37 @@
 
 package org.firstinspires.ftc.teamcode.Tools;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Hardware;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
+import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareGyro;
 
 public class MotorStuff {
 
     //Declare a variable to hand over the right wanted hardwaremap for the right layout
     private HardwareChassis hwchss;
+    private HardwareGyro hwgy;
     private final int SMOOTHNESS = 80;
     private double turnSpeed;
     private float prevDegrees;
     /**
      * Constructor
-     * @param ghwchss the hardwaremap object that should be used
+     * @param _hwchss the hardwaremap object that should be used
      */
-    public MotorStuff(HardwareChassis ghwchss) {
-        hwchss = ghwchss;
+    public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap) {
+        hwchss = _hwchss;
+        hwgy = new HardwareGyro(hardwareMap);
+        hwgy.init(hardwareMap);
     }
+    /*public MotorStuff(HardwareChassis _hwchss, HardwareGyro _hwgy, HardwareMap hardwareMap) {
+        hwchss = _hwchss;
+        hwgy = _hwgy;
+        hwgy.init(hardwareMap);
+    }*/
 
     //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
     public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
@@ -40,14 +55,28 @@ public class MotorStuff {
             }else if(direction.equals(Direction_Enum.Left)){
                 setAllMotors(-speed,speed,speed,-speed);
             }
-    }/* not yet
+    }
+    public float getDegree(){
+        return this.hwgy.imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+    }
+
+    public HardwareGyro getHwgy() {
+        return hwgy;
+    }
+
+    public void setHwgy(HardwareGyro hwgy) {
+        this.hwgy = hwgy;
+    }
+
     public void turnToDegree(double degrees){
-        while (degrees > 0.1 || degrees < -0.1){
-            prevDegrees =
-            turnSpeed = Math.tanh(degrees/SMOOTHNESS);
+        degrees += 180;
+        while (degrees > 1) {
+            prevDegrees = this.getDegree() + 180;
+            turnSpeed = Math.tanh(degrees / SMOOTHNESS);
             turn(turnSpeed, Direction_Enum.Right);
 
-            degrees =
-        }*/
+            degrees = degrees - (prevDegrees - this.getDegree());
+        }
+        setAllMotors(0,0,0,0);
     }
 }

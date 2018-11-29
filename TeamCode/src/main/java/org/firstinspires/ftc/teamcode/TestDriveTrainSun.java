@@ -27,24 +27,29 @@ public class TestDriveTrainSun extends OpMode{
     private double driveSpeedY;
 
 
-    private byte mode;
+    private boolean mode;
 
     @Override
     public void init() {
         //initialize given hardwaremap to Sun
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
-        motstff = new MotorStuff(ghwchss);
+        motstff = new MotorStuff(ghwchss, hardwareMap);
         //get objects from DriveMode Classes
         driveOp = new DriveHoverOptimized();
         driveUnOp = new DriveHoverUnOptimized();
         //default mode is 0
-        mode = 0;
+        mode = true;
     }
 
     @Override
     public void loop() {
-        driveOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
+        telemetry.addData(motstff.getHwgy().);
+        if(mode) {
+            motstff.turnToDegree(90);
+            mode = false;
+        }
+        /*driveOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
         driveUnOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
 
         telemetry.addData("Mode:", mode);
@@ -67,7 +72,7 @@ public class TestDriveTrainSun extends OpMode{
         }
         telemetry.update();
 
-        motstff.setAllMotors(this.driveSpeedY, this.driveSpeedX, this.driveSpeedY, this.driveSpeedX);
+        motstff.setAllMotors(this.driveSpeedY, this.driveSpeedX, this.driveSpeedY, this.driveSpeedX);*/
         }
 }
 
