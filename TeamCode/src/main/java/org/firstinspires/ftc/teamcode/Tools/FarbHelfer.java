@@ -38,9 +38,7 @@ public class FarbHelfer {
 
         if (hsvIsRed[0] >= 0 && hsvIsRed[0] <= 60 && hsvIsRed[1] >= 0.27) {
             return true;
-        }
-
-        if (hsvIsRed[0] >= 330 && hsvIsRed[0] <= 360){
+        } else if (hsvIsRed[0] >= 330 && hsvIsRed[0] <= 360){
             return true;
         }
 
@@ -67,35 +65,20 @@ public class FarbHelfer {
 
     /**
      * the boolean gives a true back if the color has changed
-     * it checks if the queue is larger than 100 and adds values while it isn't
-     * if the list is as long as 100 it deletes a value and adds a new one
-     * it calculates the average of the queue and compares it to the average a second ago
+     * it calculates the average of the queue and compares it to the average before
      * @param colorSenseChange is the color sensor we get our values from
      * @return true or false
      */
-    public boolean colorChange(ColorSensor colorSenseChange) {
-        colorList = new LinkedList<>();
+
+    public boolean colorChange (ColorSensor colorSenseChange, Queue<Integer> colorList) {
+
         averageList = new LinkedList<>();
         hsvNow = showHSV(colorSenseChange);
         colorHSVnow = (int) hsvNow[0];
         listSize = colorList.size();
         averageLastHue = 0;
         total = 0;
-        isColorChangend = true;
-
-
-                while (listSize <= 100) {
-                    colorList.add(colorHSVnow);
-
-                }
-
-                if (listSize == 100) {
-                    colorList.remove(0);
-                    colorList.add(colorHSVnow);
-                }
-
-
-
+        isColorChangend = false;
 
                 for (int hue: colorList){
                     total = total + hue;
@@ -103,11 +86,7 @@ public class FarbHelfer {
 
                 averageLastHue = total / 100;
 
-                if((System.currentTimeMillis()*1000)%x == 0) {
-                    wertvorxsekunden = averageLastHue;
-                }
-
-                if((averageLastHue < wertvorxsekunden-3 && averageLastHue > wertvorxsekunden+3)){
+                if((averageLastHue < colorHSVnow-10 || averageLastHue > colorHSVnow+10)){
                     isColorChangend = true;
                 }
 
@@ -116,12 +95,22 @@ public class FarbHelfer {
 
     }
 
+
+    public boolean isColorChangend_2 (ColorSensor isColorChangedSensor){
+
+
+        return false;
+    }
+
+
+
+
     /**
      * it converts rgb to hsv-values
      * @param HSVvalues is the color sensor we get the rgb-values from
      * @return it returns hsv-values
      */
-    private float[] showHSV (ColorSensor HSVvalues) {
+    public float[] showHSV (ColorSensor HSVvalues) {
         float[] hsv = new float[3];
 
         Color.RGBToHSV((int) (HSVvalues.red() * SCALE_FACTOR),

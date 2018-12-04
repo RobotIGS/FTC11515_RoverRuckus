@@ -24,7 +24,7 @@ public class FarbhelferTest extends OpMode {
     public void loop() {
         telemetry.addData("isRed: ", farbHelfer.isRed(sensorColor));
         telemetry.addData("isBlue: ", farbHelfer.isBlue(sensorColor));
-        telemetry.addData("colorChange: ", farbHelfer.colorChange(sensorColor));
+        /*telemetry.addData("colorChange: ", farbHelfer.colorChange(sensorColor));*/
         telemetry.update();
     }
 }
