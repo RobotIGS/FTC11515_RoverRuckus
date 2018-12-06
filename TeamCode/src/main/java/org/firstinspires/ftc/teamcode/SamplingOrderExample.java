@@ -66,6 +66,7 @@ public class SamplingOrderExample extends OpMode {
         detector.ratioScorer.weight = 15;
         detector.ratioScorer.perfectRatio = 1.0;
 
+
         detector.enable(); // Start detector
     }
 

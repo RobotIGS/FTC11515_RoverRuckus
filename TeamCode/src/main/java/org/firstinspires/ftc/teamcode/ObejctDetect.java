@@ -124,8 +124,17 @@ public class ObejctDetect extends LinearOpMode {
                           } else {
                             silverMineral2X = (int) recognition.getLeft();
                           }
+                            telemetry.addData("Gold X", goldMineralX);
+                            telemetry.addData("Silver1X ", silverMineral1X);
+                            telemetry.addData("Silver2X", silverMineral2X);
+                            telemetry.update();
                         }
-                        if (goldMineralX != -1 /*&& silverMineral1X != -1 && silverMineral2X != -1*/) {
+                        telemetry.addData("Gold X", goldMineralX);
+                        telemetry.addData("Silver1X ", silverMineral1X);
+                        telemetry.addData("Silver2X", silverMineral2X);
+                        telemetry.update();
+
+                          if (goldMineralX != -1 /*&& silverMineral1X != -1 && silverMineral2X != -1*/) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
