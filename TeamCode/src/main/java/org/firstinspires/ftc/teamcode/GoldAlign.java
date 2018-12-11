@@ -90,7 +90,7 @@ public class GoldAlign extends LinearOpMode
 
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
-
+        telemetry.update();
         if (isGold) {
             motorStuff.setAllMotors(0.2,0,0.2,0);
 
@@ -100,6 +100,8 @@ public class GoldAlign extends LinearOpMode
             motorStuff.setAllMotors(0,0,0,0);
 
         }
+        while (true){}
+
 
 
     }
