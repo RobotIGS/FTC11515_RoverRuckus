@@ -33,21 +33,30 @@ import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
+import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 
 @TeleOp(name="GoldAlign Example", group="DogeCV")
 
-public class GoldAlign extends OpMode
+public class GoldAlign extends LinearOpMode
 {
     // Detector object
     private GoldAlignDetector detector;
 
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
         telemetry.addData("Status", "DogeCV 2018.0 - Gold Align Example");
+
+        HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
+        MotorStuff motorStuff = new MotorStuff(hwChss);
 
         // Set up detector
         detector = new GoldAlignDetector(); // Create detector
@@ -70,42 +79,32 @@ public class GoldAlign extends OpMode
 
         detector.enable(); // Start the detector!
 
+        waitForStart();
+
+        motorStuff.setAllMotors(0.2,0,0.2,0);
+
+        long time  = System.currentTimeMillis();
+        while (System.currentTimeMillis() < time+1000) { }
+
+        motorStuff.setAllMotors(0,0,0,0);
+
+        boolean isGold = detector.isFound();
+        telemetry.addData("Is Gold: " ,isGold);
+
+        if (isGold) {
+            motorStuff.setAllMotors(0.2,0,0.2,0);
+
+            time  = System.currentTimeMillis();
+            while (System.currentTimeMillis() < time+1000) { }
+
+            motorStuff.setAllMotors(0,0,0,0);
+
+        }
+
 
     }
 
-    /*
-     * Code to run REPEATEDLY when the driver hits INIT
-     */
-    @Override
-    public void init_loop() {
-    }
 
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
-    @Override
-    public void start() {
 
-    }
-
-    /*
-     * Code to run REPEATEDLY when the driver hits PLAY
-     */
-    @Override
-    public void loop() {
-        telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
-        telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
-        telemetry.addData("Is Found ", detector.isFound());
-
-    }
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
-        // Disable the detector
-        detector.disable();
-    }
 
 }
