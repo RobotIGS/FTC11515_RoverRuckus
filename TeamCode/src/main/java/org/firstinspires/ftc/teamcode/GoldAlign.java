@@ -95,12 +95,12 @@ public class GoldAlign extends LinearOpMode
             motorStuff.setAllMotors(0.2,0,0.2,0);
 
             time  = System.currentTimeMillis();
-            while (System.currentTimeMillis() < time+1000) { }
+            while (System.currentTimeMillis() < time+2500) { }
 
             motorStuff.setAllMotors(0,0,0,0);
 
         }
-        while (true){}
+
 
 
 
