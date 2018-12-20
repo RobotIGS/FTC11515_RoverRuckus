@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.Deprecated.java.Depracated;
 
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-
-/*  All these methods have been tested and did either not funktion or where inoptimal
+/**All these methods have been tested and did either not funktion or where inoptimal
  *  They where intended to execute the same physikcal funktions as the turn to degree method we are using currently
- */
+ **/
 @Deprecated
 public class DeprecatedTurnToDegree {
 /*

@@ -4,8 +4,9 @@
 
 package org.firstinspires.ftc.teamcode.Tools;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Hardware;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -19,9 +20,10 @@ public class MotorStuff {
     //Declare a variable to hand over the right wanted hardwaremap for the right layout
     private HardwareChassis hwchss;
     private HardwareGyro hwgy;
-    private final int SMOOTHNESS = 80;
-    private double turnSpeed;
-    private float prevDegrees;
+    //private OpMode opMde;
+    private final int TTD_TAN_SMOOTHNESS = 180;
+    private double ttd_difference;
+    private double ttd_goal;
     /**
      * Constructor
      * @param _hwchss the hardwaremap object that should be used
@@ -31,6 +33,7 @@ public class MotorStuff {
         hwchss = _hwchss;
         hwgy = new HardwareGyro(hardwareMap);
         hwgy.init(hardwareMap);
+        //this.opMde = opMde;
     }
 
     //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
@@ -65,5 +68,17 @@ public class MotorStuff {
 
     public void setHwgy(HardwareGyro hwgy) {
         this.hwgy = hwgy;
+    }
+
+    public void turnToDegreeV4(float degree){
+        if(degree<0)
+            throw new Error("negative Wert zum drehen");
+        double difference = 2;
+        /*mby remove*/degree = 360 - degree;
+        float goal = (this.getDegree() + degree)%360;
+        while(difference>1 || difference<-1){
+            difference = -1*/*Math.abs*/(goal-this.getDegree());
+            this.turn(Math.tanh(difference/180),Direction_Enum.Right);
+        }
     }
 }
