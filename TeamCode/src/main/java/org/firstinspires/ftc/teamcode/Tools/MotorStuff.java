@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.Hardware;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareGyro;
 
@@ -25,16 +26,12 @@ public class MotorStuff {
      * Constructor
      * @param _hwchss the hardwaremap object that should be used
      */
+
     public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap) {
         hwchss = _hwchss;
         hwgy = new HardwareGyro(hardwareMap);
         hwgy.init(hardwareMap);
     }
-    /*public MotorStuff(HardwareChassis _hwchss, HardwareGyro _hwgy, HardwareMap hardwareMap) {
-        hwchss = _hwchss;
-        hwgy = _hwgy;
-        hwgy.init(hardwareMap);
-    }*/
 
     //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
     public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
@@ -57,7 +54,9 @@ public class MotorStuff {
             }
     }
     public float getDegree(){
-        return this.hwgy.imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        Orientation angles;
+        angles = hwgy.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        return angles.firstAngle + 180;
     }
 
     public HardwareGyro getHwgy() {
@@ -66,17 +65,5 @@ public class MotorStuff {
 
     public void setHwgy(HardwareGyro hwgy) {
         this.hwgy = hwgy;
-    }
-
-    public void turnToDegree(double degrees){
-        degrees += 180;
-        while (degrees > 1) {
-            prevDegrees = this.getDegree() + 180;
-            turnSpeed = Math.tanh(degrees / SMOOTHNESS);
-            turn(turnSpeed, Direction_Enum.Right);
-
-            degrees = degrees - (prevDegrees - this.getDegree());
-        }
-        setAllMotors(0,0,0,0);
     }
 }

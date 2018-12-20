@@ -3,6 +3,7 @@
  */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp
-public class TestDriveTrainSun extends OpMode{
+public class TestDriveTrainSun extends LinearOpMode{
     //declare variable to be used for setting the power of the motors
     private DriveHoverUnOptimized driveUnOp;
     private DriveHoverOptimized driveOp;
@@ -23,14 +24,9 @@ public class TestDriveTrainSun extends OpMode{
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
 
-    private double driveSpeedX;
-    private double driveSpeedY;
-
-
-    private boolean mode;
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
         //initialize given hardwaremap to Sun
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
@@ -39,40 +35,36 @@ public class TestDriveTrainSun extends OpMode{
         driveOp = new DriveHoverOptimized();
         driveUnOp = new DriveHoverUnOptimized();
         //default mode is 0
-        mode = true;
-    }
-
-    @Override
-    public void loop() {
-        telemetry.addData(motstff.getHwgy().);
-        if(mode) {
-            motstff.turnToDegree(90);
-            mode = false;
+        //mode = true;
+            telemetry.addLine("1syd");
+            telemetry.update();
+            turnToDegreeV4(90);
+            for(;;){}
+            //mode = false;
+            //telemetry.addLine("2ads");
+            //telemetry.update();
         }
-        /*driveOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
-        driveUnOp.drive(gamepad1.left_stick_x,-gamepad1.left_stick_y, gamepad1.right_trigger);
 
-        telemetry.addData("Mode:", mode);
-        if(gamepad1.y){
-            mode++;
-        }
-        if (mode == 0){
-            this.driveSpeedX = driveOp.driveSpeedX;
-            this.driveSpeedY = driveOp.driveSpeedY;
-        } else if(mode == 1){
-            this.driveSpeedX = driveUnOp.driveSpeedX;
-            this.driveSpeedY = driveUnOp.driveSpeedY;
+//NEEDS TO BE MOVED TO MOTSTUFF BUT NEEDS TESTING IF STILL FUNKTONING PROPERLY
+    //IT IS CURRENTLY WORKING BUT NEEDS BIG IMPROVEMENTS TO BE ABLE TO BE USED IN THE FINAL AUTOONOMUS PERIOD
+    public void turnToDegreeV4(float degree){
+        double difference = 2;
+        /*mby remove?*/degree = 360 - degree;
+        if(degree > 0){
+            float goal = (motstff.getDegree() + degree)%360;
+            while(difference>1 || difference<-1){
+                difference = -1*/*Math.abs*/(goal-motstff.getDegree());
+                motstff.turn(Math.tanh(difference/180),Direction_Enum.Right);
+                telemetry.addData("diff",difference);
+                telemetry.addData("degree",motstff.getDegree());
+                telemetry.update();
+            }
         }else{
-            mode = 0;
+            float goal = (motstff.getDegree() - degree );
+            while(difference>1 || difference<-1){
+                difference = /*Math.abs*/(goal-motstff.getDegree());
+                motstff.turn(Math.tanh(difference/180),Direction_Enum.Left);
+            }
         }
-        if (gamepad1.right_bumper){
-            motstff.turn(1,Direction_Enum.Right);
-        }else if(gamepad1.left_bumper){
-            motstff.turn(1,Direction_Enum.Left);
-        }
-        telemetry.update();
-
-        motstff.setAllMotors(this.driveSpeedY, this.driveSpeedX, this.driveSpeedY, this.driveSpeedX);*/
-        }
+    }
 }
-
