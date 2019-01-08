@@ -78,7 +78,14 @@ public class MotorStuff {
         float goal = (this.getDegree() + degree)%360;
         while(difference>1 || difference<-1){
             difference = -1*/*Math.abs*/(goal-this.getDegree());
-            this.turn(Math.tanh(difference/180),Direction_Enum.Right);
+            this.turn(this.personalTanH(difference/180),Direction_Enum.Right);
         }
+    }
+    private double personalTanH(double i){
+        double minSpeed = 0.18;
+        double o = Math.tanh(i);
+        if (o <minSpeed && o>0){ o = 0.18;}
+        if(o> -minSpeed && o <0){o = -0.18;}
+        return 0;
     }
 }

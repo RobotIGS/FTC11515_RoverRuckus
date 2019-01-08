@@ -4,6 +4,7 @@
 
 package org.firstinspires.ftc.teamcode.Deprecated.java.Depracated;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -25,7 +26,7 @@ public class TestDriveTrainMerkelIGS extends OpMode {
         //initialize given hardwaremap to MerkelIGS
         ghwchss = new HardwareChassisMerkelIGS(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
-        motstff = new MotorStuff(ghwchss, hardwareMap);
+       // motstff = new MotorStuff(ghwchss, hardwareMap,);
     }
 
     @Override

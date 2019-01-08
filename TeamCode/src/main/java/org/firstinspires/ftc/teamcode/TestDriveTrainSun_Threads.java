@@ -28,7 +28,7 @@ public class TestDriveTrainSun_Threads extends OpMode{
     private HardwareChassisSun ghwchss;
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
-
+    private OpMode opMode;
     private double X;
     private double Y;
 
@@ -40,7 +40,7 @@ public class TestDriveTrainSun_Threads extends OpMode{
         //initialize given hardwaremap to Sun
         ghwchss = new HardwareChassisSun(hardwareMap);
         //hand over MerkelIGS hardwaremap and initialize motor stuff
-        motstff = new MotorStuff(ghwchss, hardwareMap);
+        //motstff = new MotorStuff(ghwchss, hardwareMap);
 
         driveOp = new DriveHoverOptimized();
         driveUnOp = new DriveHoverUnOptimized();
