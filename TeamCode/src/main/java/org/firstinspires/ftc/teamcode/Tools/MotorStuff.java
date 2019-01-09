@@ -39,4 +39,26 @@ public class MotorStuff {
                 setAllMotors(-speed,speed,speed,-speed);
             }
     }
+
+
+    public void driveInOneDirection (double SpeedFrontLeft, double SpeedFrontRight) {
+        hwchss.motor_front_left.setPower(SpeedFrontLeft);
+        hwchss.motor_back_right.setPower(SpeedFrontRight);
+    }
+
+    public void driveBack (double SpeedFrontRight, double SpeedBackRight) {
+        hwchss.motor_front_left.setPower(-SpeedFrontRight);
+        hwchss.motor_back_right.setPower(-SpeedBackRight);
+    }
+
+    public void driveLeft (double SpeedFrontLeft, double SpeedBackRight) {
+        hwchss.motor_back_left.setPower(-SpeedFrontLeft);
+        hwchss.motor_front_right.setPower(-SpeedBackRight);
+    }
+
+    public void driveRight (double SpeedFrontRight, double SpeedBackLeft) {
+        hwchss.motor_front_right.setPower(SpeedFrontRight);
+        hwchss.motor_back_left.setPower(SpeedBackLeft);
+    }
+
 }
