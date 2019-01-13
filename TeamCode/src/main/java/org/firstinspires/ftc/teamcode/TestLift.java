@@ -5,22 +5,26 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 //Simple class to use both lift motors
-@TeleOp (name = "LiftTest")
+@TeleOp (name = "Einsammler")
 public class TestLift extends OpMode {
     DcMotor motor_lift;
-    DcMotor motor_extends;
 
     @Override
     public void init() {
-        motor_lift = hardwareMap.get(DcMotor.class, "motor_lift");
-        motor_extends = hardwareMap.get(DcMotor.class, "motor_extend");
+        motor_lift = hardwareMap.get(DcMotor.class, "motor");
+
 
     }
 
     @Override
     public void loop() {
-        motor_lift.setPower(gamepad1.left_stick_x);
-        motor_extends.setPower(gamepad1.right_stick_x);
+        if (gamepad1.dpad_up) {
+            motor_lift.setPower(0.5);
+        } else if (gamepad1.dpad_down) {
+            motor_lift.setPower(-0.5);
+        } else {
+            motor_lift.setPower(0);
+        }
     }
 
 }
