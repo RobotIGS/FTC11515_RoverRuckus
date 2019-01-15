@@ -1,5 +1,5 @@
-/*This class is used to test everything related to this chassi in driver controlled period
- * created by coolPseudonym
+/*This class is used to test everything related to this chassis in driver controlled period
+ * created by coolPseudonym //Nope
  *
  * Paul: I stole Nils code and changed it I'm SO EVIL, I WILL TAKE OVER THE WORLD!!!
  *
