@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -21,8 +22,8 @@ public class TestDistanceSensor extends OpMode {
 
     @Override
     public void init() {
-        distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance");
-        distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance");
+        distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance_left");
+        distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss);
     }
@@ -62,7 +63,7 @@ public class TestDistanceSensor extends OpMode {
     }
 
 
-    boolean isNaN (double isNumberNaN){
+    private boolean isNaN (double isNumberNaN){
         if (isNumberNaN == isNumberNaN){
             return false;
         } else {
@@ -70,8 +71,8 @@ public class TestDistanceSensor extends OpMode {
         }
     }
 
-    boolean isThereAWall (double numberOfWall) {
-        if (isNaN(numberOfWall) || numberOfWall >= 10) {
+    private boolean isThereAWall (double numberOfWall) {
+        if (isNaN(numberOfWall) || numberOfWall >= 200) {
             return  false;
         } else {
             return true;
