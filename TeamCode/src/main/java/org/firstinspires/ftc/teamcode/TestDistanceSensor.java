@@ -15,20 +15,20 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp(name = "Distance")
 public class TestDistanceSensor extends LinearOpMode {
-    private DistanceSensor distanceSensorLinks;
-    private DistanceSensor distanceSensorRechts;
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
-        distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance_left");
-        distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance_right");
+
+        hwChss.distance_left = hardwareMap.get(DistanceSensor.class, "color_distance_left");
+        hwChss.distance_right = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss);
 
         waitForStart();
+        
         driveToWall(Direction.LEFT);
 
 
@@ -36,14 +36,14 @@ public class TestDistanceSensor extends LinearOpMode {
 
     private void driveToWall(Direction direction) {
         if (direction == Direction.RIGHT) {
-            telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
-            telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+            telemetry.addData("distanceLeft", hwChss.distance_left.getDistance(DistanceUnit.MM));
+            telemetry.addData("distanceRight", hwChss.distance_right.getDistance(DistanceUnit.MM));
             telemetry.update();
 
 
-            while (!isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
+            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveInOneDirection(0.2, 0.2);
-                telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+                telemetry.addData("distance", hwChss.distance_right.getDistance(DistanceUnit.MM));
                 telemetry.update();
 
             }
@@ -57,14 +57,14 @@ public class TestDistanceSensor extends LinearOpMode {
             motorStuff.setAllMotors(0,0,0,0);
         }
         else if (direction == Direction.LEFT) {
-            telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
-            telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+            telemetry.addData("distance", hwChss.distance_left.getDistance(DistanceUnit.MM));
+            telemetry.addData("distance", hwChss.distance_right.getDistance(DistanceUnit.MM));
             telemetry.update();
 
 
-            while (!isThereAWall(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
+            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveInOneDirection(0.2, 0.2);
-                telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
+                telemetry.addData("distance", hwChss.distance_left.getDistance(DistanceUnit.MM));
                 telemetry.update();
 
             }
