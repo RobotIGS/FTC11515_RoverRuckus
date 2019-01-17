@@ -29,35 +29,7 @@ public class TestDistanceSensor extends LinearOpMode {
         motorStuff = new MotorStuff(hwChss);
 
         waitForStart();
-
-        telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
-        telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
-        telemetry.update();
-   
-
-        while (!isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
-            motorStuff.driveInOneDirection(0.2,0.2);
-            telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
-            telemetry.update();
-
-        }
-
-        motorStuff.setAllMotors(0,0,0,0);
-
-        while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
-            hwChss.motor_front_left.setPower(0.2);
-            hwChss.motor_back_left.setPower(-0.2);
-        }
-        /* else if (isNaN(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
-
-            while (!isNaN(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
-                //todo fix
-                hwChss.motor_back_right.setPower(0.2);
-                hwChss.motor_back_left.setPower(0.2);
-            }
-        }*/
-
-        motorStuff.setAllMotors(0,0,0,0);
+        driveToWall(Direction.LEFT);
 
 
     }
@@ -82,6 +54,7 @@ public class TestDistanceSensor extends LinearOpMode {
                 hwChss.motor_front_left.setPower(0.2);
                 hwChss.motor_back_left.setPower(-0.2);
             }
+            motorStuff.setAllMotors(0,0,0,0);
         }
         else if (direction == Direction.LEFT) {
             telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
@@ -99,10 +72,11 @@ public class TestDistanceSensor extends LinearOpMode {
             motorStuff.setAllMotors(0, 0, 0, 0);
 
             while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_front_right.setPower(0.2);
-                hwChss.motor_back_right.setPower(-0.2);
+                hwChss.motor_front_right.setPower(-0.2);
+                hwChss.motor_back_right.setPower(0.2);
             }
         }
+        motorStuff.setAllMotors(0,0,0,0);
 
     }
 
