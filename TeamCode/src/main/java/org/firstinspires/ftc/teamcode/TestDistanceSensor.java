@@ -33,6 +33,7 @@ public class TestDistanceSensor extends LinearOpMode {
         telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
         telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
         telemetry.update();
+   
 
         while (!isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
             motorStuff.driveInOneDirection(0.2,0.2);
@@ -61,6 +62,49 @@ public class TestDistanceSensor extends LinearOpMode {
 
     }
 
+    private void driveToWall(Direction direction) {
+        if (direction == Direction.RIGHT) {
+            telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
+            telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+            telemetry.update();
+
+
+            while (!isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
+                motorStuff.driveInOneDirection(0.2, 0.2);
+                telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+                telemetry.update();
+
+            }
+
+            motorStuff.setAllMotors(0, 0, 0, 0);
+
+            while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
+                hwChss.motor_front_left.setPower(0.2);
+                hwChss.motor_back_left.setPower(-0.2);
+            }
+        }
+        else if (direction == Direction.LEFT) {
+            telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
+            telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
+            telemetry.update();
+
+
+            while (!isThereAWall(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
+                motorStuff.driveInOneDirection(0.2, 0.2);
+                telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
+                telemetry.update();
+
+            }
+
+            motorStuff.setAllMotors(0, 0, 0, 0);
+
+            while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
+                hwChss.motor_front_right.setPower(0.2);
+                hwChss.motor_back_right.setPower(-0.2);
+            }
+        }
+
+    }
 
     private boolean isNaN (double isNumberNaN){
         if (isNumberNaN == isNumberNaN){
