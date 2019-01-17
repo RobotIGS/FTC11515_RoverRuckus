@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -13,23 +14,22 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp(name = "Distance")
-public class TestDistanceSensor extends OpMode {
-    DistanceSensor distanceSensorLinks;
-    DistanceSensor distanceSensorRechts;
-    MotorStuff motorStuff;
-    HardwareChassisSun hwChss;
+public class TestDistanceSensor extends LinearOpMode {
+    private DistanceSensor distanceSensorLinks;
+    private DistanceSensor distanceSensorRechts;
+    private MotorStuff motorStuff;
+    private HardwareChassisSun hwChss;
 
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
         distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance_left");
         distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss);
-    }
 
-    @Override
-    public void loop() {
+        waitForStart();
+
         telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
         telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
         telemetry.update();
@@ -42,22 +42,23 @@ public class TestDistanceSensor extends OpMode {
 
         }
 
+        motorStuff.setAllMotors(0,0,0,0);
         if (isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
 
             while (!isThereAWall(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_back_right.setPower(0.2);
-                hwChss.motor_back_left.setPower(0.2);
+                hwChss.motor_front_left.setPower(0.2);
+                hwChss.motor_back_left.setPower(-0.2);
             }
         } else if (isNaN(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
 
             while (!isNaN(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_back_right.setPower(-0.2);
-                hwChss.motor_back_left.setPower(-0.2);
+                //todo fix 
+                hwChss.motor_back_right.setPower(0.2);
+                hwChss.motor_back_left.setPower(0.2);
             }
         }
 
         motorStuff.setAllMotors(0,0,0,0);
-
 
 
     }
