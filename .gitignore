@@ -20,9 +20,6 @@ Thumbs.db
 
 # Android Studio
 *.iml
-.idea
+.idea/
 .gradle
 build/
-
-*ASUS_PC_01*
-
