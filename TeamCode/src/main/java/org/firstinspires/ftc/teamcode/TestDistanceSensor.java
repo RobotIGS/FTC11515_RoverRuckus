@@ -34,29 +34,27 @@ public class TestDistanceSensor extends LinearOpMode {
         telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
         telemetry.update();
 
-        while (!isThereAWall(distanceSensorLinks.getDistance(DistanceUnit.MM)) && !isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
+        while (!isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
             motorStuff.driveInOneDirection(0.2,0.2);
-            telemetry.addData("distance", distanceSensorLinks.getDistance(DistanceUnit.MM));
             telemetry.addData("distance", distanceSensorRechts.getDistance(DistanceUnit.MM));
             telemetry.update();
 
         }
 
         motorStuff.setAllMotors(0,0,0,0);
-        if (isThereAWall(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
 
-            while (!isThereAWall(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_front_left.setPower(0.2);
-                hwChss.motor_back_left.setPower(-0.2);
-            }
-        } else if (isNaN(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
+        while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
+            hwChss.motor_front_left.setPower(0.2);
+            hwChss.motor_back_left.setPower(-0.2);
+        }
+        /* else if (isNaN(distanceSensorLinks.getDistance(DistanceUnit.MM))) {
 
             while (!isNaN(distanceSensorRechts.getDistance(DistanceUnit.MM))) {
-                //todo fix 
+                //todo fix
                 hwChss.motor_back_right.setPower(0.2);
                 hwChss.motor_back_left.setPower(0.2);
             }
-        }
+        }*/
 
         motorStuff.setAllMotors(0,0,0,0);
 
