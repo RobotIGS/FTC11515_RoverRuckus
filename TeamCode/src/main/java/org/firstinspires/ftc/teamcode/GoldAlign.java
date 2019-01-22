@@ -43,6 +43,9 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 
+/*
+    Drives forward, of sees a gold mineral.
+ */
 @TeleOp(name="GoldAlign Example", group="DogeCV")
 
 public class GoldAlign extends LinearOpMode
@@ -59,7 +62,7 @@ public class GoldAlign extends LinearOpMode
         MotorStuff motorStuff = new MotorStuff(hwChss);
 
         // Set up detector
-        detector = new GoldAlignDetector(); // Create detector
+        detector = new GoldAlignDetector(); // Cr
 
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
 

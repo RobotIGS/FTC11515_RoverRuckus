@@ -22,14 +22,14 @@ public class TestDistanceSensor extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        hwChss.distance_left = hardwareMap.get(DistanceSensor.class, "color_distance_left");
-        hwChss.distance_right = hardwareMap.get(DistanceSensor.class, "color_distance_right");
+        //hwChss.distance_left = hardwareMap.get(DistanceSensor.class, "color_distance_left");
+        //hwChss.distance_right = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss);
 
         waitForStart();
-        
-        driveToWall(Direction.LEFT);
+
+        driveToWall(Direction.RIGHT);
 
 
     }
