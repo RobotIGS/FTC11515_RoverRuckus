@@ -24,6 +24,9 @@ public class MotorStuff {
     private final int TTD_TAN_SMOOTHNESS = 180;
     private double ttd_difference;
     private double ttd_goal;
+
+    public double SMOOTHNESS = 150;
+    double MINSPEED = 0.1;
     /**
      * Constructor
      * @param _hwchss the hardwaremap object that should be used
@@ -95,17 +98,18 @@ public class MotorStuff {
             throw new Error("negative Wert zum drehen");
         double difference = 2;
         /*mby remove*/degree = 360 - degree;
-        float goal = (this.getDegree() + degree)%360;
+        float goal = (getDegree() + degree)%360;
         while(difference>1 || difference<-1){
             difference = -1*/*Math.abs*/(goal-this.getDegree());
-            this.turn(this.personalTanH(difference/180),Direction_Enum.Right);
+            this.turn(this.personalTanH(difference/SMOOTHNESS),Direction_Enum.Right);
         }
+        setAllMotors(0,0,0,0);
     }
-    private double personalTanH(double i){
-        double minSpeed = 0.18;
+    public double personalTanH(double i){
+
         double o = Math.tanh(i);
-        if (o <minSpeed && o>0){ o = 0.18;}
-        if(o> -minSpeed && o <0){o = -0.18;}
-        return 0;
+        if (o <MINSPEED && o>0){ o = 0.18;}
+        if(o> -MINSPEED && o <0){o = -0.18;}
+        return o;
     }
 }

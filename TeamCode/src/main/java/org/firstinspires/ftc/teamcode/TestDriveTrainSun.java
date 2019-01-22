@@ -45,7 +45,7 @@ public class TestDriveTrainSun extends LinearOpMode{
 
 
 
-
+        /*
         array = new float[7];
          for(float i = 1; i<=7;i++){
              array[(int)(i-1)] = i*45;
@@ -62,7 +62,32 @@ public class TestDriveTrainSun extends LinearOpMode{
         telemetry.addData("speed",cal.getminimumapeed());
         telemetry.update();
 
-        cal.calculateAverage(150);
+        cal.calculateAverage(150);*/
+        //cal.getminimumapeed();
+
+        //cal.gowaitinkitchen(1);
+       // telemetry.addData("asfs",cal.calculateAverage(150));
+        //telemetry.update();
+        //double[] test = new double[2];
+
+        //motstff.turnToDegreeV4(90); //this "works"
+
+        //cal.gowaitinkitchen(2); //this works
+
+        //telemetry.addData("minimum speed is:",cal.getminimumapeed()); //this works
+
+        telemetry.addData("the average overshooting with smoothness 120 is:",cal.calculateAverage(120));
+        //motstff.turnToDegreeV4(90);
+        //cal.calculateAverage(100);
+        //cal.gowaitinkitchen(1);
+
+        //test = cal.calibration();
+        //telemetry.addData("minspeed",test[0]);
+        //telemetry.addData("smooth",test[1]);
+        telemetry.addData("Ein Hinweis!",69);
+        telemetry.update();
+        cal.gowaitinkitchen(20);
+        //cal.gowaitinkitchen(1000);
         }
 
 //NEEDS TO BE MOVED TO MOTSTUFF BUT NEEDS TESTING IF STILL FUNKTONING PROPERLY
@@ -75,11 +100,7 @@ public class TestDriveTrainSun extends LinearOpMode{
         float goal = (motstff.getDegree() + degree)%360;
         while(difference>1 || difference<-1){
             difference = -1*/*Math.abs*/(goal-motstff.getDegree());
-            motstff.turn(Math.tanh(difference/180),Direction_Enum.Right);
-            telemetry.addData("degree", this.array[rand]);
-            telemetry.addData("diff",difference);
-            telemetry.addData("degree",motstff.getDegree());
-            telemetry.update();
+            this.motstff.turn(motstff.personalTanH(difference/motstff.SMOOTHNESS),Direction_Enum.Right);
         }
     }
 }

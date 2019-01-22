@@ -1,19 +1,28 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
 public class TurnStuffCalibration {
-    private MotorStuff mtstuff;
+    private MotorStuff motstff;
 
-    public TurnStuffCalibration(MotorStuff mtstuff){
-        this.mtstuff = mtstuff;
+    public TurnStuffCalibration(MotorStuff motstff){
+        this.motstff = motstff;
     }
 
-    public double[] Calibration(){
+    public double[] calibration(){
         double[] values = new double[2];
-        values[0] = this.getminimumapeed();
+        values[0] = getminimumapeed();
 
+
+
+        motstff.MINSPEED = values[0];
         double smoothness = 360;
+
+        motstff.turnToDegreeV4(20);
+        gowaitinkitchen(1);
+        calculateAverage(100);
+
+        gowaitinkitchen(1);
         for(double i = 50;i<=250;i+=5){
-            double currentOffset = this.calculateAverage(i);
+            double currentOffset = calculateAverage(i);
             if(smoothness>currentOffset){smoothness=currentOffset;}
         }
         values[1] = smoothness;
@@ -29,29 +38,31 @@ public class TurnStuffCalibration {
 
         double prevdegrees;
         for(double i = 0; !stop;i+=0.01){
-            prevdegrees =mtstuff.getDegree();
-            mtstuff.turn(i,Direction_Enum.Right);
-            gowaitinkitchen(1);
-            if(Math.abs(prevdegrees-mtstuff.getDegree())>1){
+            prevdegrees = motstff.getDegree();
+            motstff.turn(i,Direction_Enum.Right);
+            gowaitinkitchen(2);
+            if(Math.abs(prevdegrees- motstff.getDegree())>1){
                 percent = i;
                 stop = true;
             }
-            gowaitinkitchen(1);
+            motstff.setAllMotors(0,0,0,0);
+            gowaitinkitchen(0.5);
         }
 
         return percent;
     }
 
-    public double calculateAverage(double smoothnes){
+    public double calculateAverage(double smoothness){
+        motstff.SMOOTHNESS = smoothness;
         double average = 0;
         double overshoot;
         double[] overshootArray = new double[37];
         double goal;
-        for(double i = 0; i!= 360;i+=10){
-            goal = (mtstuff.getDegree() + i)%360;
-            mtstuff.turnToDegreeV4((float)(i));
+        for(double i = 10; i!= 360;i+=10){
+            goal = (motstff.getDegree() + i)%360;
+            motstff.turnToDegreeV4((float)(i));
             this.gowaitinkitchen(1);
-            overshoot = Math.abs(goal-mtstuff.getDegree());
+            overshoot = Math.abs(goal- motstff.getDegree());
 
 
 
@@ -68,12 +79,8 @@ public class TurnStuffCalibration {
         return average;
     }
 
-    public int calibrate(int initialSmoothnes){
-        int smoothnes = initialSmoothnes;
 
-        return smoothnes;
-    }
-    private void gowaitinkitchen(double sekunden){
+    public void gowaitinkitchen(double sekunden){
         double prevtime = System.currentTimeMillis();
         while(prevtime+ sekunden*1000 > System.currentTimeMillis()){}
     }
