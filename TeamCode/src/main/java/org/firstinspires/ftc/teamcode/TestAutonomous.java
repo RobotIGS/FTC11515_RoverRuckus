@@ -65,9 +65,9 @@ public class TestAutonomous extends LinearOpMode {
         if (isGold) { //Middle
             motorStuff.setAllMotors(0.2,0,0.2,0);
 
-            time  = System.currentTimeMillis();
+            /*time  = System.currentTimeMillis();
             while (System.currentTimeMillis() < time+2500) { }
-
+*/  
             motorStuff.setAllMotors(0,0,0,0);
 
         } else {

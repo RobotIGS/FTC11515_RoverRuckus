@@ -44,7 +44,7 @@ public class DistanceTools extends LinearOpMode {
 
             motorStuff.setAllMotors(0, 0, 0, 0);
 
-            while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
+            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 hwChss.motor_front_left.setPower(0.2);
                 hwChss.motor_back_left.setPower(-0.2);
             }
@@ -58,7 +58,7 @@ public class DistanceTools extends LinearOpMode {
 
             motorStuff.setAllMotors(0, 0, 0, 0);
 
-            while (!isThereAWall(hwChss.distance_middle.getDistance(DistanceUnit.MM))) {
+            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 hwChss.motor_front_right.setPower(-0.2);
                 hwChss.motor_back_right.setPower(0.2);
             }
