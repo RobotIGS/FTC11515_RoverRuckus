@@ -27,7 +27,7 @@ public class DriveToWall extends OpMode {
         distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance");
         distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance");
         hwChss = new HardwareChassisSun(hardwareMap);
-        motorStuff = new MotorStuff(hwChss);
+        motorStuff = new MotorStuff(hwChss, hardwareMap);
     }
 
     @Override

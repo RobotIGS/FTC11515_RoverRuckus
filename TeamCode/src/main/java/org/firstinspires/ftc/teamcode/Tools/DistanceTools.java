@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,12 +9,13 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.Direction;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp(name = "Distance")
-public class TestDistanceSensor extends LinearOpMode {
+public class DistanceTools extends LinearOpMode {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
 
@@ -25,7 +26,7 @@ public class TestDistanceSensor extends LinearOpMode {
         //hwChss.distance_left = hardwareMap.get(DistanceSensor.class, "color_distance_left");
         //hwChss.distance_right = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
-        motorStuff = new MotorStuff(hwChss);
+        motorStuff = new MotorStuff(hwChss, hardwareMap);
 
         waitForStart();
 
@@ -34,18 +35,11 @@ public class TestDistanceSensor extends LinearOpMode {
 
     }
 
-    private void driveToWall(Direction direction) {
+    public void driveToWall(Direction direction) {
         if (direction == Direction.RIGHT) {
-            telemetry.addData("distanceLeft", hwChss.distance_left.getDistance(DistanceUnit.MM));
-            telemetry.addData("distanceRight", hwChss.distance_right.getDistance(DistanceUnit.MM));
-            telemetry.update();
-
 
             while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveInOneDirection(0.2, 0.2);
-                telemetry.addData("distance", hwChss.distance_right.getDistance(DistanceUnit.MM));
-                telemetry.update();
-
             }
 
             motorStuff.setAllMotors(0, 0, 0, 0);
@@ -57,16 +51,9 @@ public class TestDistanceSensor extends LinearOpMode {
             motorStuff.setAllMotors(0,0,0,0);
         }
         else if (direction == Direction.LEFT) {
-            telemetry.addData("distance", hwChss.distance_left.getDistance(DistanceUnit.MM));
-            telemetry.addData("distance", hwChss.distance_right.getDistance(DistanceUnit.MM));
-            telemetry.update();
-
 
             while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveInOneDirection(0.2, 0.2);
-                telemetry.addData("distance", hwChss.distance_left.getDistance(DistanceUnit.MM));
-                telemetry.update();
-
             }
 
             motorStuff.setAllMotors(0, 0, 0, 0);
@@ -94,5 +81,21 @@ public class TestDistanceSensor extends LinearOpMode {
         } else {
             return true;
         }
+    }
+
+    public HardwareChassisSun getHwChss() {
+        return hwChss;
+    }
+
+    public void setHwChss(HardwareChassisSun hwChss) {
+        this.hwChss = hwChss;
+    }
+
+    public MotorStuff getMotorStuff() {
+        return motorStuff;
+    }
+
+    public void setMotorStuff(MotorStuff motorStuff) {
+        this.motorStuff = motorStuff;
     }
 }
