@@ -11,12 +11,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 @TeleOp (name = "TestAutonomous")
 
 public class TestAutonomous extends LinearOpMode {
     private GoldAlignDetector detector;
+    private FarbHelfer blueline;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,6 +30,8 @@ public class TestAutonomous extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         distanceTools.setHwChss(hwChss);
         distanceTools.setMotorStuff(motorStuff);
+
+        blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector(); // Cr
 
@@ -65,10 +70,21 @@ public class TestAutonomous extends LinearOpMode {
         if (isGold) { //Middle
             motorStuff.setAllMotors(0.2,0,0.2,0);
 
+           while (blueline.isBlue(hwChss.color_back_right) != true) {
+               motorStuff.setAllMotors(0.2,0,0.2,0);
+               if (blueline.isBlue(hwChss.color_back_right) == true);
+               motorStuff.setAllMotors(0,0,0,0);
+
+           }
+
+
+
+
+
             /*time  = System.currentTimeMillis();
             while (System.currentTimeMillis() < time+2500) { }
-*/  
-            motorStuff.setAllMotors(0,0,0,0);
+*/
+                motorStuff.setAllMotors(0,0,0,0);
 
         } else {
             motorStuff.turnToDegreeV4(45 / 2); //Right

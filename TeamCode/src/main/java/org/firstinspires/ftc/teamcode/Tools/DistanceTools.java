@@ -18,6 +18,9 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 public class DistanceTools extends LinearOpMode {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
+    private FarbHelfer blueline;
+
+
 
 
     @Override
@@ -27,6 +30,8 @@ public class DistanceTools extends LinearOpMode {
         //hwChss.distance_right = hardwareMap.get(DistanceSensor.class, "color_distance_right");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss, hardwareMap);
+        blueline = new FarbHelfer();
+
 
         waitForStart();
 
