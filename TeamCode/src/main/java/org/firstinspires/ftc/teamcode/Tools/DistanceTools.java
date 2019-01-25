@@ -63,12 +63,13 @@ public class DistanceTools extends LinearOpMode {
 
             motorStuff.setAllMotors(0, 0, 0, 0);
 
-            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                 hwChss.motor_front_right.setPower(-0.2);
                 hwChss.motor_back_right.setPower(0.2);
             }
         }
         motorStuff.setAllMotors(0,0,0,0);
+
 
     }
 
@@ -81,7 +82,7 @@ public class DistanceTools extends LinearOpMode {
     }
 
     private boolean isThereAWall (double numberOfWall) {
-        if (isNaN(numberOfWall) || numberOfWall >= 200) {
+        if (isNaN(numberOfWall) || numberOfWall >= 400) {
             return  false;
         } else {
             return true;

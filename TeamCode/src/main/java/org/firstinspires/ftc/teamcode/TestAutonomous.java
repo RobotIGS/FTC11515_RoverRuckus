@@ -70,13 +70,16 @@ public class TestAutonomous extends LinearOpMode {
         if (isGold) { //Middle
             motorStuff.setAllMotors(0.2,0,0.2,0);
 
+            time = System.currentTimeMillis();
+            while ((System.currentTimeMillis() < time+2000)) {
+                motorStuff.setAllMotors(0.2,0,0.2,0);
+            }
+
            while (blueline.isBlue(hwChss.color_back_right) != true) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
-               if (blueline.isBlue(hwChss.color_back_right) == true);
-               motorStuff.setAllMotors(0,0,0,0);
-
            }
 
+            motorStuff.setAllMotors(0,0,0,0);
 
 
 
@@ -100,6 +103,15 @@ public class TestAutonomous extends LinearOpMode {
                 time  = System.currentTimeMillis();
                 while (System.currentTimeMillis() < time+1000) { }
                 distanceTools.driveToWall(Direction.LEFT);
+
+                time = System.currentTimeMillis();
+                while (System.currentTimeMillis() < time+1000) {       }
+
+                while (!blueline.isBlue(hwChss.color_back_right)) {
+                    motorStuff.setAllMotors(0,0.2,0,0.2);
+                }
+
+                motorStuff.setAllMotors(0,0,0,0);
 
             }
         }
