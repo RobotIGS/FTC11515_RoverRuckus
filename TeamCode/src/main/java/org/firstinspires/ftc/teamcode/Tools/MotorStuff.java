@@ -38,7 +38,7 @@ public class MotorStuff {
     /**
      * This method lets the robot turn
      * @param speed The speed at which the robot should drive (higher values not recommended, not accurate
-     * @param direction Direction enum, whether it should turn to the left or to the right (enum added by paul)
+     * @param direction direction enum, whether it should turn to the left or to the right (enum added by paul)
      */
     public void turn (int speed, Direction_Enum direction){
             if (direction.equals(Direction_Enum.Right)){

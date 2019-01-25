@@ -1,4 +1,4 @@
-/* This abstract class is used to create a construkt for all Chassis since this season there will be more than one.
+/* This abstract class is used to create an abstract for all Chassis since this season there will be more than one.
 *  Here all general settings for the (yet only) motors which are used by all other inherited basis classes are set.
 *  created by coolPseudonym & dreadjack
  */

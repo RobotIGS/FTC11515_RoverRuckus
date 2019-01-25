@@ -1,40 +1,40 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.drm.DrmInfoRequest;
-
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
-@TeleOp (name = "TestAutonomous")
+/*
+ * Our actual approach to the autonomous period.
+ * Works for blue side, right position
+ */
+@TeleOp (name = "AutonomousTestBlue")
+public class AutonomousTestBlue extends LinearOpMode {
 
-public class TestAutonomous extends LinearOpMode {
-    private GoldAlignDetector detector;
-    private FarbHelfer blueline;
+    private GoldAlignDetector detector; //Recognizes golden mineral
+    private FarbHelfer blueline; //Recognizes blue line
 
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        telemetry.addData("Status", "DogeCV 2018.0 - Gold Align Example");
+    public void runOpMode() {
+
+        //Init
 
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
-        DistanceTools distanceTools = new DistanceTools();
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        distanceTools.setHwChss(hwChss);
-        distanceTools.setMotorStuff(motorStuff);
+        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss);
 
         blueline = new FarbHelfer();
 
-        detector = new GoldAlignDetector(); // Cr
-
+        detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
 
         detector.useDefaults(); // Set detector to use default settings
@@ -55,58 +55,53 @@ public class TestAutonomous extends LinearOpMode {
 
 
         waitForStart();
+        //Start of autonomous code
 
-
+        //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
-
         long time  = System.currentTimeMillis();
         while (System.currentTimeMillis() < time+1000) { }
-
         motorStuff.setAllMotors(0,0,0,0);
 
+        //Sees middle mineral. Checks whether is't gold or not.
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.update();
         if (isGold) { //Middle
-            motorStuff.setAllMotors(0.2,0,0.2,0);
 
+            //Drive forward to seconds
+            motorStuff.setAllMotors(0.2,0,0.2,0);
             time = System.currentTimeMillis();
             while ((System.currentTimeMillis() < time+2000)) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
-
-           while (blueline.isBlue(hwChss.color_back_right) != true) {
+            //Drive until a blue line is registered (robot is in the marker zone)
+            while (blueline.isBlue(hwChss.color_back_right) != true) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
-           }
+            }
 
             motorStuff.setAllMotors(0,0,0,0);
-
-
-
-
-            /*time  = System.currentTimeMillis();
-            while (System.currentTimeMillis() < time+2500) { }
-*/
-                motorStuff.setAllMotors(0,0,0,0);
-
-        } else {
-            motorStuff.turnToDegreeV4(45 / 2); //Right
+        } else { //Mineral is left or right
+            motorStuff.turnToDegreeV4(22); //Turns to the right
+            //Waits one second to ensure that the robot has turned completly
             time  = System.currentTimeMillis();
             while (System.currentTimeMillis() < time+1000) { }
-            if(detector.isFound()){
-                distanceTools.driveToWall(Direction.RIGHT);
+            if(detector.isFound()){ //If this mineral is gold, the robot drives to the wall and then to the marker zone
+                distanceTools.driveToWall(Direction_Enum.Right);
             }
-            else {
+            else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-45); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
                 time  = System.currentTimeMillis();
                 while (System.currentTimeMillis() < time+1000) { }
-                distanceTools.driveToWall(Direction.LEFT);
+                distanceTools.driveToWall(Direction_Enum.Left);
 
+                //Waits additional second
                 time = System.currentTimeMillis();
                 while (System.currentTimeMillis() < time+1000) {       }
 
+                //Drives from the wall to the marker zone. 
                 while (!blueline.isBlue(hwChss.color_back_right)) {
                     motorStuff.setAllMotors(0,0.2,0,0.2);
                 }

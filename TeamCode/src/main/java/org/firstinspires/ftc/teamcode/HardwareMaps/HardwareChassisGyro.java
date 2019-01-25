@@ -4,12 +4,17 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+/*
+    Use this an object of this class, if you need to access the imu (also called gyro) sensor.
+    If you need to drive using the gyro look in the GyroTools class in the tools package.
+    There we already created methods.
+ */
 public class HardwareChassisGyro {
     // The IMU sensor object
     public BNO055IMU imu;
 
     // State used for updating telemetry
-    HardwareMap hwMap           =  null;
+    private HardwareMap hwMap           =  null;
 
     /* Constructor */
     public HardwareChassisGyro(HardwareMap hwMap){
