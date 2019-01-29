@@ -68,6 +68,12 @@ public class DistanceTools {
 
     }
 
+
+    public void dtriveToWall_Left (Direction_Enum direction){
+
+    }
+
+
     /**
      * Checks whether a certain double is NaN
      * This is useful, as the distance sensors return NaN if the distance is too high

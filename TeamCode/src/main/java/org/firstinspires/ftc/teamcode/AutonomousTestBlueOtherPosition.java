@@ -69,16 +69,28 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         telemetry.update();
         if (isGold) { //Middle
 
-            //Drive forward to seconds
+            //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
             time = System.currentTimeMillis();
             while ((System.currentTimeMillis() < time+2000)) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
-            //Drive until a blue line is registered (robot is in the marker zone)
-            while (blueline.isBlue(hwChss.color_back_right) != true) {
-               motorStuff.setAllMotors(0.2,0,0.2,0);
+
+            //Drive backward two seconds
+            time = System.currentTimeMillis();
+            while ((System.currentTimeMillis() < time+2000)) {
+                motorStuff.setAllMotors(-0.2,0,-0.2,0);
             }
+
+            distanceTools.driveToWall(Direction_Enum.Left);
+
+            time = System.currentTimeMillis();
+            while (System.currentTimeMillis() < time+1000) {       }
+
+            while (!blueline.isBlue(hwChss.color_back_right)) {
+                motorStuff.setAllMotors(0, -0.2,0,-0.2);
+            }
+
 
             motorStuff.setAllMotors(0,0,0,0);
         } else { //Mineral is left or right
