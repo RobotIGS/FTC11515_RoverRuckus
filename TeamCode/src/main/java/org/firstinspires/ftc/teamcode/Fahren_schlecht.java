@@ -23,10 +23,10 @@ public class Fahren_schlecht extends OpMode {
     public void loop() {
         speed = (double) (gamepad1.left_trigger);
         if (gamepad1.dpad_up) {
-            mtstff.setAllMotors(speed, 0, -speed, 0);
+            mtstff.setAllMotors(-speed, 0, -speed, 0);
         }
         if (gamepad1.dpad_down) {
-            mtstff.setAllMotors(-speed, 0, speed, 0);
+            mtstff.setAllMotors(speed, 0, speed, 0);
         }
 
         if (gamepad1.dpad_right) {
