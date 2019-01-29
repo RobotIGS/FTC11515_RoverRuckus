@@ -88,6 +88,14 @@ public class AutonomousTestBlue extends LinearOpMode {
             while (System.currentTimeMillis() < time+1000) { }
             if(detector.isFound()){ //If this mineral is gold, the robot drives to the wall and then to the marker zone
                 distanceTools.driveToWall(Direction_Enum.Right);
+
+                //waits additional second
+                time = System.currentTimeMillis();
+                while (time >= System.currentTimeMillis()+1000) {       }
+
+                while (!blueline.isBlue(hwChss.color_back_right)) {
+                    motorStuff.setAllMotors(0, -0.2, 0,-0.2);
+                }
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-45); //Left
@@ -101,7 +109,7 @@ public class AutonomousTestBlue extends LinearOpMode {
                 time = System.currentTimeMillis();
                 while (System.currentTimeMillis() < time+1000) {       }
 
-                //Drives from the wall to the marker zone. 
+                //Drives from the wall to the marker zone.
                 while (!blueline.isBlue(hwChss.color_back_right)) {
                     motorStuff.setAllMotors(0,0.2,0,0.2);
                 }
