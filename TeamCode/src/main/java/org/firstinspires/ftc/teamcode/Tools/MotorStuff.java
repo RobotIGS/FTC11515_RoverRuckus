@@ -59,9 +59,9 @@ public class MotorStuff {
         hwchss.motor_back_right.setPower(-SpeedBackRight);
     }
 
-    public void driveLeft (double SpeedFrontLeft, double SpeedBackRight) {
-        hwchss.motor_back_left.setPower(-SpeedFrontLeft);
-        hwchss.motor_front_right.setPower(-SpeedBackRight);
+    public void driveLeft (double SpeedBackLeft, double SpeedFrontRight) {
+        hwchss.motor_back_left.setPower(-SpeedBackLeft);
+        hwchss.motor_front_right.setPower(-SpeedFrontRight);
     }
 
     public void driveRight (double SpeedFrontRight, double SpeedBackLeft) {

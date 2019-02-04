@@ -72,17 +72,18 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
             time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000)) {
+            while ((System.currentTimeMillis() < time+2500)) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             //Drive backward two seconds
             time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000)) {
+            while ((System.currentTimeMillis() < time+1000)) {
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
             }
 
-            distanceTools.driveToWall(Direction_Enum.Left);
+            //drive to wall
+            distanceTools.driveToWall(Direction_Enum.BlueCrater);
 
             time = System.currentTimeMillis();
             while (System.currentTimeMillis() < time+1000) {       }
@@ -90,9 +91,8 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             while (!blueline.isBlue(hwChss.color_back_right)) {
                 motorStuff.setAllMotors(0, -0.2,0,-0.2);
             }
-
-
             motorStuff.setAllMotors(0,0,0,0);
+
         } else { //Mineral is left or right
             motorStuff.turnToDegreeV4(22); //Turns to the right
             //Waits one second to ensure that the robot has turned completly

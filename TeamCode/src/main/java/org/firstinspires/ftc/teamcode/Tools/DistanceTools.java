@@ -63,30 +63,48 @@ public class DistanceTools {
                 hwChss.motor_front_right.setPower(-0.2);
                 hwChss.motor_back_right.setPower(0.2);
             }
+        } else  if (direction == Direction_Enum.BlueCrater) {
+            //set all motors 0
+            motorStuff.setAllMotors(0,0,0,0);
+
+            //Drives until left sensor registers a wall.
+            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+                motorStuff.driveLeft(0.2, 0.2);
+            }
+             motorStuff.setAllMotors(0, 0, 0, 0);
+
+            //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
+            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
+                hwChss.motor_front_right.setPower(-0.2);
+                hwChss.motor_back_right.setPower(0.2);
+            }
+            while (hwChss.distance_left.getDistance(DistanceUnit.MM) <= 500 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 500){
+                motorStuff.driveBack(0.2,0.2);
+            }
         }
         motorStuff.setAllMotors(0, 0, 0, 0);
 
     }
 
-
+/*
     public void dtriveToWall_Left (Direction_Enum direction) {
         if (direction == Direction_Enum.BlueCrater) {
-            //Drives until right sensor registers a wall.
-            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
-                motorStuff.driveLeft(0.2, 0.2); //drive forward
+            //Drives until left sensor registers a wall.
+            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+                motorStuff.driveLeft(0.2, 0.2);
             }
             motorStuff.setAllMotors(0, 0, 0, 0);
 
-            //Turns until other (left)  sensor also registers a wall, so the robot is parallel to the wall
+            //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
             while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                 hwChss.motor_front_right.setPower(0.2);
-                hwChss.motor_back_right.setPower(-0.2);
+                hwChss.motor_back_right.setPower(0.2);
             }
             motorStuff.setAllMotors(0, 0, 0, 0);
 
 
         }
-    }
+    } */
 
 
 
@@ -108,7 +126,7 @@ public class DistanceTools {
      */
     private boolean isThereAWall(double numberOfWall) {
         //No wall is seen, if NaN is returned or the returned distance is to high
-        if (isNaN(numberOfWall) || numberOfWall >= 400) {
+        if (isNaN(numberOfWall) || numberOfWall >= 500) { //400
             return false;
         } else {
             return true;
