@@ -69,9 +69,25 @@ public class DistanceTools {
     }
 
 
-    public void dtriveToWall_Left (Direction_Enum direction){
+    public void dtriveToWall_Left (Direction_Enum direction) {
+        if (direction == Direction_Enum.BlueCrater) {
+            //Drives until right sensor registers a wall.
+            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
+                motorStuff.driveLeft(0.2, 0.2); //drive forward
+            }
+            motorStuff.setAllMotors(0, 0, 0, 0);
 
+            //Turns until other (left)  sensor also registers a wall, so the robot is parallel to the wall
+            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
+                hwChss.motor_front_right.setPower(0.2);
+                hwChss.motor_back_right.setPower(-0.2);
+            }
+            motorStuff.setAllMotors(0, 0, 0, 0);
+
+
+        }
     }
+
 
 
     /**
