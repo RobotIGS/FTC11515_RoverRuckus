@@ -78,7 +78,7 @@ public class DistanceTools {
                 hwChss.motor_front_right.setPower(-0.2);
                 hwChss.motor_back_right.setPower(0.2);
             }
-            while (hwChss.distance_left.getDistance(DistanceUnit.MM) <= 500 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 500){
+            while (hwChss.distance_left.getDistance(DistanceUnit.MM) <= 350 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 350){
                 motorStuff.driveBack(0.2,0.2);
             }
         }
