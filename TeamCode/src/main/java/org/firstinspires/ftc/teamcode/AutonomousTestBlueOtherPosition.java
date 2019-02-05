@@ -93,7 +93,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             }
             motorStuff.setAllMotors(0,0,0,0);
 
-        } else { //Mineral is left or right
+        } else { //Mineral is right
             motorStuff.turnToDegreeV4(22); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             time  = System.currentTimeMillis();
