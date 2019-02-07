@@ -57,8 +57,11 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         waitForStart();
         //Start of autonomous code
 
+        hwChss.ServoCam.setPosition(1);
+
+
         //Drives forward a certain amount of time
-        motorStuff.setAllMotors(0.2,0,0.2,0);
+        /*motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
         while (System.currentTimeMillis() < time+1000) { }
         motorStuff.setAllMotors(0,0,0,0);
@@ -170,7 +173,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
             }
         }
-
+*/
 
     }
 
