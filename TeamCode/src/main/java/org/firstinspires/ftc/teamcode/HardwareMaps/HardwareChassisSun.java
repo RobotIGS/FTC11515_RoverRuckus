@@ -4,7 +4,6 @@
 package org.firstinspires.ftc.teamcode.HardwareMaps;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,7 +14,7 @@ public class HardwareChassisSun extends HardwareChassis{
     public DistanceSensor distance_right;
     //public ColorSensor color_back_left;
     public ColorSensor color_back_right;
-    public Servo ServoCam ;
+    //public Servo servoCam;
 
 
 
@@ -26,7 +25,8 @@ public class HardwareChassisSun extends HardwareChassis{
         distance_right= ahwMap.get(DistanceSensor.class, "color_distance_front_right");
         //color_back_left= ahwMap.get(ColorSensor.class, "color_distance_back_left"); //?????
         color_back_right= ahwMap.get(ColorSensor.class, "color_distance_back_right");
-        ServoCam= ahwMap.get(Servo.class,  "Front_Cam_Motion");
+        //servoCam = ahwMap.get(Servo.class,  "Front_Cam_Motion");
+        //servoCam = ahwMap.servo.get("Front_Cam_Motion");
 
 
 

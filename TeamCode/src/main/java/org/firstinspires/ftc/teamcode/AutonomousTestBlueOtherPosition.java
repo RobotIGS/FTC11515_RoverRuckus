@@ -5,12 +5,15 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
+import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 /*
  * Our actual approach to the autonomous period.
@@ -24,13 +27,15 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
+        Servo servoCam;
         //Init
 
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss);
+        Tools tools = new Tools();
 
         blueline = new FarbHelfer();
 
@@ -57,13 +62,15 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         waitForStart();
         //Start of autonomous code
 
-        hwChss.ServoCam.setPosition(1);
+        servoCam = hardwareMap.servo.get("front_cam_motion");
+        servoCam = hardwareMap.get(Servo.class, "front_cam_motion");
+        //servoCam.setDirection(Servo.Direction.FORWARD);
 
 
         //Drives forward a certain amount of time
-        /*motorStuff.setAllMotors(0.2,0,0.2,0);
+        motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time+1000) { }
+        tools.wait(1000);
         motorStuff.setAllMotors(0,0,0,0);
 
         //Sees middle mineral. Checks whether is't gold or not.
@@ -78,6 +85,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             while ((System.currentTimeMillis() < time+2500)) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
+            
 
             //Drive backward two seconds
             time = System.currentTimeMillis();
@@ -90,6 +98,9 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
             time = System.currentTimeMillis();
             while (System.currentTimeMillis() < time+1000) {       }
+
+            //waits additional seconds
+            tools.wait(1000);
 
             while (!blueline.isBlue(hwChss.color_back_right)) {
                 motorStuff.setAllMotors(0, -0.2,0,-0.2);
@@ -117,15 +128,13 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);
                 }
 
-                //waits additional second
-                time = System.currentTimeMillis();
-                while (time >= System.currentTimeMillis()+1000) {       }
+                //waits additional seconds
+                tools.wait(1000);
 
                 motorStuff.turnToDegreeV4(360-22);
 
                 //waits additional second
-                time = System.currentTimeMillis();
-                while (time >= System.currentTimeMillis()+1000) {       }
+                tools.wait(1000);
 
                 //drive to wall
                 distanceTools.driveToWall(Direction_Enum.BlueCrater);
@@ -152,28 +161,26 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 }
 
                 //waits additional second
-                time = System.currentTimeMillis();
-                while (time >= System.currentTimeMillis()+1000) {       }
+                tools.wait(1000);
 
-                motorStuff.turnToDegreeV4(45);
+                motorStuff.turnToDegreeV4(22); //Changed
 
                 //waits additional second
-                time = System.currentTimeMillis();
-                while (time >= System.currentTimeMillis()+1000) {       }
+                tools.wait(1000);
 
                 //drive to wall
                 distanceTools.driveToWall(Direction_Enum.BlueCrater);
 
                 //Drives from the wall to the marker zone.
                 while (!blueline.isBlue(hwChss.color_back_right)) {
-                    motorStuff.setAllMotors(0,0.2,0,0.2);
+                    motorStuff.driveLeft(0.2,0.2);
                 }
 
                 motorStuff.setAllMotors(0,0,0,0);
 
             }
         }
-*/
+
 
     }
 
