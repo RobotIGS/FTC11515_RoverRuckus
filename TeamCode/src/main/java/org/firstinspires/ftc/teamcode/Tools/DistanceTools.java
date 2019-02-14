@@ -19,6 +19,8 @@ public class DistanceTools {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
 
+    Tools tools = new Tools();
+
 
     /**
      * Standard constructor
@@ -40,17 +42,23 @@ public class DistanceTools {
             //Drives until right sensor registers a wall.
             while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveInOneDirection(0.2, 0.2); //drive forward
+                tools.stopForSeconds(1000);
             }
             motorStuff.setAllMotors(0, 0, 0, 0);
 
             //Turns until other (left)  sensor also registers a wall, so the robot is parallel to the wall
-            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+            while (hwChss.distance_left.getDistance(DistanceUnit.MM) != hwChss.distance_right.getDistance(DistanceUnit.MM)/*!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)))*/) {
                 hwChss.motor_front_left.setPower(0.2);
                 hwChss.motor_back_left.setPower(-0.2);
             }
             motorStuff.setAllMotors(0, 0, 0, 0);
 
-        //Reversed to the code above
+
+
+
+
+
+            //Reversed to the code above
         } else if (direction == Direction_Enum.Left) {
             //Drives until left sensor registers a wall.
             while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
@@ -71,19 +79,17 @@ public class DistanceTools {
             while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveLeft(0.2, 0.2);
             }
-             motorStuff.setAllMotors(0, 0, 0, 0);
-
+             motorStuff.turn(0.2, Direction_Enum.Right );
+            tools.stopForSeconds(2000);
             //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
             while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_front_right.setPower(-0.2);
-                hwChss.motor_back_right.setPower(0.2);
+                motorStuff.setAllMotors(0.2, -0.2, -0.2, 0.2);
             }
 
             //wait additional seconds
             double time = System.currentTimeMillis();
-            while (System.currentTimeMillis()<= time + 1000 ) {       }
-
-            while (hwChss.distance_left.getDistance(DistanceUnit.MM) <= 300 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 300){
+            tools.stopForSeconds(1000);
+            while (hwChss.distance_left.getDistance(DistanceUnit.MM) > hwChss.distance_right.getDistance(DistanceUnit.MM/*hwChss.distance_left.getDistance(DistanceUnit.MM) <= 300 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 300*/)){
                 motorStuff.driveBack(0.2,0.2);
             }
         }
@@ -131,10 +137,24 @@ public class DistanceTools {
      */
     private boolean isThereAWall(double numberOfWall) {
         //No wall is seen, if NaN is returned or the returned distance is to high
-        if (isNaN(numberOfWall) || numberOfWall >= 500) { //400
+        if (isNaN(numberOfWall) || numberOfWall >= 800) { //400
             return false;
         } else {
             return true;
         }
     }
+
+
+
+    public void driveToWallWithCompass(double initial_oriantation){
+        while(!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))){
+            motorStuff.driveInOneDirection(0.2, 0.2);
+        }
+        motorStuff.setAllMotors(0,0,0,0);
+        motorStuff.turnToDegreeV4(   (float)(       45 +     initial_oriantation - motorStuff.getDegree()   +    360)    );
+    }
+
 }
+
+
+

@@ -71,7 +71,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
-        tools.stopForSeconds(1000);
+        tools.stopForSeconds(2000);
         motorStuff.setAllMotors(0,0,0,0);
 
         //Sees middle mineral. Checks whether is't gold or not.
