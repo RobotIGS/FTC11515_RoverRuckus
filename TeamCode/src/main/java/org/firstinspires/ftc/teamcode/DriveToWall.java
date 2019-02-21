@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 /**
@@ -17,10 +19,14 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 @Disabled
 @TeleOp(name = "Distance")
 public class DriveToWall extends OpMode {
+    private final double wallDistanceHut = 6.5;
+
     DistanceSensor distanceSensorLinks;
     DistanceSensor distanceSensorRechts;
+    DistanceTools distanceTools;
     MotorStuff motorStuff;
     HardwareChassisSun hwChss;
+    FarbHelfer farbHelfer;
 
     @Override
     public void init() {
@@ -28,6 +34,8 @@ public class DriveToWall extends OpMode {
         distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance");
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss, hardwareMap);
+        distanceTools = new DistanceTools(motorStuff, hwChss);
+        farbHelfer = new FarbHelfer();
     }
 
     @Override
@@ -61,8 +69,27 @@ public class DriveToWall extends OpMode {
 
 
     }
+    public void followWallBlue() {
+        motorStuff.turnToDegreeV4((float) (360-22.5));
 
-    //Detects whether a number is Nan (Not a Number) 
+        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < wallDistanceHut ){
+                motorStuff.setAllMotors(0.2, -0.2,0.2,-0.2);
+            }
+            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= wallDistanceHut || distanceTools.isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.2,0.2,0.2,0.2);
+            } else {
+                motorStuff.setAllMotors(0.2, 0,0.2,0);
+            }
+        }
+    }
+
+    private  double triDist(double i){
+        return Math.cos(Math.toDegrees(45))*i;
+    }
+
+
+    //Detects whether a number is Nan (Not a Number)
     boolean isNaN (double zahlx){
         if (zahlx == zahlx){
             return false;

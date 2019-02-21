@@ -125,7 +125,7 @@ public class DistanceTools {
      * @param isNumberNaN Number that should be checked
      * @return Whether the number is NaN or Not.
      */
-    private boolean isNaN(double isNumberNaN) {
+    public boolean isNaN(double isNumberNaN) {
         // Is the only "number" that doesn't equal itself, as it's actually not a number
         return !(isNumberNaN == isNumberNaN);
     }
@@ -135,7 +135,7 @@ public class DistanceTools {
      * @param numberOfWall The distance value of the sensor (in mm! )
      * @return If a wall is registered
      */
-    private boolean isThereAWall(double numberOfWall) {
+    public boolean isThereAWall(double numberOfWall) {
         //No wall is seen, if NaN is returned or the returned distance is to high
         if (isNaN(numberOfWall) || numberOfWall >= 800) { //400
             return false;
