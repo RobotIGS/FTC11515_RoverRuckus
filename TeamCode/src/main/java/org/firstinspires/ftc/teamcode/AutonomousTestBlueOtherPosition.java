@@ -25,6 +25,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
+    private DriveToWall driveToWall;
 
 
     @Override
@@ -37,7 +38,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss);
         Tools tools = new Tools();
-
+        driveToWall = new DriveToWall();
         blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
@@ -91,6 +92,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             //drive to wall
             distanceTools.driveToWall(Direction_Enum.BlueCrater);
 
+
             //waits additional seconds
             tools.stopForSeconds(1000);
             tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
@@ -125,8 +127,9 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
                 //drive to wall
                 distanceTools.driveToWall(Direction_Enum.BlueCrater);
+                motorStuff.followWallBlue();
 
-                tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
+                //tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
 
             }
             else { //Same for the left side
@@ -150,7 +153,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 //drive to wall
                 distanceTools.driveToWall(Direction_Enum.BlueCrater);
 
-                tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
+                motorStuff.followWallBlue();
                 motorStuff.setAllMotors(0,0,0,0);
 
             }

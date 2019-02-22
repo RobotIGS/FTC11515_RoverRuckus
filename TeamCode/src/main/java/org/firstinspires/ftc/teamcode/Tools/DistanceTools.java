@@ -78,7 +78,10 @@ public class DistanceTools {
             //Drives until left sensor registers a wall.
             while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
                 motorStuff.driveLeft(0.2, 0.2);
+
             }
+            motorStuff.setAllMotors(0, 0, 0, 0);
+            /*
              motorStuff.turn(0.2, Direction_Enum.Right );
             tools.stopForSeconds(2000);
             //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
@@ -89,10 +92,12 @@ public class DistanceTools {
             //wait additional seconds
             double time = System.currentTimeMillis();
             tools.stopForSeconds(1000);
-            while (hwChss.distance_left.getDistance(DistanceUnit.MM) > hwChss.distance_right.getDistance(DistanceUnit.MM/*hwChss.distance_left.getDistance(DistanceUnit.MM) <= 300 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 300*/)){
+            while (hwChss.distance_left.getDistance(DistanceUnit.MM) > hwChss.distance_right.getDistance(DistanceUnit.MM/*hwChss.distance_left.getDistance(DistanceUnit.MM) <= 300 && hwChss.distance_right.getDistance(DistanceUnit.MM) <= 300)){
                 motorStuff.driveBack(0.2,0.2);
             }
+            */
         }
+
         motorStuff.setAllMotors(0, 0, 0, 0);
 
     }
