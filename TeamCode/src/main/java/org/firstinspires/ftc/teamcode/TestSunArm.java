@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
-@TeleOp
+@TeleOp (name = "Roboter Arm")
 public class TestSunArm extends OpMode {
     //declare given hardwaremap as MerkelIGS
     private HardwareChassisSun ghwchss;
