@@ -31,13 +31,11 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        Servo servoCam;
         //Init
-
+        Tools tools = new Tools();
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss);
-        Tools tools = new Tools();
+        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
         driveToWall = new DriveToWall();
         blueline = new FarbHelfer();
 
@@ -63,11 +61,6 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
         waitForStart();
         //Start of autonomous code
-
-        servoCam = hardwareMap.servo.get("front_cam_motion");
-        servoCam = hardwareMap.get(Servo.class, "front_cam_motion");
-        //servoCam.setDirection(Servo.Direction.FORWARD);
-
 
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);

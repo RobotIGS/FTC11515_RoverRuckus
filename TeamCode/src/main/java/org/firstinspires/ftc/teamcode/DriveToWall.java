@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
+import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 /**
  * @author paul, lena
@@ -20,21 +21,22 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 @TeleOp(name = "Distance")
 public class DriveToWall extends OpMode {
     private final double wallDistanceHut = 6.5;
-
-    DistanceSensor distanceSensorLinks;
-    DistanceSensor distanceSensorRechts;
-    DistanceTools distanceTools;
-    MotorStuff motorStuff;
-    HardwareChassisSun hwChss;
-    FarbHelfer farbHelfer;
+    private DistanceSensor distanceSensorLinks;
+    private DistanceSensor distanceSensorRechts;
+    private DistanceTools distanceTools;
+    private MotorStuff motorStuff;
+    private HardwareChassisSun hwChss;
+    private FarbHelfer farbHelfer;
+    private Tools tools;
 
     @Override
     public void init() {
         distanceSensorLinks = hardwareMap.get(DistanceSensor.class, "color_distance");
         distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance");
+        tools = new Tools();
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss, hardwareMap);
-        distanceTools = new DistanceTools(motorStuff, hwChss);
+        distanceTools = new DistanceTools(motorStuff, hwChss, tools );
         farbHelfer = new FarbHelfer();
     }
 

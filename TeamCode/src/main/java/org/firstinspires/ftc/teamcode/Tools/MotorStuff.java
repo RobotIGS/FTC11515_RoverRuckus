@@ -32,7 +32,13 @@ public class MotorStuff {
         //this.opMde = opMde;
     }
 
-    //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
+    /**
+     * Used to set all motors at once
+     * @param SpeedFrontLeft Speed of FrontLeftMotor
+     * @param SpeedBackLeft Speed of BackLeftMotor
+     * @param SpeedBackRight Speed of BackRightMotor
+     * @param SpeedFrontRight Speed of FrontRightMotor
+     */
     public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
             hwchss.motor_front_left.setPower(SpeedFrontLeft);
             hwchss.motor_front_right.setPower(SpeedFrontRight);
@@ -40,41 +46,35 @@ public class MotorStuff {
             hwchss.motor_back_right.setPower(SpeedBackRight);
     }
 
+
+
     /**
-     * This method lets the robot turn
-     * @param speed The speed at which the robot should drive (higher values not recommended, not accurate
-     * @param direction direction enum, whether it should turn to the left or to the right (enum added by paul)
+     * Used to let the robot drive forward
+     * @param SpeedFrontLeft Speed of MotorFrontLeft
+     * @param SpeedFrontRight Speed of MotorFrontRight
      */
-    public void turn (int speed, Direction_Enum direction){
-            if (direction.equals(Direction_Enum.Right)){
-                setAllMotors(speed,-speed,-speed,speed);
-            }else if(direction.equals(Direction_Enum.Left)){
-                setAllMotors(-speed,speed,speed,-speed);
-            }
-    }
-
-
     public void driveInOneDirection (double SpeedFrontLeft, double SpeedFrontRight) {
         hwchss.motor_front_left.setPower(SpeedFrontLeft);
         hwchss.motor_back_right.setPower(SpeedFrontRight);
     }
 
-    public void driveBack (double SpeedFrontRight, double SpeedBackRight) {
-        hwchss.motor_front_left.setPower(-SpeedFrontRight);
-        hwchss.motor_back_right.setPower(-SpeedBackRight);
-    }
 
+    /**
+     * Used to let the robot drive left
+     * @param SpeedBackLeft Speed of MotorBackLeft
+     * @param SpeedFrontRight Speed of MotorFrontRight
+     */
     public void driveLeft (double SpeedBackLeft, double SpeedFrontRight) {
         hwchss.motor_back_left.setPower(-SpeedBackLeft);
         hwchss.motor_front_right.setPower(-SpeedFrontRight);
     }
 
-    public void driveRight (double SpeedFrontRight, double SpeedBackLeft) {
-        hwchss.motor_front_right.setPower(SpeedFrontRight);
-        hwchss.motor_back_left.setPower(SpeedBackLeft);
-    }
 
-
+    /**
+     * This method lets the robot turn
+     * @param speed The speed at which the robot should drive (higher values not recommended, not accurate
+     * @param direction direction enum, whether it should turn to the left or to the right (enum added by paul)
+     */
     public void turn (double speed, Direction_Enum direction){
         if (direction.equals(Direction_Enum.Right)){
             setAllMotors(speed,-speed,-speed,speed);
@@ -82,6 +82,11 @@ public class MotorStuff {
             setAllMotors(-speed,speed,speed,-speed);
         }
     }
+
+    /**
+     * Returns actual position of robot
+     * @return position as float
+     */
     public float getDegree(){
         Orientation angles;
         angles = hwgy.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -96,9 +101,15 @@ public class MotorStuff {
         this.hwgy = hwgy;
     }
 
+    /**
+     * Drive method from Nils and Malte
+     * @param degree The amount of degrees the robot should turn. Don't enter negative values
+     */
     public void turnToDegreeV4(float degree){
-        if(degree<0)
+        if(degree<0) {
+            //Please don't throw errors. We cannot detect this on the device ~Paul
             throw new Error("negative Wert zum drehen");
+        }
         double difference = 2;
         /*mby remove*/degree = 360 - degree;
         float goal = (this.getDegree() + degree)%360;
@@ -116,6 +127,9 @@ public class MotorStuff {
         return o;
     }
 
+    /**
+     * Turns the robot and follows the wall until a blue line is registered
+     */
     public void followWallBlue() {
         FarbHelfer farbHelfer = new FarbHelfer();
         turnToDegreeV4((float) (360 - 22.5));
@@ -131,13 +145,21 @@ public class MotorStuff {
             }
         }
     }
-
+    /**
+     * Uses trigonometry to get the absolute length from the sensor (angle: 45°) to the wall
+     * @param i the measured distance
+     * @return the absolute distance
+     */
     private  double triDist(double i){
         return Math.cos(Math.toDegrees(45))*i;
     }
 
 
-    //Detects whether a number is Nan (Not a Number)
+    /**
+     * Detecs whether a number is NaN
+     * @param zahlx number to check
+     * @return boolean value
+     */
     boolean isNaN (double zahlx){
         if (zahlx == zahlx){
             return false;

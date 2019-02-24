@@ -11,16 +11,20 @@ import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
+import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 /*
  * Our actual approach to the autonomous period.
  * Works for blue side, right position
+ *
+ * 22.02.19 Please don't touch. This should work, but need's to be tested again
  */
 @TeleOp (name = "AutonomousTestBlue")
 public class AutonomousTestBlue extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
+    private Tools tools;
 
 
     @Override
@@ -30,7 +34,9 @@ public class AutonomousTestBlue extends LinearOpMode {
 
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss);
+        tools = new Tools();
+
+        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
 
         blueline = new FarbHelfer();
 
