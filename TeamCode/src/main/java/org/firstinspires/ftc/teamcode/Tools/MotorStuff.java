@@ -93,6 +93,12 @@ public class MotorStuff {
         this.hwgy = hwgy;
     }
 
+    /**
+     * This Method turns the robot to a calculated value
+     * The robot will turn right by default, however if the given value is bigger than 180 it will turn right, in order to archive the most efficient way of travel.
+     * So e.g. if you want to turn left 45 degrees you would have to give 315 as turn value
+     * @param degree this is the amount of degree to be turned, it has to be an value between 0 and 360
+     */
     public void turnToDegreeV4(float degree){
         if(degree<0)
             throw new Error("negative Wert zum drehen");
@@ -105,11 +111,19 @@ public class MotorStuff {
         }
         setAllMotors(0,0,0,0);
     }
-    public double personalTanH(double i){
 
+    /**
+     * This Method calculates the tanH value of a given value in respect to not falling, going over a preset value we claibrate with getMinimumSpeed()
+     * @param i this will be calculated into its tangent value with not falling under Minimum speed or if negative, not going over it
+     * @return returns clculated value
+     */
+    public double personalTanH(double i){
         double o = Math.tanh(i);
-        if (o <MINSPEED && o>0){ o = 0.18;}
-        if(o> -MINSPEED && o <0){o = -0.18;}
+        if (o < this.MINSPEED && o > 0) {
+            o = this.MINSPEED;
+        }else if(o> -this.MINSPEED && o < 0){
+            o = -this.MINSPEED;
+        }
         return o;
     }
 }

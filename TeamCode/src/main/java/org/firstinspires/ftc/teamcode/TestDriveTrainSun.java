@@ -76,7 +76,7 @@ public class TestDriveTrainSun extends LinearOpMode{
 
         //telemetry.addData("minimum speed is:",cal.getminimumapeed()); //this works
 
-        telemetry.addData("the average overshooting with smoothness 120 is:",cal.calculateAverage(120));
+        //telemetry.addData("the average overshooting with smoothness 120 is:",cal.calculateAverage(120));
         //motstff.turnToDegreeV4(90);
         //cal.calculateAverage(100);
         //cal.gowaitinkitchen(1);

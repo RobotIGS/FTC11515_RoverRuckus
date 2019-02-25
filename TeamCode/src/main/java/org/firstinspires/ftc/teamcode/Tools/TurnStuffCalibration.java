@@ -6,7 +6,7 @@ public class TurnStuffCalibration {
     public TurnStuffCalibration(MotorStuff motstff){
         this.motstff = motstff;
     }
-
+    /* got small problems
     public double[] calibration(){
         double[] values = new double[2];
         values[0] = getminimumapeed();
@@ -28,11 +28,15 @@ public class TurnStuffCalibration {
         values[1] = smoothness;
         return values;
     }
+    */
 
 
-
-
-    public double getminimumapeed(){
+    /**
+     * This Method calculates the Minimum Speed / Power the motors need to be set to in order to move the robot
+     * This is needed because the chassis will have different amounts of weigh and resistance trough its development
+     * @return amount of power needed to move the robot
+     */
+    public double getMinimumSpeed(){
         boolean stop = false;
         double percent = 0;
 
@@ -41,17 +45,18 @@ public class TurnStuffCalibration {
             prevdegrees = motstff.getDegree();
             motstff.turn(i,Direction_Enum.Right);
             gowaitinkitchen(2);
-            if(Math.abs(prevdegrees- motstff.getDegree())>1){
+            if(Math.abs(prevdegrees - motstff.getDegree())>1){
                 percent = i;
                 stop = true;
             }
             motstff.setAllMotors(0,0,0,0);
             gowaitinkitchen(0.5);
         }
-
         return percent;
     }
 
+    /*
+    * became obsolete due to getminimumspeed
     public double calculateAverage(double smoothness){
         motstff.SMOOTHNESS = smoothness;
         double average = 0;
@@ -63,10 +68,6 @@ public class TurnStuffCalibration {
             motstff.turnToDegreeV4((float)(i));
             this.gowaitinkitchen(1);
             overshoot = Math.abs(goal- motstff.getDegree());
-
-
-
-
             overshootArray[((int)(i))/10] = overshoot;
         }
         overshoot = 0;
@@ -74,15 +75,17 @@ public class TurnStuffCalibration {
             overshoot += overshootArray[i];
         }
         average = overshoot/overshootArray.length;
-
-
         return average;
     }
-
-
-    public void gowaitinkitchen(double sekunden){
+*/
+    /**
+     * This Method is used to immitate the LinearOpMode exclusive sleep() method
+     * This is archived with a timmed while method
+     * @param seconds amount of time to wait in seconds
+     */
+    public void gowaitinkitchen(double seconds){
         double prevtime = System.currentTimeMillis();
-        while(prevtime+ sekunden*1000 > System.currentTimeMillis()){}
+        while(prevtime+ seconds*1000 > System.currentTimeMillis()){}
     }
 
 
