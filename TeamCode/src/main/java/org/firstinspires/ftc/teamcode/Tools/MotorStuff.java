@@ -31,7 +31,6 @@ public class MotorStuff {
      * Constructor
      * @param _hwchss the hardwaremap object that should be used
      */
-
     public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap) {
         hwchss = _hwchss;
         hwgy = new HardwareGyro(hardwareMap);
@@ -39,6 +38,10 @@ public class MotorStuff {
         //this.opMde = opMde;
     }
 
+    public MotorStuff(HardwareChassis _hwchss) {
+        hwchss = _hwchss;
+        //this.opMde = opMde;
+    }
     //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
     public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
             hwchss.motor_front_left.setPower(SpeedFrontLeft);
@@ -78,6 +81,20 @@ public class MotorStuff {
             }else if(direction.equals(Direction_Enum.Left)){
                 setAllMotors(-speed,speed,speed,-speed);
             }
+    }
+
+    /**
+     * This method lets the robot turn, controlled with Gamepad Bumpers, uses turn() method
+     * @param leftBumper The Left Bumper from a handed over Gamepad
+     * @param rightBumper The Left Bumper from a handed over Gamepad
+     * @param speed The speed at which the robot should drive
+     */
+    public void turnWithGamepad (boolean leftBumper, boolean rightBumper, double speed){
+        if(leftBumper) {
+            this.turn(speed, Direction_Enum.Left);
+        } else if(rightBumper){
+            this.turn(speed, Direction_Enum.Right);
+        }
     }
     public float getDegree(){
         Orientation angles;
