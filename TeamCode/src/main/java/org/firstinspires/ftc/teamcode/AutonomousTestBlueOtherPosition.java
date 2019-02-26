@@ -5,9 +5,6 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoController;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
@@ -25,8 +22,6 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
-    private DriveToWall driveToWall;
-
 
     @Override
     public void runOpMode() {
@@ -36,7 +31,6 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
-        driveToWall = new DriveToWall();
         blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
@@ -64,8 +58,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
-        long time  = System.currentTimeMillis();
-        tools.stopForSeconds(2000);
+        tools.stopForSeconds(1500); //Time to drive forward first time
         motorStuff.setAllMotors(0,0,0,0);
 
         //Sees middle mineral. Checks whether is't gold or not.
@@ -76,7 +69,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
-            tools.stopForSeconds(2000);
+            tools.stopForSeconds(1500);
 
             motorStuff.setAllMotors(-0.2,0,-0.2,0);
             tools.stopForSeconds(1000);
@@ -85,14 +78,13 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             //drive to wall
             distanceTools.driveToWall(Direction_Enum.BlueCrater);
 
-
             //waits additional seconds
             tools.stopForSeconds(1000);
             tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
-        } else { //Mineral is right
-            motorStuff.turnToDegreeV4(22); //Turns to the right
-            //Waits one second to ensure that the robot has turned completly
-            time  = System.currentTimeMillis();
+        } else { //Mineral is left or right
+            motorStuff.turnToDegreeV4(45); //Turns to the right todo changd from 22
+            //Waits one second to ensure that the robot has turned completely
+
             tools.stopForSeconds(1000);
             if(detector.isFound()){ //Gold mineral is on the right side
 
@@ -100,9 +92,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(0.2,0,0.2,0);
                 time = System.currentTimeMillis();
-                while ((System.currentTimeMillis() < time+2500)) {
-                    motorStuff.setAllMotors(0.2,0,0.2,0);
-                }
+                tools.stopForSeconds(2000); //todo 2500
 
                 //Drive backward additional time
                 time = System.currentTimeMillis();

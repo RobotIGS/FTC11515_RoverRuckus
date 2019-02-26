@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -133,7 +130,7 @@ public class DistanceTools {
 
 
     /**
-     * Probably
+     * Dont exactly know, is it from Nils?
      * @param initial_orientation
      */
     public void driveToWallWithCompass(double initial_orientation){

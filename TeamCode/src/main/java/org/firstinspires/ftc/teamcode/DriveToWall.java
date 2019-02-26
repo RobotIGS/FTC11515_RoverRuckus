@@ -71,20 +71,6 @@ public class DriveToWall extends OpMode {
 
 
     }
-    public void followWallBlue() {
-        motorStuff.turnToDegreeV4((float) (360-22.5));
-
-        while(!farbHelfer.isBlue(hwChss.color_back_right)){
-            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < wallDistanceHut ){
-                motorStuff.setAllMotors(0.2, -0.2,0.2,-0.2);
-            }
-            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= wallDistanceHut || distanceTools.isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.2,0.2,0.2,0.2);
-            } else {
-                motorStuff.setAllMotors(0.2, 0,0.2,0);
-            }
-        }
-    }
 
     private  double triDist(double i){
         return Math.cos(Math.toDegrees(45))*i;
