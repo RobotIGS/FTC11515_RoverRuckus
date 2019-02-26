@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 @TeleOp (name = "AutonomousBlueOtherPosition")
 public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
-    private SamplingOrderDetector detector; //Recognizes golden mineral
+    private GoldAlignDetector detector; //Recognizes golden mineral
 
     @Override
     public void runOpMode() {
@@ -31,14 +31,14 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
 
-        detector = new SamplingOrderDetector();
+        detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
 
         detector.useDefaults(); // Set detector to use default settings
 
         // Optional tuning
-        //detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
-        //detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+        detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
+        detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
         detector.downscale = 0.4; // How much to downscale the input frames
 
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.PERFECT_AREA; // Can also be PERFECT_AREA
@@ -56,19 +56,25 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         waitForStart();
         //Start of autonomous code
 
-        while (opModeIsActive()) {
-            telemetry.addData("Where is gold", detector.getCurrentOrder());
+        /*while (opModeIsActive()) {
+                //waits additional second
+                tools.stopForSeconds(1000);
+
+            telemetry.addData("Is gold there", detector.isFound());
+            telemetry.addData("Where is gold", detector.getXPosition());
             telemetry.update();
-        }
+        }*/
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         tools.stopForSeconds(1500); //Time to drive forward first time
         motorStuff.setAllMotors(0,0,0,0);
 
-        //Sees middle mineral. Checks whether is't gold or not.
+        //Sees middle mineral. Checks whether it's gold or not.
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
+        telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
+        tools.stopForSeconds(1000);
         if (isGold && opModeIsActive()) { //Middle
 
             //Drive forward two seconds
@@ -80,42 +86,44 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             motorStuff.setAllMotors(0,0,0,0);
 
         } else if (opModeIsActive()){ //Mineral is left or right
-            motorStuff.turnToDegreeV4(45); //Turns to the right todo changed from 22
+            motorStuff.turnToDegreeV4(30); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
             tools.stopForSeconds(1000);
             if(detector.isFound() && opModeIsActive()) { //Gold mineral is on the right side
-
+                telemetry.addData("Where: ", detector.getXPosition());
+                telemetry.update();
+                tools.stopForSeconds(1000);
 
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(2000); //todo 2500
+                tools.stopForSeconds(2500); //todo 2500
 
                 //Drive backward additional time
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(2000);
+                tools.stopForSeconds(1500);
 
-                motorStuff.turnToDegreeV4(360-45); //Changed from 360 - 22
+                motorStuff.turnToDegreeV4(360-30); //Changed from 360 - 22
 
                 //waits additional second
                 tools.stopForSeconds(1000);
 
             }
             else if (opModeIsActive()){ //Same for the left side
-                motorStuff.turnToDegreeV4(360-90); //Left
+                telemetry.addData("Where: ", detector.getXPosition());
+                telemetry.update();
+                tools.stopForSeconds(1000);
+                motorStuff.turnToDegreeV4(360-60); //Left
 
                 //Drive forward two seconds
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(2000);
+                tools.stopForSeconds(2500);
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(1000);
+                tools.stopForSeconds(1500);
 
-                //waits additional second
-                tools.stopForSeconds(1000);
-
-                motorStuff.turnToDegreeV4(45); //Changed
+                motorStuff.turnToDegreeV4(30); //Changed
 
                 //waits additional second
                 tools.stopForSeconds(1000);
