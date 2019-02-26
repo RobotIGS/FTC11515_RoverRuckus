@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.OpenCV;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -42,6 +43,7 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 /*
     Drives forward, of sees a gold mineral.
  */
+@Disabled
 @TeleOp(name="getVa" +
         "lues", group="DogeCV")
 

@@ -127,44 +127,5 @@ public class MotorStuff {
         return o;
     }
 
-    /**
-     * Turns the robot and follows the wall until a blue line is registered
-     */
-    public void followWallBlue() {
-        FarbHelfer farbHelfer = new FarbHelfer();
-        turnToDegreeV4((float) (360 - 22.5));
 
-        while(!farbHelfer.isBlue(hwChss.color_back_right)){
-            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistanceHut ){
-                setAllMotors(0.2, -0.2,0.2,-0.2);
-            }
-            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistanceHut || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                setAllMotors(0.2,0.2,0.2,0.2);
-            } else {
-                setAllMotors(0.2, 0,0.2,0);
-            }
-        }
-    }
-    /**
-     * Uses trigonometry to get the absolute length from the sensor (angle: 45°) to the wall
-     * @param i the measured distance
-     * @return the absolute distance
-     */
-    private  double triDist(double i){
-        return Math.cos(Math.toDegrees(45))*i;
-    }
-
-
-    /**
-     * Detecs whether a number is NaN
-     * @param zahlx number to check
-     * @return boolean value
-     */
-    boolean isNaN (double zahlx){
-        if (zahlx == zahlx){
-            return false;
-        } else {
-            return true;
-        }
-    }
 }

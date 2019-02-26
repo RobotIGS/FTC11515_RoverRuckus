@@ -5,6 +5,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 
 
+
 /*
     This class includes tools to drive using the distance sensors.
     Therefore a chassis that includes distance sensors is required.
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
  */
 
 public class DistanceTools {
+    private final double wallDistance = 6;
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
     private Tools tools;
@@ -140,6 +142,33 @@ public class DistanceTools {
         motorStuff.setAllMotors(0,0,0,0);
         motorStuff.turnToDegreeV4(   (float)(       45 +     initial_orientation - motorStuff.getDegree()   +    360)    );
     }
+
+    /**
+     * Follow the wall to the blue line
+     */
+    public void followWallBlue() {
+        FarbHelfer farbHelfer = new FarbHelfer();
+        motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
+
+        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
+                motorStuff.setAllMotors(-0.15, -0.15,-0.15,-0.15);
+            }
+            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistance || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.15,-0.15,0.15,-0.15);
+            }
+        }
+    }
+    /**
+     * Uses trigonometry to get the absolute length from the sensor (angle: 45°) to the wall
+     * @param i the measured distance
+     * @return the absolute distance
+     */
+    private  double triDist(double i){
+        return Math.cos(Math.toDegrees(45))*i;
+    }
+
+
 
 }
 
