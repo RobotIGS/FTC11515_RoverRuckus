@@ -21,7 +21,6 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer blueline; //Recognizes blue line
 
     @Override
     public void runOpMode() {
@@ -31,7 +30,6 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
-        blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -75,14 +73,8 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             tools.stopForSeconds(1000);
             motorStuff.setAllMotors(0,0,0,0);
 
-            //drive to wall
-            distanceTools.driveToWall(Direction_Enum.BlueCrater);
-
-            //waits additional seconds
-            tools.stopForSeconds(1000);
-            tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
         } else { //Mineral is left or right
-            motorStuff.turnToDegreeV4(45); //Turns to the right todo changd from 22
+            motorStuff.turnToDegreeV4(45); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
             tools.stopForSeconds(1000);
@@ -91,32 +83,21 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                time = System.currentTimeMillis();
                 tools.stopForSeconds(2000); //todo 2500
 
                 //Drive backward additional time
-                time = System.currentTimeMillis();
-                while ((System.currentTimeMillis() < time+1000)) {
-                    motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                }
 
-                //waits additional seconds
-                tools.stopForSeconds(1000);
+                motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                tools.stopForSeconds(2000);
 
-                motorStuff.turnToDegreeV4(360-22);
+                motorStuff.turnToDegreeV4(360-45); //Changed from 360 - 22
 
                 //waits additional second
                 tools.stopForSeconds(1000);
 
-                //drive to wall
-                distanceTools.driveToWall(Direction_Enum.BlueCrater);
-                motorStuff.followWallBlue();
-
-                //tools.driveLeftToBlueLine(hwChss.color_back_right, blueline, motorStuff);
-
             }
             else { //Same for the left side
-                motorStuff.turnToDegreeV4(360-45); //Left
+                motorStuff.turnToDegreeV4(360-90); //Left
 
                 //Drive forward two seconds
                 motorStuff.setAllMotors(0.2,0,0.2,0);
@@ -132,15 +113,13 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
                 //waits additional second
                 tools.stopForSeconds(1000);
-
-                //drive to wall
-                distanceTools.driveToWall(Direction_Enum.BlueCrater);
-
-                motorStuff.followWallBlue();
-                motorStuff.setAllMotors(0,0,0,0);
-
             }
         }
+        //It doesn't matter, if the mineral was left, right or in the center.
+        //This is independent from the the if else statement above.
+        //It will drive until one sensor registers the wall, then follow the wall. 
+        distanceTools.driveToWall(Direction_Enum.BlueCrater);
+        motorStuff.followWallBlue();
 
 
     }
