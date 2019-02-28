@@ -146,11 +146,13 @@ public class DistanceTools {
     /**
      * Follow the wall to the blue line
      */
-    public void followWallBlue() {
+    public void followWallBlue(float initialOrientation) {
+
         FarbHelfer farbHelfer = new FarbHelfer();
         motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
         while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = motorStuff.getDegree() - initialOrientation;
             if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
                 motorStuff.setAllMotors(-0.15, -0.15,-0.15,-0.15);
             }

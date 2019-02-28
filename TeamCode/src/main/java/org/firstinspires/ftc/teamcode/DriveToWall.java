@@ -23,10 +23,8 @@ public class DriveToWall extends OpMode {
     private final double wallDistanceHut = 6.5;
     private DistanceSensor distanceSensorLinks;
     private DistanceSensor distanceSensorRechts;
-    private DistanceTools distanceTools;
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
-    private FarbHelfer farbHelfer;
     private Tools tools;
 
     @Override
@@ -36,8 +34,7 @@ public class DriveToWall extends OpMode {
         tools = new Tools();
         hwChss = new HardwareChassisSun(hardwareMap);
         motorStuff = new MotorStuff(hwChss, hardwareMap);
-        distanceTools = new DistanceTools(motorStuff, hwChss, tools );
-        farbHelfer = new FarbHelfer();
+
     }
 
     @Override
