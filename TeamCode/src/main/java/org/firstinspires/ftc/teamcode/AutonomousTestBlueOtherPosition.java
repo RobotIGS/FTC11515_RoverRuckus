@@ -102,7 +102,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 //Drive backward additional time
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(1500);
+                tools.stopForSeconds(1000);
 
                 motorStuff.turnToDegreeV4(360-30); //Changed from 360 - 22
 
@@ -121,7 +121,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 tools.stopForSeconds(2500);
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(1500);
+                tools.stopForSeconds(1000);
 
                 motorStuff.turnToDegreeV4(30); //Changed
 
@@ -133,7 +133,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.BlueCrater);
-        distanceTools.followWallBlue();
+        distanceTools.followWallBlue(motorStuff.getDegree());
 
 
     }

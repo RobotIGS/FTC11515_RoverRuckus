@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Tools;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.opencv.core.Mat;
 
 
 
@@ -154,10 +155,10 @@ public class DistanceTools {
         while(!farbHelfer.isBlue(hwChss.color_back_right)){
             float difference = motorStuff.getDegree() - initialOrientation;
             if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
-                motorStuff.setAllMotors(-0.15, -0.15,-0.15,-0.15);
+                motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
             }
             if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistance || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15,-0.15,0.15,-0.15);
+                motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
             }
         }
     }
@@ -170,6 +171,9 @@ public class DistanceTools {
         return Math.cos(Math.toDegrees(45))*i;
     }
 
+    private double newSigLog(float v ) {
+        return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
+    }
 
 
 }
