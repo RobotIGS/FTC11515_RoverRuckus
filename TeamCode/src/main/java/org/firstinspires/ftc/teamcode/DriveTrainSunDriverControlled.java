@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.sun.source.util.TaskEvent;
 
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -18,8 +19,8 @@ public class DriveTrainSunDriverControlled extends OpMode {
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
     //declare motors for arm motion
-    DcMotor motor_arm_lift;
-    DcMotor motor_arm_tilt;
+    private DcMotor motor_arm_lift;
+    private DcMotor motor_arm_tilt;
 
     @Override
     public void init() {
@@ -46,29 +47,31 @@ public class DriveTrainSunDriverControlled extends OpMode {
        //we don't need to drive diagonal
 
         //drive with dpad for direction and trigger for speed
+
+
         if (gamepad1.dpad_up) { //drive forward
             motstff.driveInOneDirection(gamepad1.right_trigger, gamepad1.right_trigger);
-        } else {
-            motstff.driveInOneDirection(0,0);
         }
-
         if (gamepad1.dpad_down) { //drive backwards
             motstff.driveBack(gamepad1.right_trigger, gamepad1.right_trigger);
-        } else {
-            motstff.driveBack(0,0);
         }
+        if (!gamepad1.dpad_up &&  !gamepad1.dpad_down) {
+            motstff.driveInOneDirection(0, 0);
+        }
+
 
         if (gamepad1.dpad_left) { //drive left
             motstff.driveLeft(gamepad1.right_trigger,  gamepad1.right_trigger);
-        } else {
-            motstff.driveLeft(0,0);
         }
-
         if (gamepad1.dpad_right) { //drive right
             motstff.driveRight(gamepad1.right_trigger,gamepad1.right_trigger);
-        } else {
-            motstff.driveRight(0,0);
         }
+        if (!gamepad1.dpad_left && !gamepad1.dpad_right) {
+            motstff.driveLeft(0, 0);
+        }
+
+
+
 
         //to turn the robot if wanted
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
@@ -104,5 +107,6 @@ public class DriveTrainSunDriverControlled extends OpMode {
 
 
         //add collector etc.
+
     }
 }
