@@ -75,20 +75,20 @@ public class DriveTrainSunDriverControlled extends OpMode {
 
         //controlling arm
         if (gamepad2.dpad_up) {
-            motor_arm_lift.setPower(0.3); //arm ausfahren
+            motor_arm_lift.setPower(0.3); //arm ausfahren //0.3
         } else {
             motor_arm_lift.setPower(0);
         }
 
         if (gamepad2.dpad_down) {
-            motor_arm_lift.setPower(-0.3); //arm einfahren
+            motor_arm_lift.setPower(-0.4); //arm einfahren //0.3
         } else {
             motor_arm_lift.setPower(0);
         }
 
         if (gamepad2.a) {
                 motor_arm_tilt.setPower(0.1); //winkel arm nach oben
-                motor_arm_lift.setPower(-0.3); //arm parallel einfahren, add until feedback
+                motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
             } else {
             motor_arm_tilt.setPower(0);
             motor_arm_lift.setPower(0);
@@ -96,7 +96,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
 
         if (gamepad2.b) {
             motor_arm_tilt.setPower(-0.1); //winkel arm nach unten
-            motor_arm_lift.setPower(-0.3); //arm parallel einfahren, add until feedback
+            motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
             } else {
             motor_arm_tilt.setPower(0);
             motor_arm_lift.setPower(0);
