@@ -20,6 +20,10 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 @TeleOp (name = "AutonomousBlueOtherPosition")
 public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
+    private final int timeDriveForward = 2200;
+    private final int timeDriveBackward = 1300;
+    private final float degreeRight = 37;
+    private final float degreeLeft = 37;
     private GoldAlignDetector detector; //Recognizes golden mineral
 
     @Override
@@ -54,16 +58,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
 
         waitForStart();
-        //Start of autonomous code
 
-        /*while (opModeIsActive()) {
-                //waits additional second
-                tools.stopForSeconds(1000);
-
-            telemetry.addData("Is gold there", detector.isFound());
-            telemetry.addData("Where is gold", detector.getXPosition());
-            telemetry.update();
-        }*/
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         tools.stopForSeconds(1500); //Time to drive forward first time
@@ -86,7 +81,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
             motorStuff.setAllMotors(0,0,0,0);
 
         } else if (opModeIsActive()){ //Mineral is left or right
-            motorStuff.turnToDegreeV4(30); //Turns to the right todo changed from 22
+            motorStuff.turnToDegreeV4(degreeRight); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
             tools.stopForSeconds(1000);
@@ -97,14 +92,14 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(2500); //todo 2500
+                tools.stopForSeconds(timeDriveForward); //todo 2500
 
                 //Drive backward additional time
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(1000);
+                tools.stopForSeconds(timeDriveBackward);
 
-                motorStuff.turnToDegreeV4(360-30); //Changed from 360 - 22
+                motorStuff.turnToDegreeV4(360-degreeRight); //Changed from 360 - 22
 
                 //waits additional second
                 tools.stopForSeconds(1000);
@@ -114,14 +109,14 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
                 telemetry.addData("Where: ", detector.getXPosition());
                 telemetry.update();
                 tools.stopForSeconds(1000);
-                motorStuff.turnToDegreeV4(360-60); //Left
+                motorStuff.turnToDegreeV4(360 - (degreeLeft + degreeRight)); //Left
 
                 //Drive forward two seconds
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(2500);
+                tools.stopForSeconds(timeDriveForward);
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(1000);
+                tools.stopForSeconds(timeDriveBackward);
 
                 motorStuff.turnToDegreeV4(30); //Changed
 
