@@ -26,6 +26,9 @@ public class AutonomousTestBlue extends LinearOpMode {
     private FarbHelfer blueline; //Recognizes blue line
     private Tools tools;
 
+    private final int degreeRight = 37;
+    private final int degreeLeft = 37;
+
 
     @Override
     public void runOpMode() {
@@ -66,9 +69,10 @@ public class AutonomousTestBlue extends LinearOpMode {
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time+1000) { }
+        while (System.currentTimeMillis() < time+1500) { }
         motorStuff.setAllMotors(0,0,0,0);
 
+        tools.stopForMilliSeconds(1000);
         //Sees middle mineral. Checks whether is't gold or not.
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
@@ -88,33 +92,30 @@ public class AutonomousTestBlue extends LinearOpMode {
 
             motorStuff.setAllMotors(0,0,0,0);
         } else { //Mineral is left or right
-            motorStuff.turnToDegreeV4(22); //Turns to the right
+            motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
-            time  = System.currentTimeMillis();
-            while (System.currentTimeMillis() < time+1000) { }
+            tools.stopForMilliSeconds(1000);
             if(detector.isFound()){ //If this mineral is gold, the robot drives to the wall and then to the marker zone
                 distanceTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
-                time = System.currentTimeMillis();
-                while (time >= System.currentTimeMillis()+1000) {       }
+                tools.stopForMilliSeconds(1000);
 
-                while (!blueline.isBlue(hwChss.color_back_right)) {
+                motorStuff.setAllMotors(0,0,0,0);
+                distanceTools.followWallBlueWithoutTurn(motorStuff.getDegree());
+                /*while (!blueline.isBlu    e(hwChss.color_back_right)) {
                     motorStuff.setAllMotors(0, -0.2, 0,-0.2);
-                }
+                }*/
             }
             else { //Same for the left side
-                motorStuff.turnToDegreeV4(360-45); //Left
+                motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
-                time  = System.currentTimeMillis();
-                while (System.currentTimeMillis() < time+1000) { }
+                tools.stopForMilliSeconds(1000);
                 distanceTools.driveToWall(Direction_Enum.Left);
 
                 //Waits additional second
-                time = System.currentTimeMillis();
-                while (System.currentTimeMillis() < time+1000) {       }
-
+                tools.stopForMilliSeconds(1000);
                 //Drives from the wall to the marker zone.
                 while (!blueline.isBlue(hwChss.color_back_right)) {
                     motorStuff.setAllMotors(0,0.2,0,0.2);

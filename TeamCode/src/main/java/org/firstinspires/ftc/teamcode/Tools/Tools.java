@@ -8,7 +8,7 @@ public class Tools {
      * pauses the program for additional seconds
      * @param timeStop double, in Milliseconds
      */
-    public void stopForSeconds (double timeStop) {
+    public void stopForMilliSeconds(double timeStop) {
         double time = System.currentTimeMillis();
 
         while (System.currentTimeMillis() < time + timeStop) {        }

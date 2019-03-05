@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -61,7 +60,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
 
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
-        tools.stopForSeconds(1500); //Time to drive forward first time
+        tools.stopForMilliSeconds(1500); //Time to drive forward first time
         motorStuff.setAllMotors(0,0,0,0);
 
         //Sees middle mineral. Checks whether it's gold or not.
@@ -69,59 +68,59 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
-        tools.stopForSeconds(1000);
+        tools.stopForMilliSeconds(1000);
         if (isGold && opModeIsActive()) { //Middle
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
-            tools.stopForSeconds(2000);
+            tools.stopForMilliSeconds(2000);
 
             motorStuff.setAllMotors(-0.2,0,-0.2,0);
-            tools.stopForSeconds(1000);
+            tools.stopForMilliSeconds(1000);
             motorStuff.setAllMotors(0,0,0,0);
 
         } else if (opModeIsActive()){ //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
-            tools.stopForSeconds(1000);
+            tools.stopForMilliSeconds(1000);
             if(detector.isFound() && opModeIsActive()) { //Gold mineral is on the right side
                 telemetry.addData("Where: ", detector.getXPosition());
                 telemetry.update();
-                tools.stopForSeconds(1000);
+                tools.stopForMilliSeconds(1000);
 
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(timeDriveForward); //todo 2500
+                tools.stopForMilliSeconds(timeDriveForward); //todo 2500
 
                 //Drive backward additional time
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(timeDriveBackward);
+                tools.stopForMilliSeconds(timeDriveBackward);
 
                 motorStuff.turnToDegreeV4(360-degreeRight); //Changed from 360 - 22
 
                 //waits additional second
-                tools.stopForSeconds(1000);
+                tools.stopForMilliSeconds(1000);
 
             }
             else if (opModeIsActive()){ //Same for the left side
                 telemetry.addData("Where: ", detector.getXPosition());
                 telemetry.update();
-                tools.stopForSeconds(1000);
+                tools.stopForMilliSeconds(1000);
                 motorStuff.turnToDegreeV4(360 - (degreeLeft + degreeRight)); //Left
 
                 //Drive forward two seconds
                 motorStuff.setAllMotors(0.2,0,0.2,0);
-                tools.stopForSeconds(timeDriveForward);
+                tools.stopForMilliSeconds(timeDriveForward);
 
                 motorStuff.setAllMotors(-0.2,0,-0.2,0);
-                tools.stopForSeconds(timeDriveBackward);
+                tools.stopForMilliSeconds(timeDriveBackward);
 
                 motorStuff.turnToDegreeV4(30); //Changed
 
                 //waits additional second
-                tools.stopForSeconds(1000);
+                tools.stopForMilliSeconds(1000);
             }
         }
         //It doesn't matter, if the mineral was left, right or in the center.

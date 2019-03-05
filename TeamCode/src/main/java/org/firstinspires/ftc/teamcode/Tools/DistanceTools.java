@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Tools;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
-import org.opencv.core.Mat;
 
 
 
@@ -56,15 +55,15 @@ public class DistanceTools {
                 //Drives until right sensor registers a wall.
                 while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
                     motorStuff.driveInOneDirection(0.2, 0.2); //drive forward
-                    tools.stopForSeconds(1000);
+
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
 
                 //Turns until other (left)  sensor also registers a wall, so the robot is parallel to the wall
-                while (hwChss.distance_left.getDistance(DistanceUnit.MM) != hwChss.distance_right.getDistance(DistanceUnit.MM)/*!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)))*/) {
+                /*while (hwChss.distance_left.getDistance(DistanceUnit.MM) != hwChss.distance_right.getDistance(DistanceUnit.MM)) {
                     hwChss.motor_front_left.setPower(0.2);
                     hwChss.motor_back_left.setPower(-0.2);
-                }
+                }*/
                 motorStuff.setAllMotors(0, 0, 0, 0);
                 break;
 
@@ -175,6 +174,22 @@ public class DistanceTools {
         return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
     }
 
+
+    public void followWallBlueWithoutTurn(float initialOrientation) {
+
+        FarbHelfer farbHelfer = new FarbHelfer();
+
+        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = initialOrientation -  motorStuff.getDegree();
+            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                motorStuff.setAllMotors(-0.2 ,-0.2,-0.2 , -0.2 );
+            }
+            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.2 ,-0.2,0.2,-0.2);
+            }
+            tools.stopForMilliSeconds(10);
+        }
+    }
 
 }
 
