@@ -19,7 +19,6 @@ public class DistanceTools {
     private HardwareChassisSun hwChss;
     private Tools tools;
 
-
     /**
      * Standard constructor
       * @param motorStuff Object is needed, so the method can drive in one direction
