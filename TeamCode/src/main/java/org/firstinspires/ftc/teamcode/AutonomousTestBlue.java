@@ -95,7 +95,7 @@ public class AutonomousTestBlue extends LinearOpMode {
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
-            if(detector.isFound()){ //If this mineral is gold, the robot drives to the wall and then to the marker zone
+            if(detector.isFound()){ //Mineral is right
                 distanceTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
@@ -103,9 +103,8 @@ public class AutonomousTestBlue extends LinearOpMode {
 
                 motorStuff.setAllMotors(0,0,0,0);
                 distanceTools.followWallBlueWithoutTurn(motorStuff.getDegree());
-                /*while (!blueline.isBlu    e(hwChss.color_back_right)) {
-                    motorStuff.setAllMotors(0, -0.2, 0,-0.2);
-                }*/
+
+
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
