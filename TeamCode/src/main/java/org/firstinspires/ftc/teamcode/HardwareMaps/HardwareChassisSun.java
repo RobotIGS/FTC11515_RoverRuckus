@@ -14,6 +14,7 @@ public class HardwareChassisSun extends HardwareChassis{
     public DistanceSensor distance_right;
     //public ColorSensor color_back_left;
     public ColorSensor color_back_right;
+    public ColorSensor color_back_left;
     //public Servo servoCam;
 
 
@@ -23,7 +24,7 @@ public class HardwareChassisSun extends HardwareChassis{
         super(ahwMap);
         distance_left = ahwMap.get(DistanceSensor.class, "color_distance_front_left");
         distance_right= ahwMap.get(DistanceSensor.class, "color_distance_front_right");
-        //color_back_left= ahwMap.get(ColorSensor.class, "color_distance_back_left"); //?????
+        color_back_left= ahwMap.get(ColorSensor.class, "color_distance_back_left"); //?????
         color_back_right= ahwMap.get(ColorSensor.class, "color_distance_back_right");
         //servoCam = ahwMap.get(Servo.class,  "Front_Cam_Motion");
         //servoCam = ahwMap.servo.get("Front_Cam_Motion");

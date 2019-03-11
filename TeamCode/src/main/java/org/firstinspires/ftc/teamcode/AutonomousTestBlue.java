@@ -86,7 +86,7 @@ public class AutonomousTestBlue extends LinearOpMode {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while (blueline.isBlue(hwChss.color_back_right) != true) {
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
