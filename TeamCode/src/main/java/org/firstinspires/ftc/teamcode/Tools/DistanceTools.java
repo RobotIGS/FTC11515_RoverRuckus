@@ -191,6 +191,22 @@ public class DistanceTools {
         }
     }
 
+    public void followWallBlueWithoutTurnLeft(float initialOrientation) {
+
+        FarbHelfer farbHelfer = new FarbHelfer();
+
+        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = initialOrientation -  motorStuff.getDegree();
+            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
+            }
+            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
+            }
+            tools.stopForMilliSeconds(10);
+        }
+    }
+
 }
 
 

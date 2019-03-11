@@ -114,11 +114,8 @@ public class AutonomousTestBlue extends LinearOpMode {
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
                 //Drives from the wall to the marker zone.
-                while (!blueline.isBlue(hwChss.color_back_right)) {
-                    motorStuff.setAllMotors(0,0.2,0,0.2);
-                }
-
                 motorStuff.setAllMotors(0,0,0,0);
+                distanceTools.followWallBlueWithoutTurnLeft(motorStuff.getDegree());
 
             }
         }
