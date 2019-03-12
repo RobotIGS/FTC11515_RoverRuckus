@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  * Our actual approach to the autonomous period.
  * Works for blue side, right position
  */
-@TeleOp (name = "AutonomousBlueCrater")
+@Autonomous(name = "AutonomousBlueCrater")
 public class AutonomousBlueCrater extends LinearOpMode {
 
     private final int timeDriveForward = 2200;
@@ -69,7 +70,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
         tools.stopForMilliSeconds(1000);
-        if (isGold && opModeIsActive()) { //Middle
+        if (isGold && opModeIsActive() && opModeIsActive()) { //Middle
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
