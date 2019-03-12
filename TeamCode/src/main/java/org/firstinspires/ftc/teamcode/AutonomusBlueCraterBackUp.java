@@ -5,26 +5,25 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-/*
- * Our actual approach to the autonomous period.
- * Works for blue side, right position
- */
-@Autonomous(name = "AutonomousBlueCrater")
-public class AutonomousBlueCrater extends LinearOpMode {
+@Autonomous (name = "AutonomusBlueCraterBackUp")
+public class AutonomusBlueCraterBackUp extends LinearOpMode {
 
-    private final int timeDriveForward = 2200;
+    private final int timeDriveForward = 2345;
     private final int timeDriveBackward = 1389;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
     private GoldAlignDetector detector; //Recognizes golden mineral
+    private FarbHelfer blueline;
+
 
     @Override
     public void runOpMode() {
@@ -33,7 +32,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         Tools tools = new Tools();
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
+        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -55,7 +54,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
 
         detector.enable(); // Start the detector!
 
-
+        blueline = new FarbHelfer();
 
         waitForStart();
 
@@ -70,7 +69,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
         tools.stopForMilliSeconds(1000);
-        if (isGold && opModeIsActive() && opModeIsActive()) { //Middle
+        if (isGold && opModeIsActive()) { //Middle
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
@@ -128,9 +127,12 @@ public class AutonomousBlueCrater extends LinearOpMode {
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.BlueCrater);
-        distanceTools.followWallBlueCrater(motorStuff.getDegree());
 
+        distanceTools.driveBackFromWall(Direction_Enum.BlueCrater);
 
+        while ((!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {
+            motorStuff.setAllMotors(0,-0.2,0,-0.2);
+        }
+        motorStuff.setAllMotors(0,0,0,0);
     }
-
 }

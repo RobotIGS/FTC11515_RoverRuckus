@@ -99,7 +99,7 @@ public class AutonomusBlueSideBackUp extends LinearOpMode {
 
                 motorStuff.setAllMotors(0,0,0,0);
 
-                distanceAlternativeTools.driveBackFromWall();
+                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Right);
 
                 while ((!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {
                     motorStuff.setAllMotors(0,-0.2,0,-0.2);
@@ -116,7 +116,7 @@ public class AutonomusBlueSideBackUp extends LinearOpMode {
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
 
-                distanceAlternativeTools.driveBackFromWall();
+                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Left);
 
                 //Drives from the wall to the marker zone.
                 while ((!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {

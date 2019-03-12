@@ -131,7 +131,7 @@ public class DistanceTools {
 
 
     /**
-     * Dont exactly know, is it from Nils?
+     * Dont exactly know, is it from Nils? - nope.. no idea
      * @param initial_orientation
      */
     public void driveToWallWithCompass(double initial_orientation){
