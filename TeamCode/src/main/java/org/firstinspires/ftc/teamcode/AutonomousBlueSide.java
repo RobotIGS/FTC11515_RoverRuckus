@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  *
  * 22.02.19 Please don't touch. This should work, but need's to be tested again
  */
-@TeleOp (name = "AutonomousTestBlue")
-public class AutonomousTestBlue extends LinearOpMode {
+@TeleOp (name = "AutonomousBlueSide")
+public class AutonomousBlueSide extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
@@ -86,7 +86,7 @@ public class AutonomousTestBlue extends LinearOpMode {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while (blueline.isBlue(hwChss.color_back_right) != true) {
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
@@ -102,9 +102,7 @@ public class AutonomousTestBlue extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurn(motorStuff.getDegree());
-
-
+                distanceTools.followWallBlueWithoutTurnRightSide(motorStuff.getDegree());
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
@@ -116,11 +114,8 @@ public class AutonomousTestBlue extends LinearOpMode {
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
                 //Drives from the wall to the marker zone.
-                while (!blueline.isBlue(hwChss.color_back_right)) {
-                    motorStuff.setAllMotors(0,0.2,0,0.2);
-                }
-
                 motorStuff.setAllMotors(0,0,0,0);
+                distanceTools.followWallBlueWithoutTurnLeft(motorStuff.getDegree());
 
             }
         }

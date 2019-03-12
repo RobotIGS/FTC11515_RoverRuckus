@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  * Our actual approach to the autonomous period.
  * Works for blue side, right position
  */
-@TeleOp (name = "AutonomousBlueOtherPosition")
-public class AutonomousTestBlueOtherPosition extends LinearOpMode {
+@TeleOp (name = "AutonomousBlueCrater")
+public class AutonomousBlueCrater extends LinearOpMode {
 
     private final int timeDriveForward = 2200;
     private final int timeDriveBackward = 1300;
@@ -127,7 +127,7 @@ public class AutonomousTestBlueOtherPosition extends LinearOpMode {
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.BlueCrater);
-        distanceTools.followWallBlue(motorStuff.getDegree());
+        distanceTools.followWallBlueCrater(motorStuff.getDegree());
 
 
     }

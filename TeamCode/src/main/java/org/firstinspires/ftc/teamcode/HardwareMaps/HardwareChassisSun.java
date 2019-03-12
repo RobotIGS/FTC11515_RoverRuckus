@@ -14,6 +14,7 @@ public class HardwareChassisSun extends HardwareChassis{
     public DistanceSensor distance_right;
     //public ColorSensor color_back_left;
     public ColorSensor color_back_right;
+    public ColorSensor color_back_left;
     //public Servo servoCam;
 
 
