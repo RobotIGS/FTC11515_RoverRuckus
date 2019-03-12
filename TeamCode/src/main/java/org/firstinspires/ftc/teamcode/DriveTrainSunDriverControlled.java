@@ -105,7 +105,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
             motor_arm_lift.setPower(0);
             }
 
-
+            
         //add collector etc.
 
     }
