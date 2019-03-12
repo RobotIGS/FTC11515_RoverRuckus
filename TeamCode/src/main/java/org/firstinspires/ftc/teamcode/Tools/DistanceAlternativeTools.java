@@ -7,9 +7,9 @@ public class DistanceAlternativeTools {
     private HardwareChassisSun hwChss;
     private Tools tools;
 
-    private long timeAdvance = 4000;
-    private long timeRotate = 2000;
-    private long timeDevance = 500;
+    private long timeAdvance = 5000;
+    private long timeRotate = 1000;
+    private long timeDevance = 300;
     private long callTime;
 
     public DistanceAlternativeTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools){
@@ -19,12 +19,12 @@ public class DistanceAlternativeTools {
     }
 
     public void driveToWall(Direction_Enum direction){
+        callTime = System.currentTimeMillis();
+        while (!this.timeIsUp(timeAdvance)){
+            motorStuff.driveInOneDirection(0.2, 0.2);
+        }
         switch (direction){
             case Left:
-                callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeAdvance)){
-                    motorStuff.driveInOneDirection(0.2, 0.2);
-                }
                 motorStuff.setAllMotors(0,0,0,0);
                 callTime = System.currentTimeMillis();
                 while ((!this.timeIsUp(timeRotate))){
@@ -33,14 +33,10 @@ public class DistanceAlternativeTools {
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
             case Right:
-                callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeAdvance)){
-                    motorStuff.driveInOneDirection(-0.2, -0.2);
-                }
                 motorStuff.setAllMotors(0,0,0,0);
                 callTime = System.currentTimeMillis();
                 while ((!this.timeIsUp(timeRotate))){
-                    motorStuff.setAllMotors(0,0,0.2,0);
+                    motorStuff.setAllMotors(0,0,0.4,0);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
