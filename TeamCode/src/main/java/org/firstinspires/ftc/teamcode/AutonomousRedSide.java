@@ -19,11 +19,11 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  *
  * 22.02.19 Please don't touch. This should work, but need's to be tested again
  */
-@TeleOp (name = "AutonomousTestBlue")
-public class AutonomousTestBlue extends LinearOpMode {
+@TeleOp (name = "AutonomousRedSide")
+public class AutonomousRedSide extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer blueline; //Recognizes blue line
+    private FarbHelfer redline; //Recognizes blue line
     private Tools tools;
 
     private final int degreeRight = 37;
@@ -41,7 +41,7 @@ public class AutonomousTestBlue extends LinearOpMode {
 
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
 
-        blueline = new FarbHelfer();
+        redline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -86,8 +86,8 @@ public class AutonomousTestBlue extends LinearOpMode {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))) {
-               motorStuff.setAllMotors(0.2,0,0.2,0);
+            while ((!redline.isBlue(hwChss.color_back_right)) && (!redline.isBlue(hwChss.color_back_right))) {
+                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);

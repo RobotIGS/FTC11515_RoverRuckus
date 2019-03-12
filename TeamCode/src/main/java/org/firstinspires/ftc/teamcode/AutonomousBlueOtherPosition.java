@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  * Works for blue side, right position
  */
 @TeleOp (name = "AutonomousBlueOtherPosition")
-public class AutonomousTestBlueOtherPosition extends LinearOpMode {
+public class AutonomousBlueOtherPosition extends LinearOpMode {
 
     private final int timeDriveForward = 2200;
     private final int timeDriveBackward = 1300;
