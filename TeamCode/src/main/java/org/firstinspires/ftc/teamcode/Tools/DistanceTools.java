@@ -146,12 +146,27 @@ public class DistanceTools {
     /**
      * Follow the wall to the blue line
      */
-    public void followWallBlue(float initialOrientation) {
+    public void followWallBlueCrater(float initialOrientation) {
 
         FarbHelfer farbHelfer = new FarbHelfer();
         motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
         while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = motorStuff.getDegree() - initialOrientation;
+            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
+                motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
+            }
+            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistance || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
+            }
+        }
+    }
+    public void followWallRedCrater(float initialOrientation) {
+
+        FarbHelfer farbHelfer = new FarbHelfer();
+        motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
+
+        while(!farbHelfer.isRed(hwChss.color_back_right)){
             float difference = motorStuff.getDegree() - initialOrientation;
             if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
                 motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
@@ -175,11 +190,27 @@ public class DistanceTools {
     }
 
 
-    public void followWallBlueWithoutTurn(float initialOrientation) {
+    public void followWallBlueWithoutTurnRightSide(float initialOrientation) {
 
         FarbHelfer farbHelfer = new FarbHelfer();
 
         while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = initialOrientation -  motorStuff.getDegree();
+            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
+            }
+            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.15 ,-0.15 + newSigLog(difference),0.15,-0.15 - newSigLog(difference));
+            }
+            tools.stopForMilliSeconds(10);
+        }
+    }
+
+    public void followWallRedWithoutTurnRightSide(float initialOrientation) {
+
+        FarbHelfer farbHelfer = new FarbHelfer();
+
+        while(!farbHelfer.isRed(hwChss.color_back_right)){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
@@ -196,6 +227,21 @@ public class DistanceTools {
         FarbHelfer farbHelfer = new FarbHelfer();
 
         while(!farbHelfer.isBlue(hwChss.color_back_right)){
+            float difference = initialOrientation -  motorStuff.getDegree();
+            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
+            }
+            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
+            }
+            tools.stopForMilliSeconds(10);
+        }
+    }
+
+    public void followWallRedWithoutTurnLeft(float initialOrientation) {
+        FarbHelfer farbHelfer = new FarbHelfer();
+
+        while(!farbHelfer.isRed(hwChss.color_back_right)){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));

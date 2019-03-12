@@ -68,8 +68,7 @@ public class AutonomousRedSide extends LinearOpMode {
 
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
-        long time  = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time+1500) { }
+        tools.stopForMilliSeconds(1500);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(1000);
@@ -81,12 +80,9 @@ public class AutonomousRedSide extends LinearOpMode {
 
             //Drive forward to seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
-            time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000)) {
-                motorStuff.setAllMotors(0.2,0,0.2,0);
-            }
+            tools.stopForMilliSeconds(2000);
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!redline.isBlue(hwChss.color_back_right)) && (!redline.isBlue(hwChss.color_back_right))) {
+            while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right))) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
@@ -102,7 +98,7 @@ public class AutonomousRedSide extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurn(motorStuff.getDegree());
+                distanceTools.followWallRedWithoutTurnRightSide(motorStuff.getDegree());
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
@@ -115,7 +111,7 @@ public class AutonomousRedSide extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
                 //Drives from the wall to the marker zone.
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurnLeft(motorStuff.getDegree());
+                distanceTools.followWallRedWithoutTurnLeft(motorStuff.getDegree());
 
             }
         }

@@ -102,7 +102,7 @@ public class AutonomousBlueSide extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurn(motorStuff.getDegree());
+                distanceTools.followWallBlueWithoutTurnRightSide(motorStuff.getDegree());
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
