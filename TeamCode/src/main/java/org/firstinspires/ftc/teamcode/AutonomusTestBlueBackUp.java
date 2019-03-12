@@ -97,9 +97,13 @@ public class AutonomusTestBlueBackUp extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                //ZURÜCK UND RICHTUNG
 
+                distanceAlternativeTools.driveBackFromWall();
 
+                while (!blueline.isBlue(hwChss.color_back_right)) {
+                    motorStuff.setAllMotors(0,-0.2,0,-0.2);
+                }
+                motorStuff.setAllMotors(0,0,0,0);
             }
             else { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
@@ -110,6 +114,9 @@ public class AutonomusTestBlueBackUp extends LinearOpMode {
 
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
+
+                distanceAlternativeTools.driveBackFromWall();
+                
                 //Drives from the wall to the marker zone.
                 while (!blueline.isBlue(hwChss.color_back_right)) {
                     motorStuff.setAllMotors(0,0.2,0,0.2);
