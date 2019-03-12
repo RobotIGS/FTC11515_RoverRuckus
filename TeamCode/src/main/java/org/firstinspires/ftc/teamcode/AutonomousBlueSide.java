@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  *
  * 22.02.19 Please don't touch. This should work, but need's to be tested again
  */
-@TeleOp (name = "AutonomousBlueSide")
+@Autonomous(name = "AutonomousBlueSide")
 public class AutonomousBlueSide extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
@@ -69,7 +70,7 @@ public class AutonomousBlueSide extends LinearOpMode {
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time+1500) { }
+        tools.stopForMilliSeconds(1500);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(1000);
@@ -77,25 +78,25 @@ public class AutonomousBlueSide extends LinearOpMode {
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.update();
-        if (isGold) { //Middle
+        if (isGold && opModeIsActive()) { //Middle
 
             //Drive forward to seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
             time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000)) {
+            while ((System.currentTimeMillis() < time+2000) && opModeIsActive()) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))) {
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
-        } else { //Mineral is left or right
+        } else if (opModeIsActive()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
-            if(detector.isFound()){ //Mineral is right
+            if(detector.isFound() && opModeIsActive()){ //Mineral is right
                 distanceTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
@@ -104,7 +105,7 @@ public class AutonomousBlueSide extends LinearOpMode {
                 motorStuff.setAllMotors(0,0,0,0);
                 distanceTools.followWallBlueWithoutTurnRightSide(motorStuff.getDegree());
             }
-            else { //Same for the left side
+            else if (opModeIsActive()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 

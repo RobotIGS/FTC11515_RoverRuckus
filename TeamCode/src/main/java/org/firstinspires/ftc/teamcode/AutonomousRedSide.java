@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  *
  * 22.02.19 Please don't touch. This should work, but need's to be tested again
  */
-@TeleOp (name = "AutonomousRedSide")
+@Autonomous(name = "AutonomousRedSide")
 public class AutonomousRedSide extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
@@ -76,22 +77,22 @@ public class AutonomousRedSide extends LinearOpMode {
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.update();
-        if (isGold) { //Middle
+        if (isGold && opModeIsActive()) { //Middle
 
             //Drive forward to seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
             tools.stopForMilliSeconds(2000);
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right))) {
+            while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right)) && opModeIsActive()) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
-        } else { //Mineral is left or right
+        } else if  (opModeIsActive()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
-            if(detector.isFound()){ //Mineral is right
+            if(detector.isFound() && opModeIsActive()){ //Mineral is right
                 distanceTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
@@ -100,7 +101,7 @@ public class AutonomousRedSide extends LinearOpMode {
                 motorStuff.setAllMotors(0,0,0,0);
                 distanceTools.followWallRedWithoutTurnRightSide(motorStuff.getDegree());
             }
-            else { //Same for the left side
+            else if (opModeIsActive()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
