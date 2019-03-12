@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  * @author paul, lena
  * This class lets the robot drive until he detects a wall with his distance sensors
  */
+/*
 @Deprecated
 @Disabled
 @TeleOp(name = "Distance")
@@ -33,7 +34,7 @@ public class DriveToWall extends OpMode {
         distanceSensorRechts = hardwareMap.get(DistanceSensor.class, "color_distance");
         tools = new Tools();
         hwChss = new HardwareChassisSun(hardwareMap);
-        motorStuff = new MotorStuff(hwChss, hardwareMap);
+        motorStuff = new MotorStuff(hwChss, hardwareMap, );
 
     }
 
@@ -83,3 +84,4 @@ public class DriveToWall extends OpMode {
         }
     }
 }
+*/

@@ -4,6 +4,7 @@
 
 package org.firstinspires.ftc.teamcode.Tools;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -21,15 +22,15 @@ public class MotorStuff {
     //Declare a variable to hand over the right wanted hardwaremap for the right layout
     private HardwareChassis hwchss;
     private HardwareChassisSun hwChss;
-
+    private LinearOpMode opMode;
     private HardwareChassisGyro hwgy;
 
-    public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap) {
+    public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap, LinearOpMode opMode) {
         hwchss = _hwchss;
         hwChss = new HardwareChassisSun(hardwareMap);
         hwgy = new HardwareChassisGyro(hardwareMap);
         hwgy.init(hardwareMap);
-        //this.opMde = opMde;
+        this.opMode = opMode;
     }
 
     /**
@@ -113,7 +114,7 @@ public class MotorStuff {
         double difference = 2;
         /*mby remove*/degree = 360 - degree;
         float goal = (this.getDegree() + degree)%360;
-        while(difference>1 || difference<-1){
+        while((difference>1 || difference<-1 )  && !opMode.isStopRequested()){
             difference = -1*/*Math.abs*/(goal-this.getDegree());
             this.turn(this.personalTanH(difference/200),Direction_Enum.Right);
         }

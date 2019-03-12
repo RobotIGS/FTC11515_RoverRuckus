@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Tools;
+/*package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -10,7 +10,7 @@ public class GyroToolsTest extends OpMode {
     Author Malte and Lars
     The following class is supposed to enable turn chassisun a specific amount of degrees
      */
-
+/*
     private MotorStuff motorstuff = new MotorStuff(new HardwareChassisSun(hardwareMap), hardwareMap );
 
     public void turn(double Degrees){
@@ -40,3 +40,4 @@ public class GyroToolsTest extends OpMode {
 
     }
 }
+*/
