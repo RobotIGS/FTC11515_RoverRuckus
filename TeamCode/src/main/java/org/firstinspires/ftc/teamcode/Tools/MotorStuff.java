@@ -4,8 +4,6 @@
 
 package org.firstinspires.ftc.teamcode.Tools;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -17,32 +15,38 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareGyro;
 
 public class MotorStuff {
 
-    //Declare a variable to hand over the right wanted hardwaremap for the right layout
+    //Declare a variable to hand over the right wanted hardware map for the right layout
     private HardwareChassis hwchss;
     private HardwareGyro hwgy;
-    //private OpMode opMde;
-    private final int TTD_TAN_SMOOTHNESS = 180;
-    private double ttd_difference;
-    private double ttd_goal;
 
     public double SMOOTHNESS = 150;
-    double MINSPEED = 0.1;
+    private double MINSPEED = 0.1;
     /**
      * Constructor
-     * @param _hwchss the hardwaremap object that should be used
+     * @param hwchss the hardwaremap object that should be used
+     * @param hardwareMap the hardware map from the used op mode
      */
-    public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap) {
-        hwchss = _hwchss;
+    public MotorStuff(HardwareChassis hwchss, HardwareMap hardwareMap) {
+        this.hwchss = hwchss;
         hwgy = new HardwareGyro(hardwareMap);
         hwgy.init(hardwareMap);
-        //this.opMde = opMde;
     }
 
-    public MotorStuff(HardwareChassis _hwchss) {
-        hwchss = _hwchss;
-        //this.opMde = opMde;
+    /**
+     * Only hardware chassis constructor
+     * @param hwchss The hardware chassis to use. Includes the motors
+     */
+    public MotorStuff(HardwareChassis hwchss) {
+        this.hwchss = hwchss;
     }
-    //this method is used to set all motors at once instead of having to set all of them individually gets speed values by main class
+
+    /**
+     * This method makes it easier in the op - modes to set all motors
+     * @param SpeedFrontLeft Speed of motor front left
+     * @param SpeedBackLeft Speed of motor back left
+     * @param SpeedBackRight Speed of motor back right
+     * @param SpeedFrontRight Speed of motor front right
+     */
     public void setAllMotors(double SpeedFrontLeft, double SpeedBackLeft, double SpeedBackRight,double SpeedFrontRight){
             hwchss.motor_front_left.setPower(SpeedFrontLeft);
             hwchss.motor_front_right.setPower(SpeedFrontRight);
@@ -100,14 +104,6 @@ public class MotorStuff {
         Orientation angles;
         angles = hwgy.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return angles.firstAngle + 180;
-    }
-
-    public HardwareGyro getHwgy() {
-        return hwgy;
-    }
-
-    public void setHwgy(HardwareGyro hwgy) {
-        this.hwgy = hwgy;
     }
 
     /**
