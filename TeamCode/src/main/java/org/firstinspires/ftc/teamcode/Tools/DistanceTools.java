@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
  */
 
 public class DistanceTools {
-    private final double wallDistance = 6;
+    private final double WALLDISTANCE = 6; //todo 6
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
     private Tools tools;
@@ -119,10 +119,10 @@ public class DistanceTools {
 
         while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = motorStuff.getDegree() - initialOrientation;
-            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
+            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
                 motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
             }
-            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistance || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
                 motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
             }
         }
@@ -134,10 +134,10 @@ public class DistanceTools {
 
         while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = motorStuff.getDegree() - initialOrientation;
-            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
+            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
                 motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
             }
-            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= wallDistance || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
                 motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
             }
         }
@@ -154,9 +154,9 @@ public class DistanceTools {
     private double newSigLog(float v ) {
         return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
     }
-    private double newSigLogRight(float v, float distance) {
+    private double newSigLogRight(double v, double distance) {
         v = v - distance;
-        return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.05;
+        return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.5;
     }
 
 

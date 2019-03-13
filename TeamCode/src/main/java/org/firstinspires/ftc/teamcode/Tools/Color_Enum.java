@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-public class Color_Enum {
+public enum  Color_Enum {
+    Blue, Red
 }
