@@ -20,7 +20,6 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
     private final int timeDriveBackward = 1389;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
-    private LinearOpMode opMode;
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline;
 
@@ -29,10 +28,10 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
     public void runOpMode() {
 
         //Init
-        Tools tools = new Tools(opMode);
+        Tools tools = new Tools(this);
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
-        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, opMode);
-        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, opMode);
+        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
+        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
