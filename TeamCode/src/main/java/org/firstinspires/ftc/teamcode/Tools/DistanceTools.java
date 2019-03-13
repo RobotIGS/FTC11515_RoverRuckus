@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -18,6 +20,7 @@ public class DistanceTools {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
     private Tools tools;
+    private LinearOpMode opMode;
 
     /**
      * Standard constructor
@@ -25,10 +28,11 @@ public class DistanceTools {
      * @param hwChss This is needed, so the method can access the motors and sensors
      * @param tools contains stop and further methods
      */
-    public DistanceTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools) {
+    public DistanceTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode) {
         this.motorStuff = motorStuff;
         this.hwChss = hwChss;
         this.tools = tools;
+        this.opMode = opMode;
     }
 
     /**
@@ -40,21 +44,20 @@ public class DistanceTools {
         switch (direction) {
             case Left:
                 //Drives until left sensor registers a wall.
-                while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+                while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
                     motorStuff.driveInOneDirection(0.2, 0.2);
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
                 //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
-                while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
+                while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
                     hwChss.motor_front_right.setPower(-0.2);
                     hwChss.motor_back_right.setPower(0.2);
                 }
                 break;
             case Right:
                 //Drives until right sensor registers a wall.
-                while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
+                while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
                     motorStuff.driveInOneDirection(0.2, 0.2); //drive forward
-
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
 
@@ -70,7 +73,7 @@ public class DistanceTools {
                 //set all motors 0
                 motorStuff.setAllMotors(0,0,0,0);
                 //Drives until left sensor registers a wall.
-                while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
+                while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
                     motorStuff.driveLeft(0.2, 0.2);
 
                 }
@@ -129,19 +132,6 @@ public class DistanceTools {
         }
     }
 
-
-    /**
-     * Dont exactly know, is it from Nils? - nope.. no idea
-     * @param initial_orientation
-     */
-    public void driveToWallWithCompass(double initial_orientation){
-        while(!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))){
-            motorStuff.driveInOneDirection(0.2, 0.2);
-        }
-        motorStuff.setAllMotors(0,0,0,0);
-        motorStuff.turnToDegreeV4(   (float)(       45 +     initial_orientation - motorStuff.getDegree()   +    360)    );
-    }
-
     /**
      * Follow the wall to the blue line
      */
@@ -150,7 +140,7 @@ public class DistanceTools {
         FarbHelfer farbHelfer = new FarbHelfer();
         motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
-        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = motorStuff.getDegree() - initialOrientation;
             if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
                 motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
@@ -165,7 +155,7 @@ public class DistanceTools {
         FarbHelfer farbHelfer = new FarbHelfer();
         motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
-        while(!farbHelfer.isRed(hwChss.color_back_right)){
+        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = motorStuff.getDegree() - initialOrientation;
             if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < wallDistance){
                 motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
@@ -193,7 +183,7 @@ public class DistanceTools {
 
         FarbHelfer farbHelfer = new FarbHelfer();
 
-        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
@@ -209,7 +199,7 @@ public class DistanceTools {
 
         FarbHelfer farbHelfer = new FarbHelfer();
 
-        while(!farbHelfer.isRed(hwChss.color_back_right)){
+        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
@@ -225,7 +215,7 @@ public class DistanceTools {
 
         FarbHelfer farbHelfer = new FarbHelfer();
 
-        while(!farbHelfer.isBlue(hwChss.color_back_right)){
+        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
@@ -240,7 +230,7 @@ public class DistanceTools {
     public void followWallRedWithoutTurnLeft(float initialOrientation) {
         FarbHelfer farbHelfer = new FarbHelfer();
 
-        while(!farbHelfer.isRed(hwChss.color_back_right)){
+        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
             float difference = initialOrientation -  motorStuff.getDegree();
             if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
                 motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));

@@ -58,7 +58,7 @@ public class GoldAlignValues extends LinearOpMode
         telemetry.addData("Status", "DogeCV 2018.0 - Gold Align Example");
 
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
-        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
+        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
 
         // Set up detector
         detector = new GoldAlignDetector(); // Cr

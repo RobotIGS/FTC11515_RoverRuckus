@@ -26,10 +26,10 @@ public class Test_FindWall extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        tools = new Tools();
+        tools = new Tools(this);
         hwChss = new HardwareChassisSun(hardwareMap);
-        motorStuff = new MotorStuff(hwChss, hardwareMap);
-        distanceTools = new DistanceTools(motorStuff, hwChss, tools);
+        motorStuff = new MotorStuff(hwChss, hardwareMap, this);
+        distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
 
 
         waitForStart();

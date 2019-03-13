@@ -37,10 +37,10 @@ public class AutonomousBlueSide extends LinearOpMode {
         //Init
 
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
-        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        tools = new Tools();
+        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
+        tools = new Tools(this);
 
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools);
+        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
 
         blueline = new FarbHelfer();
 
@@ -78,25 +78,25 @@ public class AutonomousBlueSide extends LinearOpMode {
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.update();
-        if (isGold && opModeIsActive()) { //Middle
+        if (isGold  && !isStopRequested()) { //Middle
 
             //Drive forward to seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
             time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000) && opModeIsActive()) {
+            while ((System.currentTimeMillis() < time+2000) && !isStopRequested()) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
-        } else if (opModeIsActive()) { //Mineral is left or right
+        } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
-            if(detector.isFound() && opModeIsActive()){ //Mineral is right
+            if(detector.isFound() && !isStopRequested()){ //Mineral is right
                 distanceTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
@@ -105,7 +105,7 @@ public class AutonomousBlueSide extends LinearOpMode {
                 motorStuff.setAllMotors(0,0,0,0);
                 distanceTools.followWallBlueWithoutTurnRightSide(motorStuff.getDegree());
             }
-            else if (opModeIsActive()) { //Same for the left side
+            else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
