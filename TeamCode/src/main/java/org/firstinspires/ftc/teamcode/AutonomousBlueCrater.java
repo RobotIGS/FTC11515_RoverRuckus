@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
@@ -127,8 +128,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.BlueCrater);
-        distanceTools.followWallBlueCrater(motorStuff.getDegree());
-
+        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.BlueCrater, Color_Enum.Blue);
 
     }
 

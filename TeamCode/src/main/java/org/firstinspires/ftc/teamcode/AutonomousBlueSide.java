@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
@@ -103,7 +104,8 @@ public class AutonomousBlueSide extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurnRightSide(motorStuff.getDegree());
+                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
+
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
@@ -116,7 +118,7 @@ public class AutonomousBlueSide extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
                 //Drives from the wall to the marker zone.
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWallBlueWithoutTurnLeft(motorStuff.getDegree());
+                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Left, Color_Enum.Blue);
 
             }
         }

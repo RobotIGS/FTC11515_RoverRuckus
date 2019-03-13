@@ -109,37 +109,47 @@ public class DistanceTools {
         }
     }
 
-    /**
-     * Follow the wall to the blue line
-     */
-    public void followWallBlueCrater(float initialOrientation) {
-
+    public void followWall(float initialOrientation, Direction_Enum direction, Color_Enum color) {
         FarbHelfer farbHelfer = new FarbHelfer();
-        motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
+        switch (direction) {
+            case BlueCrater:
+                motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
-        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = motorStuff.getDegree() - initialOrientation;
-            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
-                motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
-            }
-        }
-    }
-    public void followWallRedCrater(float initialOrientation) {
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                    float difference = motorStuff.getDegree() - initialOrientation;
+                    if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
+                        motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
+                    }
+                    if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+                        motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
+                    }
+                }
+                break;
+            case Right:
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                    float difference = initialOrientation -  motorStuff.getDegree();
+                    if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                        motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
+                    }
+                    if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                        motorStuff.setAllMotors(0.15 ,-0.15 + newSigLog(difference),0.15,-0.15 - newSigLog(difference));
+                    }
+                    tools.stopForMilliSeconds(10);
+                }
+                break;
+            case Left:
 
-        FarbHelfer farbHelfer = new FarbHelfer();
-        motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
-
-        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = motorStuff.getDegree() - initialOrientation;
-            if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
-                motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
-            }
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                    float difference = initialOrientation -  motorStuff.getDegree();
+                    if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
+                        motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
+                    }
+                    if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
+                        motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
+                    }
+                    tools.stopForMilliSeconds(10);
+                }
+                break;
         }
     }
     /**
@@ -154,75 +164,6 @@ public class DistanceTools {
     private double newSigLog(float v ) {
         return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
     }
-    private double newSigLogRight(double v, double distance) {
-        v = v - distance;
-        return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.5;
-    }
-
-
-    public void followWallBlueWithoutTurnRightSide(float initialOrientation) {
-
-        FarbHelfer farbHelfer = new FarbHelfer();
-
-        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = initialOrientation -  motorStuff.getDegree();
-            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15 ,-0.15 + newSigLog(difference),0.15,-0.15 - newSigLog(difference));
-            }
-            tools.stopForMilliSeconds(10);
-        }
-    }
-
-    public void followWallRedWithoutTurnRightSide(float initialOrientation) {
-
-        FarbHelfer farbHelfer = new FarbHelfer();
-
-        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = initialOrientation -  motorStuff.getDegree();
-            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15 ,-0.15 + newSigLog(difference),0.15,-0.15 - newSigLog(difference));
-            }
-            tools.stopForMilliSeconds(10);
-        }
-    }
-
-    public void followWallBlueWithoutTurnLeft(float initialOrientation) {
-
-        FarbHelfer farbHelfer = new FarbHelfer();
-
-        while(!farbHelfer.isBlue(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = initialOrientation -  motorStuff.getDegree();
-            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
-            }
-            tools.stopForMilliSeconds(10);
-        }
-    }
-
-    public void followWallRedWithoutTurnLeft(float initialOrientation) {
-        FarbHelfer farbHelfer = new FarbHelfer();
-
-        while(!farbHelfer.isRed(hwChss.color_back_right) && !opMode.isStopRequested()){
-            float difference = initialOrientation -  motorStuff.getDegree();
-            if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
-            }
-            if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
-            }
-            tools.stopForMilliSeconds(10);
-        }
-    }
-
 }
 
 
