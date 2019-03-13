@@ -12,8 +12,9 @@ public class DistanceAlternativeTools {
     private FarbHelfer blueline;
 
     private long timeAdvance = 5000;
-    private long timeRotate = 3000;
+    private long timeRotate = 1000;
     private long timeDevance = 300;
+    private long timeRotateCrater = 3000;
     private long timeDevanceCrater = 400;
     private long timeAdvanceCrater = 4500;
     private long callTime;
@@ -30,7 +31,7 @@ public class DistanceAlternativeTools {
         switch (direction){
             case Left:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeAdvance)){
+                while (!this.timeIsUp(timeAdvance) && !opMode.isStopRequested()){
                     motorStuff.driveInOneDirection(0.2, 0.2);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
@@ -42,7 +43,7 @@ public class DistanceAlternativeTools {
                 break;
             case Right:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeAdvance)){
+                while (!this.timeIsUp(timeAdvance) && !opMode.isStopRequested()){
                     motorStuff.driveInOneDirection(0.2, 0.2);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
@@ -54,11 +55,11 @@ public class DistanceAlternativeTools {
                 break;
             case BlueCrater:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeAdvanceCrater)){
+                while (!this.timeIsUp(timeAdvanceCrater) && !opMode.isStopRequested()){
                     motorStuff.setAllMotors(0,-0.2,0,-0.2);
                 }
                 callTime = System.currentTimeMillis();
-                while ((!this.timeIsUp(timeRotate))){
+                while ((!this.timeIsUp(timeRotateCrater)&& !opMode.isStopRequested())){
                     motorStuff.setAllMotors(0,0,0.9,0);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
@@ -71,19 +72,19 @@ public class DistanceAlternativeTools {
         switch (direction){
             case Left:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeDevance)) {
+                while (!this.timeIsUp(timeDevance)&& !opMode.isStopRequested()) {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);
                 }
                 break;
             case Right:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeDevance)) {
+                while (!this.timeIsUp(timeDevance)&& !opMode.isStopRequested()) {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);
                 }
                 break;
             case BlueCrater:
                 callTime = System.currentTimeMillis();
-                while (!this.timeIsUp(timeDevanceCrater)) {
+                while (!this.timeIsUp(timeDevanceCrater)&& !opMode.isStopRequested()) {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);
                 }
                 break;

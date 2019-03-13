@@ -21,6 +21,7 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
     private final int timeDriveBackward = 1389;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
+    private LinearOpMode opMode;
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline;
 
@@ -29,10 +30,10 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
     public void runOpMode() {
 
         //Init
-        Tools tools = new Tools();
+        Tools tools = new Tools(opMode);
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
-        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap);
-        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools);
+        MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, opMode);
+        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, opMode);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -69,7 +70,7 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
         telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
         tools.stopForMilliSeconds(1000);
-        if (isGold && opModeIsActive()) { //Middle
+        if (isGold && !isStopRequested()) { //Middle
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
@@ -79,12 +80,12 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
             tools.stopForMilliSeconds(1000);
             motorStuff.setAllMotors(0,0,0,0);
 
-        } else if (opModeIsActive()){ //Mineral is left or right
+        } else if (!isStopRequested()){ //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
             tools.stopForMilliSeconds(1000);
-            if(detector.isFound() && opModeIsActive()) { //Gold mineral is on the right side
+            if(detector.isFound() && !isStopRequested()) { //Gold mineral is on the right side
                 telemetry.addData("Where: ", detector.getXPosition());
                 telemetry.update();
                 tools.stopForMilliSeconds(1000);
@@ -104,7 +105,7 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
             }
-            else if (opModeIsActive()){ //Same for the left side
+            else if (!isStopRequested()){ //Same for the left side
                 telemetry.addData("Where: ", detector.getXPosition());
                 telemetry.update();
                 tools.stopForMilliSeconds(1000);
@@ -130,7 +131,7 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
 
         distanceTools.driveBackFromWall(Direction_Enum.BlueCrater);
 
-        while ((!blueline.isBlue(hwChss.color_back_right))&& opModeIsActive()) {
+        while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
             motorStuff.setAllMotors(0,-0.2,0,-0.2);
         }
         motorStuff.setAllMotors(0,0,0,0);
