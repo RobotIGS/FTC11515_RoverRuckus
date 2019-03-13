@@ -7,23 +7,20 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 public class DistanceAlternativeTools {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
-    private Tools tools;
     private LinearOpMode opMode;
-    private FarbHelfer blueline;
 
-    private long timeAdvance = 5000;
-    private long timeRotate = 1000;
-    private long timeDevance = 300;
-    private long timeRotateCrater = 3000;
-    private long timeDevanceCrater = 400;
-    private long timeAdvanceCrater = 4500;
+    private final long timeAdvance = 5000;
+    private final long timeRotate = 1000;
+    private final long timeDevance = 300;
+    private final long timeRotateCrater = 3000;
+    private final long timeDevanceCrater = 400;
+    private final long timeAdvanceCrater = 4500;
+    private final double powerRotate = 0.7;
     private long callTime;
 
     public DistanceAlternativeTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode){
         this.motorStuff = motorStuff;
         this.hwChss = hwChss;
-        this.tools = tools;
-        blueline = new FarbHelfer();
         this.opMode = opMode;
     }
 
@@ -60,7 +57,7 @@ public class DistanceAlternativeTools {
                 }
                 callTime = System.currentTimeMillis();
                 while ((!this.timeIsUp(timeRotateCrater)&& !opMode.isStopRequested())){
-                    motorStuff.setAllMotors(0,0,0.9,0);
+                    motorStuff.setAllMotors(0,0,this.powerRotate,0);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
