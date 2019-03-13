@@ -84,29 +84,6 @@ public class DistanceTools {
         motorStuff.setAllMotors(0, 0, 0, 0);
 
     }
-
-/*
-    public void dtriveToWall_Left (Direction_Enum direction) {
-        if (direction == Direction_Enum.BlueCrater) {
-            //Drives until left sensor registers a wall.
-            while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM))) {
-                motorStuff.driveLeft(0.2, 0.2);
-            }
-            motorStuff.setAllMotors(0, 0, 0, 0);
-
-            //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
-            while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM))) {
-                hwChss.motor_front_right.setPower(0.2);
-                hwChss.motor_back_right.setPower(0.2);
-            }
-            motorStuff.setAllMotors(0, 0, 0, 0);
-
-
-        }
-    } */
-
-
-
     /**
      * Checks whether a certain double is NaN
      * This is useful, as the distance sensors return NaN if the distance is too high
@@ -121,7 +98,7 @@ public class DistanceTools {
     /**
      * Checks whether the sensor registers a wall (or any other obstacle)
      * @param numberOfWall The distance value of the sensor (in mm! )
-     * @return If a wall is registered
+     * @return true when wall is registered, false when not
      */
     private boolean isThereAWall(double numberOfWall) {
         //No wall is seen, if NaN is returned or the returned distance is to high
@@ -176,6 +153,10 @@ public class DistanceTools {
 
     private double newSigLog(float v ) {
         return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
+    }
+    private double newSigLogRight(float v, float distance) {
+        v = v - distance;
+        return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.05;
     }
 
 
