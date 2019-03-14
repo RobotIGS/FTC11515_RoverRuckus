@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.sun.source.util.TaskEvent;
 
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
-@TeleOp (name = "Driver Controlled with arm")
+
+@TeleOp (name = "DriverControlledNoArm")
 
 //this drive method is for chassis SunnyBoy
-public class DriveTrainSunDriverControlled extends OpMode {
+public class DriveTrainSunDriverNoArm extends OpMode {
     //declare an Object of Optimized Drive Mode we have decided to use this mode due to its practicality
     private DriveHoverOptimized driveOp;
     //declare given hardwaremap as SunChassis
@@ -19,8 +19,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
     //declare motor stuff object to use setAllMotors command
     private MotorStuff motstff;
     //declare motors for arm motion
-    private DcMotor motor_arm_lift;
-    private DcMotor motor_arm_tilt;
+
 
     @Override
     public void init() {
@@ -31,8 +30,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
         //get objects from DriveMode Classes
         driveOp = new DriveHoverOptimized();
         //initialize motors for arm motion
-        motor_arm_lift = hardwareMap.get(DcMotor.class, "motor_arm_lift");
-        motor_arm_tilt = hardwareMap.get(DcMotor.class, "motor_arm_tilt");
+
     }
 
     @Override
@@ -75,37 +73,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
 
         //to turn the robot if wanted
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
-
-        //controlling arm
-        if (gamepad2.dpad_up) {
-            motor_arm_lift.setPower(0.3); //arm ausfahren //0.3
-        } else {
-            motor_arm_lift.setPower(0);
-        }
-
-        if (gamepad2.dpad_down) {
-            motor_arm_lift.setPower(-0.4); //arm einfahren //0.3
-        } else {
-            motor_arm_lift.setPower(0);
-        }
-
-        if (gamepad2.a) {
-                motor_arm_tilt.setPower(0.1); //winkel arm nach oben
-                motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
-            } else {
-            motor_arm_tilt.setPower(0);
-            motor_arm_lift.setPower(0);
-        }
-
-        if (gamepad2.b) {
-            motor_arm_tilt.setPower(-0.1); //winkel arm nach unten
-            motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
-            } else {
-            motor_arm_tilt.setPower(0);
-            motor_arm_lift.setPower(0);
-            }
-
-            
+        
         //add collector etc.
 
     }
