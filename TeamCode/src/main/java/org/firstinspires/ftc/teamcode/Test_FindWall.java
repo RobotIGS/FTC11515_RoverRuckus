@@ -68,9 +68,16 @@ public class Test_FindWall extends LinearOpMode {
         }
     }
     public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
-        
+        double distanceRight = right.getDistance(DistanceUnit.MM);
+        while ((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) ) {
+            hwChss.motor_back_left
+        }
     }
 
+    public boolean isNaN(double isNumberNaN) {
+        // Is the only "number" that doesn't equal itself, as it's actually not a number
+        return !(isNumberNaN == isNumberNaN);
+    }
     /**
      *Plan was to let the robot drive in a zig zag pattern, was this isn't possible,
      * because the robot is too big.
