@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 //Simple class to use both lift motors
-@TeleOp (name = "Einsammler")
+@Deprecated
 public class TestLift extends OpMode {
     DcMotor motor_lift;
 
