@@ -34,8 +34,7 @@ public class Test_FindWall extends LinearOpMode {
 
 
         waitForStart();
-        motorStuff.turnToDegreeV4((float)337.5);
-        keepDistanceFromWall();
+        orientateToSensorRight(hwChss.distance_right, hwChss.distance_left);
     }
 
     /**
@@ -69,9 +68,10 @@ public class Test_FindWall extends LinearOpMode {
     }
     public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
         double distanceRight = right.getDistance(DistanceUnit.MM);
-        while ((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) ) {
-            hwChss.motor_back_left
+        while (((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) )&& !isStopRequested() ) {
+            hwChss.motor_back_left.setPower(0.2);
         }
+        hwChss.motor_back_left.setPower(0);
     }
 
     public boolean isNaN(double isNumberNaN) {
