@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 
 @TeleOp (name = "DistanceReadOut")
-public class TestDistance extends OpMode {
+public class DistanceReadOut extends OpMode {
     private HardwareChassisSun hwChss;
 
     @Override

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -65,6 +66,9 @@ public class Test_FindWall extends LinearOpMode {
                     motorStuff.setAllMotors(0.2, 0,0.2,0);
             }
         }
+    }
+    public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
+        
     }
 
     /**
