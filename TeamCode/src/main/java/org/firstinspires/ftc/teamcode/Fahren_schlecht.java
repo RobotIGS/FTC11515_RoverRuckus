@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
 
-@TeleOp (name = "fahren")
+@Deprecated
 public class Fahren_schlecht extends OpMode {
     HardwareChassisSun hwchs = null;
     MotorStuff mtstff = null;
