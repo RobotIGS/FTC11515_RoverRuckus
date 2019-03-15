@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "AutonomusBlueCraterBackUp")
+@Autonomous (name = "BackUpAutonomusBlueCrater")
 public class AutonomusBlueCraterBackUp extends LinearOpMode {
 
     private final int timeDriveForward = 2345;

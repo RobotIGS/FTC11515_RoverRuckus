@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "AutonomousParallelBackup")
+@Autonomous (name = "BackupAutonomousParallel")
 public class AutonomousBlueParallelBackUp extends LinearOpMode {
     private final int timeDriveForward = 2200;
     private final int timeDriveBackward = 1389;

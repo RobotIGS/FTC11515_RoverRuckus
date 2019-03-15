@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "AutonomusBlueSideBackUp")
+@Autonomous (name = "BackUpAutonomusBlueSide")
 public class AutonomusBlueSideBackUp extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
