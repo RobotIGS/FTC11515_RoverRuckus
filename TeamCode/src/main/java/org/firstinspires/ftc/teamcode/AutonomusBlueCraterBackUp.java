@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
-import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
@@ -126,9 +125,9 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
         //It doesn't matter, if the mineral was left, right or in the center.
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
-        distanceTools.driveToWall(Direction_Enum.BlueCrater);
+        distanceTools.driveToWall(Direction_Enum.Crater);
 
-        distanceTools.driveBackFromWall(Direction_Enum.BlueCrater);
+        distanceTools.driveBackFromWall(Direction_Enum.Crater);
 
         while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
             motorStuff.setAllMotors(0,-0.2,0,-0.2);

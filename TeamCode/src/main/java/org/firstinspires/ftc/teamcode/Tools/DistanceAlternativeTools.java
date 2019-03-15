@@ -51,7 +51,7 @@ public class DistanceAlternativeTools {
                 }
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
-            case BlueCrater:
+            case Crater:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeAdvanceCrater) && !opMode.isStopRequested()){
                     motorStuff.setAllMotors(0,-0.4,0,-0.4);
@@ -80,7 +80,7 @@ public class DistanceAlternativeTools {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);
                 }
                 break;
-            case BlueCrater:
+            case Crater:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeDevanceCrater)&& !opMode.isStopRequested()) {
                     motorStuff.setAllMotors(-0.2,0,-0.2,0);

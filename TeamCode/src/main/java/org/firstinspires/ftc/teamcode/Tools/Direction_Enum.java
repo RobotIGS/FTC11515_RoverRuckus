@@ -5,5 +5,5 @@ package org.firstinspires.ftc.teamcode.Tools;
  * Creates a new variable type, that can only have two values (left, right)
  */
 public enum Direction_Enum {
-    Left, Right, BlueCrater
+    Left, Right, Crater, BackUpCrater
 }

@@ -7,23 +7,19 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
-import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
+import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous(name = "AutonomusRedCraterBackUp")
-public class AutonomusRedCraterBackUp extends LinearOpMode {
-
-    private final int timeDriveForward = 2345;
+@Autonomous (name = "AutonomousParallelBackup")
+public class AutonomousBlueParallelBackUp extends LinearOpMode {
+    private final int timeDriveForward = 2200;
     private final int timeDriveBackward = 1389;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
     private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer blueline;
-
-
     @Override
     public void runOpMode() {
 
@@ -31,7 +27,7 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
         Tools tools = new Tools(this);
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
-        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
+        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -53,7 +49,7 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
 
         detector.enable(); // Start the detector!
 
-        blueline = new FarbHelfer();
+
 
         waitForStart();
 
@@ -68,7 +64,7 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
         telemetry.addData("Where: ", detector.getXPosition());
         telemetry.update();
         tools.stopForMilliSeconds(1000);
-        if (isGold && !isStopRequested()) { //Middle
+        if (isGold && opModeIsActive() && !isStopRequested()) { //Middle
 
             //Drive forward two seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
@@ -121,17 +117,14 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
                 //waits additional second
                 tools.stopForMilliSeconds(1000);
             }
-        }
+    }
         //It doesn't matter, if the mineral was left, right or in the center.
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.Crater);
+        distanceTools.orientateToSensorLeft(hwChss.distance_left, hwChss.distance_right);
+        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Blue);
 
-        distanceTools.driveBackFromWall(Direction_Enum.Crater);
-
-        while ((!blueline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
-            motorStuff.setAllMotors(0,-0.2,0,-0.2);
-        }
-        motorStuff.setAllMotors(0,0,0,0);
     }
+
 }

@@ -69,9 +69,9 @@ public class Test_FindWall extends LinearOpMode {
     public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
         double distanceRight = right.getDistance(DistanceUnit.MM);
         while (((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) )&& !isStopRequested() ) {
-            hwChss.motor_back_left.setPower(0.2);
+            hwChss.motor_front_left.setPower(0.3);
         }
-        hwChss.motor_back_left.setPower(0);
+        hwChss.motor_front_left.setPower(0);
     }
 
     public boolean isNaN(double isNumberNaN) {

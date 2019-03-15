@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -69,7 +70,7 @@ public class DistanceTools {
                 motorStuff.setAllMotors(0, 0, 0, 0);
                 break;
 
-            case BlueCrater:
+            case Crater:
                 //set all motors 0
                 motorStuff.setAllMotors(0,0,0,0);
                 //Drives until left sensor registers a wall.
@@ -112,7 +113,7 @@ public class DistanceTools {
     public void followWall(float initialOrientation, Direction_Enum direction, Color_Enum color) {
         FarbHelfer farbHelfer = new FarbHelfer();
         switch (direction) {
-            case BlueCrater:
+            case Crater:
                 motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
                 while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
@@ -150,8 +151,36 @@ public class DistanceTools {
                     tools.stopForMilliSeconds(10);
                 }
                 break;
+            case BackUpCrater:
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                    float difference = motorStuff.getDegree() - initialOrientation;
+                    if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
+                        motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
+                    }
+                    if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
+                        motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
+                    }
+                }
+                break;
         }
     }
+
+    public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
+        double distanceRight = right.getDistance(DistanceUnit.MM);
+        while (((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) )) {
+            hwChss.motor_front_left.setPower(0.3);
+        }
+        hwChss.motor_front_left.setPower(0);
+    }
+    public void orientateToSensorLeft(DistanceSensor right, DistanceSensor left) {
+        double distanceLeft = left.getDistance(DistanceUnit.MM);
+        while (((right.getDistance(DistanceUnit.MM) > distanceLeft) || isNaN(right.getDistance(DistanceUnit.MM)) )) {
+            hwChss.motor_back_right.setPower(0.3);
+        }
+
+        hwChss.motor_back_right.setPower(0);
+    }
+
     /**
      * Uses trigonometry to get the absolute length from the sensor (angle: 45°) to the wall
      * @param i the measured distance

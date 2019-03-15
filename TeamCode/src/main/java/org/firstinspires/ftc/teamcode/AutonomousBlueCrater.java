@@ -5,7 +5,6 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
@@ -127,8 +126,8 @@ public class AutonomousBlueCrater extends LinearOpMode {
         //It doesn't matter, if the mineral was left, right or in the center.
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
-        distanceTools.driveToWall(Direction_Enum.BlueCrater);
-        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.BlueCrater, Color_Enum.Blue);
+        distanceTools.driveToWall(Direction_Enum.Crater);
+        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Blue);
 
     }
 
