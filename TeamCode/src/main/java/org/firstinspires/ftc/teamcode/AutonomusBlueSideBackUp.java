@@ -5,12 +5,11 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
-import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
