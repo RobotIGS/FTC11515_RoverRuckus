@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 /**
  * Contains methods to let the robot drive, when we use the backup op mode.
  */
-public class DistanceAlternativeTools {
+public class DistanceToolsBackupMode {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
     private LinearOpMode opMode;
@@ -22,7 +22,7 @@ public class DistanceAlternativeTools {
     private final double powerRotateCraterWall = 0.9;
     private long callTime;
 
-    public DistanceAlternativeTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode){
+    public DistanceToolsBackupMode(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode){
         this.motorStuff = motorStuff;
         this.hwChss = hwChss;
         this.opMode = opMode;

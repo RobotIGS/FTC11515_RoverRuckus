@@ -8,7 +8,7 @@
 package org.firstinspires.ftc.teamcode.DriveModes;
 
 public class DriveHoverOptimized {
-    //declare some variables for X and Y Vector(physical, not IT wise)
+    //declare some variables for X and Y Vector
     //to be used as vars to write in the calculated values
     private double gameX;
     private double gameY;
@@ -17,11 +17,10 @@ public class DriveHoverOptimized {
     public double driveSpeedY;
 
     //main method
-    //the Y is negaative due to gamepad
     public void drive(double gl1X, double gl1Y, double trigger) {
         /*  the VAR = (CONDITON) ? (CONDITION) ? OUTCME_0 : OUTCME_1 : OUTCME_2 command works the following:
         *   VAR = (FALSE) ? (FALSE) ? NULL : NULL : OUTCME
-        *   VAR = (FALSE) ? (TRUE) ? NULL : NULL : OUTCME because if the first is false it von check fr the second condition
+        *   VAR = (FALSE ? (TRUE) ? NULL : NULL : OUTCME because if the first is false it von check fr the second condition
         *   VAR = (TRUE) ? (FALSE) ? NULL : OUTCME : NULL
         *   VAR =  (TRUE ? (TRUE) ? OUTCME : NULL : NULL
         *   To find a way a var could be set in one of the outcomes would be nice

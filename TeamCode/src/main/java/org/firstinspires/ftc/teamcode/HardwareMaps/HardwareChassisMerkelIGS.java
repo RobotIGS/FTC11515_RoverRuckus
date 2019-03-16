@@ -6,8 +6,6 @@ package org.firstinspires.ftc.teamcode.HardwareMaps;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-//Deprecated bc we decided to use the Sun Chassis
-@Deprecated
 public class HardwareChassisMerkelIGS extends HardwareChassis {
     //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
     public HardwareChassisMerkelIGS(HardwareMap ahwMap) {
