@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 public class AutonomusRedCraterBackUp extends LinearOpMode {
 
     private final int timeDriveForward = 2345;
-    private final int timeDriveBackward = 1389;
+    private final int timeDriveBackward = 1300;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
     private GoldAlignDetector detector; //Recognizes golden mineral

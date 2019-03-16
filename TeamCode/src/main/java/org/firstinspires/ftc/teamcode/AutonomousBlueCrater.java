@@ -127,6 +127,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.Crater);
+        distanceTools.orientateToSensorLeft(hwChss.distance_left, hwChss.distance_right);
         distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Blue);
 
     }
