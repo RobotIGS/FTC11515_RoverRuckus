@@ -4,7 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 
-public class DistanceAlternativeTools {
+/**
+ * Contains methods to let the robot drive, when we use the backup op mode.
+ */
+public class DistanceToolsBackupMode {
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
     private LinearOpMode opMode;
@@ -19,12 +22,16 @@ public class DistanceAlternativeTools {
     private final double powerRotateCraterWall = 0.9;
     private long callTime;
 
-    public DistanceAlternativeTools(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode){
+    public DistanceToolsBackupMode(MotorStuff motorStuff, HardwareChassisSun hwChss, Tools tools, LinearOpMode opMode){
         this.motorStuff = motorStuff;
         this.hwChss = hwChss;
         this.opMode = opMode;
     }
 
+    /**
+     * When the robot removed the golden mineral, this method will let it drive until it registers a wall
+     * @param direction From which position the robot will come. Crater or not crater left and not crater right
+     */
     public void driveToWall(Direction_Enum direction){
         switch (direction){
             case Left:
@@ -91,6 +98,11 @@ public class DistanceAlternativeTools {
     }
 
 
+    /**
+     * Checks if method has been executed a certain time
+     * @param time Check if this span of time us up
+     * @return true or false
+     */
     public boolean timeIsUp(long time){
         if (time + this.callTime > System.currentTimeMillis()) {
             return false;

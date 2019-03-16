@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
+import org.firstinspires.ftc.teamcode.Tools.DistanceToolsBackupMode;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
@@ -33,7 +33,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
         tools = new Tools(this);
 
-        DistanceAlternativeTools distanceAlternativeTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
+        DistanceToolsBackupMode distanceToolsBackupMode = new DistanceToolsBackupMode(motorStuff, hwChss, tools, this);
 
         redline = new FarbHelfer();
 
@@ -90,14 +90,14 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                distanceAlternativeTools.driveToWall(Direction_Enum.Right);
+                distanceToolsBackupMode.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
 
-                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Right);
+                distanceToolsBackupMode.driveBackFromWall(Direction_Enum.Right);
 
                 while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
                     motorStuff.setAllMotors(0,-0.2,0,-0.2);
@@ -109,12 +109,12 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
                 tools.stopForMilliSeconds(1000);
-                distanceAlternativeTools.driveToWall(Direction_Enum.Left);
+                distanceToolsBackupMode.driveToWall(Direction_Enum.Left);
 
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
 
-                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Left);
+                distanceToolsBackupMode.driveBackFromWall(Direction_Enum.Left);
 
                 //Drives from the wall to the marker zone.
                 while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {

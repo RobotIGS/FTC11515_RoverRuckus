@@ -100,15 +100,6 @@ public class FarbHelfer {
     }
 
 
-    public boolean isColorChangend_2 (ColorSensor isColorChangedSensor){
-
-
-        return false;
-    }
-
-
-
-
     /**
      * it converts rgb to hsv-values
      * @param HSVvalues is the color sensor we get the rgb-values from

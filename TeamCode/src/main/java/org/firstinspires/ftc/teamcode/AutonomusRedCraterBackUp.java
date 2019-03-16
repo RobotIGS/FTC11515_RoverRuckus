@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
+import org.firstinspires.ftc.teamcode.Tools.DistanceToolsBackupMode;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
@@ -31,7 +31,7 @@ public class AutonomusRedCraterBackUp extends LinearOpMode {
         Tools tools = new Tools(this);
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
-        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
+        DistanceToolsBackupMode distanceTools = new DistanceToolsBackupMode(motorStuff, hwChss, tools, this);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera

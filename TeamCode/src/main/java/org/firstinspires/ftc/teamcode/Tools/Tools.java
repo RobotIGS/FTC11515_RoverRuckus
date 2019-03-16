@@ -20,12 +20,24 @@ public class Tools {
         while ((System.currentTimeMillis() < time + timeStop) && !opMode.isStopRequested()) {}
     }
 
+    /**
+     * Lets the robot drive left to a blue line
+     * @param sensor Sensor to register the line with
+     * @param helfer ColorHelper object, initialized
+     * @param motor MotorStuff object, initialized
+     */
     public void driveLeftToBlueLine (ColorSensor sensor, FarbHelfer helfer, MotorStuff motor) {
         while (!helfer.isBlue(sensor) && !opMode.isStopRequested()){
             motor.setAllMotors(0, -0.2, 0, -0.2);
         }
         motor.setAllMotors(0,0,0,0);
     }
+    /**
+     * Lets the robot drive right to a blue line
+     * @param sensor Sensor to register the line with
+     * @param helfer ColorHelper object, initialized
+     * @param motor MotorStuff object, initialized
+     */
     public void driveRightToBlueLine (ColorSensor sensor, FarbHelfer helfer, MotorStuff motor){
         while (!helfer.isBlue(sensor) && !opMode.isStopRequested()){
             motor.setAllMotors(0, 0.2, 0, 0.2);

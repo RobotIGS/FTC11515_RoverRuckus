@@ -18,16 +18,19 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 
 public class MotorStuff {
 
-    private final int wallDistanceHut = 7;
     //Declare a variable to hand over the right wanted hardwaremap for the right layout
     private HardwareChassis hwchss;
-    private HardwareChassisSun hwChss;
     private LinearOpMode opMode;
     private HardwareChassisGyro hwgy;
 
-    public MotorStuff(HardwareChassis _hwchss, HardwareMap hardwareMap, LinearOpMode opMode) {
-        hwchss = _hwchss;
-        hwChss = new HardwareChassisSun(hardwareMap);
+    /**
+     * Constructor
+     * @param hwchss Object that inherits from HardwareChassis
+     * @param hardwareMap HardwareMap of OpMode
+     * @param opMode Calling op Mode
+     */
+    public MotorStuff(HardwareChassis hwchss, HardwareMap hardwareMap, LinearOpMode opMode) {
+        this.hwchss = hwchss;
         hwgy = new HardwareChassisGyro(hardwareMap);
         hwgy.init(hardwareMap);
         this.opMode = opMode;
@@ -120,6 +123,12 @@ public class MotorStuff {
         }
         this.setAllMotors(0,0,0,0);
     }
+
+    /**
+     * Reworked hyperbolic tangens function
+     * @param i input
+     * @return output of tanh
+     */
     private double personalTanH(double i){
         double minSpeed = 0.15;
         double o = Math.tanh(i);

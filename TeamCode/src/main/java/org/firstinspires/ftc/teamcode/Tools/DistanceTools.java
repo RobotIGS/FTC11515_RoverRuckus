@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
  */
 
 public class DistanceTools {
+    //Used when orientating to wall
     private final double WALLDISTANCE = 6; //todo 6
     private MotorStuff motorStuff;
     private HardwareChassisSun hwChss;
@@ -38,7 +39,7 @@ public class DistanceTools {
 
     /**
      * When the robot removed the golden mineral, this method will let it drive until it registers a wall
-     * @param direction Whether the robot will hit the wall with it's left or it's right side
+     * @param direction From which position the robot will come. Crater or not crater left and not crater right
      */
     public void driveToWall(Direction_Enum direction) {
         //Switch case to differ between statements
@@ -110,6 +111,12 @@ public class DistanceTools {
         }
     }
 
+    /**
+     * When in front of a wall, this method will use the distance sensor to follow hte wall until it's in the team zone
+     * @param initialOrientation Used to stabilize robot. Orientation of robot as float. Can be received from imu
+     * @param direction From which position the robot comes.
+     * @param color Color we have in the game
+     */
     public void followWall(float initialOrientation, Direction_Enum direction, Color_Enum color) {
         FarbHelfer farbHelfer = new FarbHelfer();
         switch (direction) {
@@ -165,16 +172,9 @@ public class DistanceTools {
         }
     }
 
-    public void orientateToSensorRight(DistanceSensor right, DistanceSensor left) {
-        double distanceRight = right.getDistance(DistanceUnit.MM);
-        while (((left.getDistance(DistanceUnit.MM) > distanceRight) || isNaN(left.getDistance(DistanceUnit.MM)) )) {
-            hwChss.motor_front_left.setPower(0.3);
-        }
-        hwChss.motor_front_left.setPower(0);
-    }
     public void orientateToSensorLeft(DistanceSensor right, DistanceSensor left) {
         double distanceLeft = left.getDistance(DistanceUnit.MM);
-        while (((right.getDistance(DistanceUnit.MM) > distanceLeft) || isNaN(right.getDistance(DistanceUnit.MM)) )) {
+        while ( ((right.getDistance(DistanceUnit.MM) > distanceLeft) || isNaN(right.getDistance(DistanceUnit.MM)) ) && !opMode.isStopRequested()) {
             hwChss.motor_back_right.setPower(0.3);
         }
 
@@ -190,6 +190,11 @@ public class DistanceTools {
         return Math.cos(Math.toDegrees(45))*i;
     }
 
+    /**
+     * Sigmoid function, for smooth changes of values. Adjusted to give also negative values.
+     * @param v Input value
+     * @return Value of (adjusted) sigmoid function
+     */
     private double newSigLog(float v ) {
         return ((1 / ( 1 + Math.pow(Math.E, -v))) - 0.5) * 0.02;
     }
