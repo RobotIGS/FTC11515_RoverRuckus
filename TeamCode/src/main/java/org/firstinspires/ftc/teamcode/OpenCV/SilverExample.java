@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpenCV;
 
 
 /* Copyright (c) 2017 FIRST. All rights reserved.
@@ -32,41 +32,41 @@ package org.firstinspires.ftc.teamcode;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
-import com.disnodeteam.dogecv.filters.HSVColorFilter;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.disnodeteam.dogecv.detectors.roverrukus.SilverDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.opencv.core.Size;
 
-@TeleOp(name="Sampling Order Example", group="DogeCV")
+@Disabled
+@TeleOp(name="Silver Example", group="DogeCV")
 
-public class SamplingOrderExample extends OpMode {
+public class SilverExample extends OpMode {
     // Detector object
-    private SamplingOrderDetector detector;
+    private SilverDetector detector;
 
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2018.0 - Sampling Order Example");
+        telemetry.addData("Status", "DogeCV 2018.0 - Gold SilverDetector Example");
 
         // Setup detector
-        detector = new SamplingOrderDetector(); // Create the detector
+        detector = new SilverDetector(); // Create detector
+        detector.setAdjustedSize(new Size(480, 270)); // Set detector size
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize detector with app context and camera
-        detector.useDefaults(); // Set detector to use default settings
+        detector.useDefaults(); // Set default detector settings
+        // Optional tuning
 
         detector.downscale = 0.4; // How much to downscale the input frames
 
-        // Optional tuning
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
         //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
-        detector.maxAreaScorer.weight = 0.001;
+        detector.maxAreaScorer.weight = 0.005;
 
-        detector.ratioScorer.weight = 15;
+        detector.ratioScorer.weight = 5;
         detector.ratioScorer.perfectRatio = 1.0;
-
-
         detector.enable(); // Start detector
     }
 
@@ -85,14 +85,12 @@ public class SamplingOrderExample extends OpMode {
 
     }
 
-
     /*
      * Code to run REPEATEDLY when the driver hits PLAY
      */
     @Override
     public void loop() {
-        telemetry.addData("Current Order" , detector.getCurrentOrder().toString()); // The current result for the frame
-        telemetry.addData("Last Order" , detector.getLastOrder().toString()); // The last known result
+
     }
 
     /*

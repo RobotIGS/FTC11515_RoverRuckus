@@ -27,6 +27,10 @@ public class FarbHelfer {
 
     boolean isColorChangend;
 
+    public boolean isColor(Color_Enum color_enum, ColorSensor colorSensor) {
+        if(color_enum.equals(Color_Enum.Blue)) return isBlue(colorSensor);
+        return isRed(colorSensor);
+    }
     /**
      * it returns true if the color is red
      * red is between 0-60° or 330-360° (hue) and with saturation over 0.3
@@ -94,15 +98,6 @@ public class FarbHelfer {
         return isColorChangend;
 
     }
-
-
-    public boolean isColorChangend_2 (ColorSensor isColorChangedSensor){
-
-
-        return false;
-    }
-
-
 
 
     /**

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpenCV;
 
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -42,9 +43,11 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 /*
     Drives forward, of sees a gold mineral.
  */
-@TeleOp(name="GoldAlign Example", group="DogeCV")
+@Disabled
+@TeleOp(name="getVa" +
+        "lues", group="DogeCV")
 
-public class GoldAlign extends LinearOpMode
+public class GoldAlignValues extends LinearOpMode
 {
     // Detector object
     private GoldAlignDetector detector;
@@ -80,42 +83,11 @@ public class GoldAlign extends LinearOpMode
 
         waitForStart();
 
-        motorStuff.setAllMotors(0.2,0,0.2,0);
+       while (true) {
+           telemetry.addData("X pos gold: ", detector.getXPosition());
+           telemetry.update();
+       }
 
-        long time  = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time+1000) { }
-
-        motorStuff.setAllMotors(0,0,0,0);
-
-        boolean isGold = detector.isFound();
-        telemetry.addData("Is Gold: " ,isGold);
-        telemetry.update();
-        if (isGold) { //Middle
-            motorStuff.setAllMotors(0.2,0,0.2,0);
-
-            time  = System.currentTimeMillis();
-            while (System.currentTimeMillis() < time+2500) { }
-
-            motorStuff.setAllMotors(0,0,0,0);
-
-        } else {
-            motorStuff.turnToDegreeV4(45 / 2); //Right
-            time  = System.currentTimeMillis();
-            while (System.currentTimeMillis() < time+2500) { }
-            if(detector.isFound()){
-                motorStuff.setAllMotors(0.2,0,0.2,0);
-                time  = System.currentTimeMillis();
-                while (System.currentTimeMillis() < time+2500) { }
-            }
-            else {
-                motorStuff.turnToDegreeV4(360-45);
-                motorStuff.setAllMotors(0.2, 0, 0.2, 0);
-
-                time  = System.currentTimeMillis();
-                while (System.currentTimeMillis() < time+2500) { }
-
-            }
-        }
 
 
 

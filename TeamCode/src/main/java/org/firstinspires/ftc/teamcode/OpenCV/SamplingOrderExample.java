@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpenCV;
 
 
 /* Copyright (c) 2017 FIRST. All rights reserved.
@@ -31,37 +31,44 @@ package org.firstinspires.ftc.teamcode;
  */
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.detectors.roverrukus.HoughSilverDetector;
+import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
+import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
+import com.disnodeteam.dogecv.filters.HSVColorFilter;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.opencv.core.Size;
+@Disabled
+@TeleOp(name="Sampling Order Example", group="DogeCV")
 
-
-@TeleOp(name="Hough Silver Example", group="DogeCV")
-
-public class HoughSilverExample extends OpMode
-{
-    //Detector object
-    private HoughSilverDetector detector;
+public class SamplingOrderExample extends OpMode {
+    // Detector object
+    private SamplingOrderDetector detector;
 
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2018.0 - Gold SilverDetector Example");
+        telemetry.addData("Status", "DogeCV 2018.0 - Sampling Order Example");
 
-        detector = new HoughSilverDetector(); //Create detector
-        detector.downscale = 1; //Increase detector sensitivity with smaller size. Make sure to preserve aspect ratio.
-        detector.useFixedDownscale = false; //Don't fix the downscale
-        detector.sensitivity = 1.6; //Play with this based on your camera, adjusts how sensitive the detector is
-        detector.minDistance = 60; //Minimum distance between silver mineral centers in pixels
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); //Initialize detector with app context and camera
-        detector.useDefaults(); //Use default settings
+        // Setup detector
+        detector = new SamplingOrderDetector(); // Create the detector
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize detector with app context and camera
+        detector.useDefaults(); // Set detector to use default settings
 
-        // Optional Tuning
         detector.downscale = 0.4; // How much to downscale the input frames
 
-        detector.enable(); //Start the detector
+        // Optional tuning
+        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        detector.maxAreaScorer.weight = 0.001;
+
+        detector.ratioScorer.weight = 15;
+        detector.ratioScorer.perfectRatio = 1.0;
+
+
+        detector.enable(); // Start detector
     }
 
     /*
@@ -85,6 +92,8 @@ public class HoughSilverExample extends OpMode
      */
     @Override
     public void loop() {
+        telemetry.addData("Current Order" , detector.getCurrentOrder().toString()); // The current result for the frame
+        telemetry.addData("Last Order" , detector.getLastOrder().toString()); // The last known result
 
     }
 
