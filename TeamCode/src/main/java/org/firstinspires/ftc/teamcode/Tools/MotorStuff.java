@@ -64,26 +64,10 @@ public class MotorStuff {
         hwchss.motor_back_right.setPower(-SpeedBackRight);
     }
 
-    public void driveLeft (double SpeedFrontLeft, double SpeedBackRight) {
-        hwchss.motor_back_left.setPower(-SpeedFrontLeft);
-        hwchss.motor_front_right.setPower(-SpeedBackRight);
-    }
-
     public void driveRight (double SpeedFrontRight, double SpeedBackLeft) {
         hwchss.motor_front_right.setPower(SpeedFrontRight);
         hwchss.motor_back_left.setPower(SpeedBackLeft);
     }
-
-    /**
-     * Used to let the robot drive forward
-     * @param SpeedFrontLeft Speed of MotorFrontLeft
-     * @param SpeedFrontRight Speed of MotorFrontRight
-     */
-    public void driveInOneDirection (double SpeedFrontLeft, double SpeedFrontRight) {
-        hwchss.motor_front_left.setPower(SpeedFrontLeft);
-        hwchss.motor_back_right.setPower(SpeedFrontRight);
-    }
-
 
     /**
      * Used to let the robot drive left
