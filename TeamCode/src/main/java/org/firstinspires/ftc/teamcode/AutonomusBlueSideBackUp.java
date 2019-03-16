@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceToolsBackupMode;
 
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
@@ -34,7 +34,7 @@ public class AutonomusBlueSideBackUp extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
         tools = new Tools(this);
 
-        DistanceToolsBackupMode distanceToolsBackupMode = new DistanceToolsBackupMode(motorStuff, hwChss, tools, this);
+        DistanceAlternativeTools distanceToolsBackupMode = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
         blueline = new FarbHelfer();
 
