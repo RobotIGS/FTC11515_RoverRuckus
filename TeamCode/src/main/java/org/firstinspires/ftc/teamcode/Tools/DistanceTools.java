@@ -173,9 +173,11 @@ public class DistanceTools {
     }
 
     public void orientateToSensorLeft(DistanceSensor right, DistanceSensor left) {
+        long time = System.currentTimeMillis();
         double distanceLeft = left.getDistance(DistanceUnit.MM);
         while ( ((right.getDistance(DistanceUnit.MM) > distanceLeft) || isNaN(right.getDistance(DistanceUnit.MM)) ) && !opMode.isStopRequested()) {
             hwChss.motor_back_right.setPower(0.3);
+            if (time + 5000 < System.currentTimeMillis() ) return;
         }
 
         hwChss.motor_back_right.setPower(0);
