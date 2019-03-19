@@ -31,6 +31,8 @@ public class AutonomousRedSide extends LinearOpMode {
     private final int degreeRight = 37;
     private final int degreeLeft = 37;
 
+    private final double driveSpeed = 0.2;
+
 
     @Override
     public void runOpMode() {
@@ -69,7 +71,7 @@ public class AutonomousRedSide extends LinearOpMode {
         //Start of autonomous code
 
         //Drives forward a certain amount of time
-        motorStuff.setAllMotors(0.2,0,0.2,0);
+        motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
         tools.stopForMilliSeconds(1500);
         motorStuff.setAllMotors(0,0,0,0);
 
@@ -81,11 +83,11 @@ public class AutonomousRedSide extends LinearOpMode {
         if (isGold && !isStopRequested()) { //Middle
 
             //Drive forward to seconds
-            motorStuff.setAllMotors(0.2,0,0.2,0);
+            motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
             tools.stopForMilliSeconds(2000);
             //Drive until a blue line is registered (robot is in the marker zone)
             while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right)) &&!isStopRequested()) {
-                motorStuff.setAllMotors(0.2,0,0.2,0);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
@@ -104,7 +106,7 @@ public class AutonomousRedSide extends LinearOpMode {
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
-                motorStuff.setAllMotors(0.2, 0, 0.2, 0);
+                motorStuff.setAllMotors(driveSpeed, 0, driveSpeed, 0);
 
                 tools.stopForMilliSeconds(1000);
                 distanceTools.driveToWall(Direction_Enum.Left);

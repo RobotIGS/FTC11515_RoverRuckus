@@ -31,6 +31,8 @@ public class AutonomousBlueSide extends LinearOpMode {
     private final int degreeRight = 37;
     private final int degreeLeft = 37;
 
+    private final double driveSpeed = 0.2;
+
 
     @Override
     public void runOpMode() {
@@ -68,8 +70,11 @@ public class AutonomousBlueSide extends LinearOpMode {
         waitForStart();
         //Start of autonomous code
 
+        //turn 90° right
+        motorStuff.turnToDegreeV4(90);
+
         //Drives forward a certain amount of time
-        motorStuff.setAllMotors(0.2,0,0.2,0);
+        motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
         long time  = System.currentTimeMillis();
         tools.stopForMilliSeconds(1500);
         motorStuff.setAllMotors(0,0,0,0);
@@ -82,14 +87,14 @@ public class AutonomousBlueSide extends LinearOpMode {
         if (isGold  && !isStopRequested()) { //Middle
 
             //Drive forward to seconds
-            motorStuff.setAllMotors(0.2,0,0.2,0);
+            motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
             time = System.currentTimeMillis();
             while ((System.currentTimeMillis() < time+2000) && !isStopRequested()) {
-                motorStuff.setAllMotors(0.2,0,0.2,0);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
             while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
-               motorStuff.setAllMotors(0.2,0,0.2,0);
+               motorStuff.setAllMotors(driveSpeed,0,driveSpeed, 0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
@@ -109,7 +114,7 @@ public class AutonomousBlueSide extends LinearOpMode {
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
-                motorStuff.setAllMotors(0.2, 0, 0.2, 0);
+                motorStuff.setAllMotors(driveSpeed, 0, driveSpeed, 0);
 
                 tools.stopForMilliSeconds(1000);
                 distanceTools.driveToWall(Direction_Enum.Left);
