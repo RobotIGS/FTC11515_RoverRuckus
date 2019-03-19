@@ -21,14 +21,19 @@ public class ChassisTest extends OpMode {
     public void loop() {
 
         motor_lift.setPower(gamepad1.left_stick_x);
-        if(gamepad1.a) {
-            servo_arm.setPosition(45);
-        }
-        if(gamepad1.b) {
+
+        if (gamepad1.x) {
             servo_arm.setPosition(0);
         }
-        if(gamepad1.x) {
-            servo_arm.setPosition(-45);
+        if (gamepad1.b) {
+            servo_arm.setPosition(45);
         }
+        if (gamepad1.a) {
+            servo_arm.setPosition(15);
+        }
+        if (gamepad1.y) {
+            servo_arm.setPosition(30);
+        }
+
     }
 }
