@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
@@ -34,7 +35,7 @@ public class Test_FindWall extends LinearOpMode {
 
 
         waitForStart();
-        orientateToSensorRight(hwChss.distance_right, hwChss.distance_left);
+        distanceTools.orientateBothBlueLine(hwChss.color_back_left, hwChss.color_back_right, new FarbHelfer());
     }
 
     /**

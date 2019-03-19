@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -177,10 +178,19 @@ public class DistanceTools {
         double distanceLeft = left.getDistance(DistanceUnit.MM);
         while ( ((right.getDistance(DistanceUnit.MM) > distanceLeft) || isNaN(right.getDistance(DistanceUnit.MM)) ) && !opMode.isStopRequested()) {
             hwChss.motor_back_right.setPower(0.3);
-            if (time + 5000 < System.currentTimeMillis() ) return;
+            if (time + 5000 < System.currentTimeMillis() ) return; //todo test
         }
 
         hwChss.motor_back_right.setPower(0);
+    }
+
+    public void orientateBothBlueLine(ColorSensor left, ColorSensor right, FarbHelfer farbHelfer) {
+        while (!farbHelfer.isBlue(left)) {
+            motorStuff.turn(0.2, Direction_Enum.Left);
+        }
+        while (!farbHelfer.isBlue(right)) {
+            motorStuff.turn(0.2, Direction_Enum.Right);
+        }
     }
 
     /**
