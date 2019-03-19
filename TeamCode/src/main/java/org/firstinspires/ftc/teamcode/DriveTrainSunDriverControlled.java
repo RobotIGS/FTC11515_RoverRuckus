@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.sun.source.util.TaskEvent;
 
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
@@ -21,7 +22,9 @@ public class DriveTrainSunDriverControlled extends OpMode {
     //declare motors for arm motion
     private DcMotor motor_arm_lift;
     private DcMotor motor_arm_tilt;
+    private DcMotor motor_pull;
 
+    private Servo servo_collector;
     @Override
     public void init() {
         //initialize given hardwaremap to Sun
@@ -33,6 +36,10 @@ public class DriveTrainSunDriverControlled extends OpMode {
         //initialize motors for arm motion
         motor_arm_lift = hardwareMap.get(DcMotor.class, "motor_arm_lift");
         motor_arm_tilt = hardwareMap.get(DcMotor.class, "motor_arm_tilt");
+        motor_pull = hardwareMap.get(DcMotor.class, "motor_pull");
+
+        servo_collector = hardwareMap.get(Servo.class, "servo_collector");
+
     }
 
     @Override
@@ -105,8 +112,19 @@ public class DriveTrainSunDriverControlled extends OpMode {
             motor_arm_lift.setPower(0);
             }
 
-            
-        //add collector etc.
+            //Motor pull
+        if(gamepad2.left_stick_x != 0) {
+            motor_pull.setPower(gamepad2.left_stick_x);
+        }
+
+        //Servo
+        if(gamepad2.left_bumper) {
+            servo_collector.setPosition(0);
+        }
+        if(gamepad2.right_bumper) {
+            servo_collector.setPosition(45);
+        }
+
 
     }
 }
