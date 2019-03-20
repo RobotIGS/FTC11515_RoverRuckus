@@ -35,7 +35,8 @@ public class Test_FindWall extends LinearOpMode {
 
 
         waitForStart();
-        distanceTools.orientateBothBlueLine(hwChss.color_back_left, hwChss.color_back_right, new FarbHelfer());
+
+        tools.kickMarker(hwChss);
     }
 
     /**
