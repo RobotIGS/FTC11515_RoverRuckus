@@ -38,6 +38,7 @@ public class DriveTrainSunDriverControlled extends OpMode {
         motor_arm_tilt = hardwareMap.get(DcMotor.class, "motor_arm_tilt");
         motor_pull = hardwareMap.get(DcMotor.class, "motor_pull");
 
+        motor_arm_lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         servo_collector = hardwareMap.get(Servo.class, "servo_collector");
 
     }
@@ -86,31 +87,28 @@ public class DriveTrainSunDriverControlled extends OpMode {
         //controlling arm
         if (gamepad2.dpad_up) {
             motor_arm_lift.setPower(0.3); //arm ausfahren //0.3
-        } else {
-            motor_arm_lift.setPower(0);
         }
-
         if (gamepad2.dpad_down) {
             motor_arm_lift.setPower(-0.4); //arm einfahren //0.3
-        } else {
+        }
+        if(!gamepad2.dpad_down && !gamepad2.dpad_up) {
             motor_arm_lift.setPower(0);
         }
 
-        if (gamepad2.a) {
-                motor_arm_tilt.setPower(0.1); //winkel arm nach oben
-                motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
-            } else {
-            motor_arm_tilt.setPower(0);
-            motor_arm_lift.setPower(0);
+        /*if (gamepad2.a) {
+                motor_arm_tilt.setPower(0.5); //winkel arm nach oben
+                //motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
         }
-
         if (gamepad2.b) {
-            motor_arm_tilt.setPower(-0.1); //winkel arm nach unten
-            motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
-            } else {
+            motor_arm_tilt.setPower(-0.5); //winkel arm nach unten
+            //motor_arm_lift.setPower(-0.4); //arm parallel einfahren, add until feedback //0.3
+        }
+        if (!gamepad2.a && !gamepad2.b) {
             motor_arm_tilt.setPower(0);
             motor_arm_lift.setPower(0);
-            }
+        }*/
+        motor_arm_tilt.setPower(gamepad2.right_stick_x);
+
 
             //Motor pull
         if(gamepad2.left_stick_x != 0) {

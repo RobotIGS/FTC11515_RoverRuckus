@@ -7,6 +7,7 @@ package org.firstinspires.ftc.teamcode.HardwareMaps;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public abstract class HardwareChassis {
     //declare all 4 motors as DcMotor to be used furthermore
@@ -15,6 +16,7 @@ public abstract class HardwareChassis {
     public DcMotor motor_back_right = null;
     public DcMotor motor_back_left = null;
     //public DcMotor motor_arm = null;
+    public Servo servoMarker;
 
     //declare a variable to get easier use of the right Hardwaremap
     private HardwareMap hwmap = null;
@@ -55,6 +57,8 @@ public abstract class HardwareChassis {
         motor_back_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor_back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //motor_arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        servoMarker = hwMap.get(Servo.class, "servoMarker");
     }
 
     //force a method to set the right directions per wheel-layout
