@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Tools;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
+
 public class Tools {
     private LinearOpMode opMode;
 
@@ -43,6 +45,13 @@ public class Tools {
             motor.setAllMotors(0, 0.2, 0, 0.2);
         }
         motor.setAllMotors(0,0,0,0);
+    }
+
+    public void kickMarker(HardwareChassisSun hwChss) {
+        hwChss.servo_marker.setPosition(90);
+        stopForMilliSeconds(1000);
+        hwChss.servo_marker.setPosition(0);
+        stopForMilliSeconds(1000);
     }
 
 

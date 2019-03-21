@@ -24,6 +24,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
     private final int timeDriveBackward = 1300;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
+    private final double driveSpeed = 0.2;
     private GoldAlignDetector detector; //Recognizes golden mineral
     @Override
     public void runOpMode() {
@@ -59,7 +60,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         waitForStart();
 
         //Drives forward a certain amount of time
-        motorStuff.setAllMotors(0.2,0,0.2,0);
+        motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
         tools.stopForMilliSeconds(1500); //Time to drive forward first time
         motorStuff.setAllMotors(0,0,0,0);
 
@@ -72,10 +73,10 @@ public class AutonomousBlueCrater extends LinearOpMode {
         if (isGold && opModeIsActive() && !isStopRequested()) { //Middle
 
             //Drive forward two seconds
-            motorStuff.setAllMotors(0.2,0,0.2,0);
+            motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
             tools.stopForMilliSeconds(2000);
 
-            motorStuff.setAllMotors(-0.2,0,-0.2,0);
+            motorStuff.setAllMotors(-driveSpeed,0,-driveSpeed,0);
             tools.stopForMilliSeconds(1000);
             motorStuff.setAllMotors(0,0,0,0);
 
@@ -90,12 +91,12 @@ public class AutonomousBlueCrater extends LinearOpMode {
                 tools.stopForMilliSeconds(1000);
 
                 //Drive forward two seconds to push away the mineral
-                motorStuff.setAllMotors(0.2,0,0.2,0);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
                 tools.stopForMilliSeconds(timeDriveForward); //todo 2500
 
                 //Drive backward additional time
 
-                motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                motorStuff.setAllMotors(-driveSpeed,0,-driveSpeed,0);
                 tools.stopForMilliSeconds(timeDriveBackward);
 
                 motorStuff.turnToDegreeV4(360-degreeRight); //Changed from 360 - 22
@@ -111,10 +112,10 @@ public class AutonomousBlueCrater extends LinearOpMode {
                 motorStuff.turnToDegreeV4(360 - (degreeLeft + degreeRight)); //Left
 
                 //Drive forward two seconds
-                motorStuff.setAllMotors(0.2,0,0.2,0);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
                 tools.stopForMilliSeconds(timeDriveForward);
 
-                motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                motorStuff.setAllMotors(-driveSpeed,0,-driveSpeed,0);
                 tools.stopForMilliSeconds(timeDriveBackward);
 
                 motorStuff.turnToDegreeV4(30); //Changed
