@@ -34,6 +34,7 @@ public class TurnStuffCalibration {
     /**
      * This Method calculates the Minimum Speed / Power the motors need to be set to in order to move the robot
      * This is needed because the chassis will have different amounts of weigh and resistance trough its development
+     * The waiting call needs uptaded to bbe opmode sleeping
      * @return amount of power needed to move the robot
      */
     public double getMinimumSpeed(){

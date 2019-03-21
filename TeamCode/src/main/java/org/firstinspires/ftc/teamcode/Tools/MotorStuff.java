@@ -23,6 +23,7 @@ public class MotorStuff {
     private LinearOpMode opMode;
     private HardwareChassisGyro hwgy;
 
+    private final double MINSPEED = 0.15;
     /**
      * Constructor
      * @param hwchss Object that inherits from HardwareChassis
@@ -161,10 +162,9 @@ public class MotorStuff {
      * @return output of tanh
      */
     private double personalTanH(double i){
-        double minSpeed = 0.15;
         double o = Math.tanh(i);
-        if (o <minSpeed && o>0){ o = 0.15;}
-        if(o> -minSpeed && o <0){o = -0.15;}
+        if (o <this.MINSPEED && o>0){ o = 0.15;}
+        if(o> -this.MINSPEED && o <0){o = -0.15;}
         return o;
     }
 
