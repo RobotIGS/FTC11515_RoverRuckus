@@ -51,6 +51,7 @@ public class Tools {
         hwChss.servo_marker.setPosition(90);
         stopForMilliSeconds(1000);
         hwChss.servo_marker.setPosition(0);
+        stopForMilliSeconds(1000);
     }
 
 
