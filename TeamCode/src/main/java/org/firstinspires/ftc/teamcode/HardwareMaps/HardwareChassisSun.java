@@ -15,20 +15,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class HardwareChassisSun extends HardwareChassis{
     public DistanceSensor distance_left;
     public DistanceSensor distance_right;
-    //public ColorSensor color_back_left;
     public ColorSensor color_back_right;
     public ColorSensor color_back_left;
+    public DistanceSensor distance_back_left;
+    public DistanceSensor distance_back_right;
     //public Servo servoCam;
 
 
 
     //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
-    DistanceSensor distance_left;
-    DistanceSensor distance_right;
-    ColorSensor color_back_left;
-    ColorSensor color_back_right;
-    DistanceSensor distance_back_left;
-    DistanceSensor distance_back_right;
+
+
 
     public HardwareChassisSun(HardwareMap ahwMap) {
         super(ahwMap);
