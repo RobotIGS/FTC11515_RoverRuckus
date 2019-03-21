@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
-@TeleOp (name = "CompetiitonDrive")
+@TeleOp (name = "CompetitionDrive")
 
 //this drive method is for chassis SunnyBoy
 public class CompetitionDrive extends OpMode {
