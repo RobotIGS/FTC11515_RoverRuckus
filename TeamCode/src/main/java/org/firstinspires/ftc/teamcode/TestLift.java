@@ -3,15 +3,19 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 //Simple class to use both lift motors
 @TeleOp (name = "TestLift")
 public class TestLift extends OpMode {
     DcMotor motor_lift;
+    private DistanceSensor left;
+    private DistanceSensor right;
 
     @Override
     public void init() {
         motor_lift = hardwareMap.get(DcMotor.class, "motor_lift");
+        motor_lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }
