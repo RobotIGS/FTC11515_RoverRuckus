@@ -81,10 +81,14 @@ public class DriveTrainSunDriverControlled extends OpMode {
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
 
 
+        motor_pull.setPower(-gamepad2.left_stick_y);
 
-            //Motor pull
-        if(gamepad2.left_stick_x != 0) {
-            motor_pull.setPower(gamepad2.left_stick_x);
+        if(gamepad2.a) {
+            ghwchss.servo_marker.setPosition(90);
         }
+        if(gamepad2.b) {
+            ghwchss.servo_marker.setPosition(0);
+        }
+
     }
 }
