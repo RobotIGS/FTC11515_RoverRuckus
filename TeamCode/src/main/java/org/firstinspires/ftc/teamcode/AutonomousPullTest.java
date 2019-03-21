@@ -5,6 +5,7 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
@@ -61,7 +62,17 @@ public class AutonomousPullTest extends LinearOpMode {
 
         waitForStart();
         //Start of autonomous code
+        hwChss.motor_pull.setPower(0.8); //todo revert
+        tools.stopForMilliSeconds(750);
 
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+            hwChss.motor_pull.setPower(-0.5);
+        }
+        hwChss.motor_pull.setPower(0);
+        motorStuff.driveLeft(0.2,0.2);
+        tools.stopForMilliSeconds(500);
+        motorStuff.setAllMotors(0,0,0,0);
+        distanceTools.orientateBothBlueLine(hwChss.color_back_left, hwChss.color_back_right, blueline);
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
         long time  = System.currentTimeMillis();

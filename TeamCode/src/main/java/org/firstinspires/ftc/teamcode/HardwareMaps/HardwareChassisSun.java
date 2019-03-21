@@ -19,7 +19,7 @@ public class HardwareChassisSun extends HardwareChassis{
     public ColorSensor color_back_left;
     public DistanceSensor distance_back_left;
     public DistanceSensor distance_back_right;
-    //public Servo servoCam;
+    public DcMotor motor_pull;
 
 
 
@@ -45,6 +45,9 @@ public class HardwareChassisSun extends HardwareChassis{
         color_back_right= ahwMap.get(ColorSensor.class, "color_distance_back_right");
         distance_back_left = ahwMap.get(DistanceSensor.class, "color_distance_back_left");
         distance_back_right = ahwMap.get(DistanceSensor.class, "color_distance_back_right");
+
+        motor_pull = ahwMap.get(DcMotor.class, "motor_pull");
+        motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     @Override
