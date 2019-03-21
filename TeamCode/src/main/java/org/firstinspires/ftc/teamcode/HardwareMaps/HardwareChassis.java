@@ -58,7 +58,7 @@ public abstract class HardwareChassis {
         motor_back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //motor_arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servoMarker = hwMap.get(Servo.class, "servoMarker");
+        servoMarker = hwMap.get(Servo.class, "servo_marker");
     }
 
     //force a method to set the right directions per wheel-layout

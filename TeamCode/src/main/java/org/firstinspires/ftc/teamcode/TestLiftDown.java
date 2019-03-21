@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 //Simple class to use both lift motors
-@TeleOp (name = "TestLift")
-public class TestLift extends OpMode {
+@TeleOp (name = "TestLiftDown")
+public class TestLiftDown extends OpMode {
     DcMotor motor_lift;
     private DistanceSensor left;
     private DistanceSensor right;
@@ -28,10 +28,9 @@ public class TestLift extends OpMode {
 
     @Override
     public void loop() {
-        motor_lift.setPower(-gamepad1.left_stick_y);
-        telemetry.addData("left", left.getDistance(DistanceUnit.MM));
-        telemetry.addData("right", right.getDistance(DistanceUnit.MM));
-        telemetry.update();
+        while (left.getDistance(DistanceUnit.MM) > 180) {
+            motor_lift.setPower(-0.5);
+        }
     }
 
 }

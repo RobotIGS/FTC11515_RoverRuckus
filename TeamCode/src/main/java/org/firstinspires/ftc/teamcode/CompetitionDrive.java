@@ -4,15 +4,16 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.sun.source.util.TaskEvent;
+import com.sun.tools.javac.tree.DCTree;
 
 import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
-@TeleOp (name = "Driver Controlled with arm")
+
+@TeleOp (name = "CompetiitonDrive")
 
 //this drive method is for chassis SunnyBoy
-public class DriveTrainSunDriverControlled extends OpMode {
+public class CompetitionDrive extends OpMode {
     //declare an Object of Optimized Drive Mode we have decided to use this mode due to its practicality
     private DriveHoverOptimized driveOp;
     //declare given hardwaremap as SunChassis
@@ -22,6 +23,11 @@ public class DriveTrainSunDriverControlled extends OpMode {
     //declare motors for arm motion
 
     private DcMotor motor_pull;
+
+    private DcMotor motor_sweep;
+    private DcMotor motor_driveOut;
+    private Servo servo_collector;
+
 
     @Override
     public void init() {
@@ -36,6 +42,11 @@ public class DriveTrainSunDriverControlled extends OpMode {
 
         motor_pull = hardwareMap.get(DcMotor.class, "motor_pull");
         motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        servo_collector = hardwareMap.get(Servo.class, "servo_collector");
+        motor_sweep = hardwareMap.get(DcMotor.class, "motor_sweep");
+        motor_driveOut = hardwareMap.get(DcMotor.class, "motor_driveOut");
+
+
 
     }
 
@@ -74,17 +85,24 @@ public class DriveTrainSunDriverControlled extends OpMode {
             motstff.driveLeft(0, 0);
         }
 
-
-
-
         //to turn the robot if wanted
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
 
+        motor_pull.setPower(gamepad2.left_stick_x);
 
-
-            //Motor pull
-        if(gamepad2.left_stick_x != 0) {
-            motor_pull.setPower(gamepad2.left_stick_x);
+        //Servo
+        if(gamepad2.left_bumper) {
+            servo_collector.setPosition(0);
         }
+        if(gamepad2.right_bumper) {
+            servo_collector.setPosition(45);
+        }
+        if(gamepad2.a) {
+            motor_sweep.setPower(0.5);
+        }
+        if(gamepad2.b) {
+            motor_sweep.setPower(0);
+        }
+        motor_driveOut.setPower(gamepad2.right_stick_x);
     }
 }
