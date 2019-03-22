@@ -15,7 +15,7 @@ public abstract class HardwareChassis {
     public DcMotor motor_front_left = null;
     public DcMotor motor_back_right = null;
     public DcMotor motor_back_left = null;
-    //public DcMotor motor_arm = null;
+
     public Servo servoMarkerLeft;
     public Servo servoMarkerRight;
 
