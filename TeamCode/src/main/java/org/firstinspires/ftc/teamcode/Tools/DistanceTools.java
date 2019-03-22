@@ -145,7 +145,6 @@ public class DistanceTools {
                     }
                     tools.stopForMilliSeconds(10);
                 }
-                tools.kickMarkerLeft(hwChss);
                 break;
             case Left:
 
@@ -165,7 +164,6 @@ public class DistanceTools {
                 motorStuff.driveRight(0.4,0.4);
                 tools.stopForMilliSeconds(500);
                 motorStuff.setAllMotors(0,0,0,0);
-                tools.kickMarkerLeft(hwChss);
                 break;
             case BackUpCrater:
                 while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
