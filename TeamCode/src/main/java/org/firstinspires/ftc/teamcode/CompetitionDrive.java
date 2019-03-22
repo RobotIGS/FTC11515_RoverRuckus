@@ -88,21 +88,27 @@ public class CompetitionDrive extends OpMode {
         //to turn the robot if wanted
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
 
-        motor_pull.setPower(-gamepad2.left_stick_x);
+        motor_pull.setPower(-gamepad2.left_stick_y);
 
-        //Servo
+        //Marker
         if(gamepad2.left_bumper) {
-            servo_collector.setPosition(0);
+            ghwchss.servoMarkerLeft.setPosition(45);
+            ghwchss.servoMarkerRight.setPosition(0);
         }
         if(gamepad2.right_bumper) {
-            servo_collector.setPosition(45);
+            ghwchss.servoMarkerLeft.setPosition(0);
+            ghwchss.servoMarkerRight.setPosition(45);
         }
+
         if(gamepad2.a) {
             motor_sweep.setPower(0.5);
+        }
+        if(gamepad2.x) {
+            motor_sweep.setPower(-0.5);
         }
         if(gamepad2.b) {
             motor_sweep.setPower(0);
         }
-        motor_driveOut.setPower(gamepad2.right_stick_x);
+        motor_driveOut.setPower(gamepad2.right_stick_y);
     }
 }

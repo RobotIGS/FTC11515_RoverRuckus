@@ -163,8 +163,8 @@ public class MotorStuff {
      */
     private double personalTanH(double i){
         double o = Math.tanh(i);
-        if (o <this.MINSPEED && o>0){ o = 0.15;}
-        if(o> -this.MINSPEED && o <0){o = -0.15;}
+        if (o <this.MINSPEED && o>0){ o = 0.3;} //0.15
+        if(o> -this.MINSPEED && o <0){o = -0.3;} //0.15
         return o;
     }
 

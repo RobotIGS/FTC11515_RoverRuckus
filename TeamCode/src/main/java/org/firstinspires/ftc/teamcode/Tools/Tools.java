@@ -49,9 +49,9 @@ public class Tools {
     }
 
     public void kickMarkerLeft(HardwareChassisSun hwChss) {
-        hwChss.servoMarkerLeft.setPosition(90);
-        stopForMilliSeconds(1000);
         hwChss.servoMarkerLeft.setPosition(0);
+        stopForMilliSeconds(1000);
+        hwChss.servoMarkerLeft.setPosition(90);
         stopForMilliSeconds(1000);
     }
     public void kickMarkerRight(HardwareChassisSun hwChss) {

@@ -137,6 +137,7 @@ public class AutonomousPullTest extends LinearOpMode {
                 distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
                 tools.kickMarkerLeft(hwChss);
 
+
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
@@ -151,6 +152,12 @@ public class AutonomousPullTest extends LinearOpMode {
                 motorStuff.setAllMotors(0,0,0,0);
                 distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Left, Color_Enum.Blue);
                 tools.kickMarkerRight(hwChss);
+
+                motorStuff.setAllMotors(-driveSpeed, 0, -driveSpeed, 0);
+
+                tools.stopForMilliSeconds(1000);
+
+                motorStuff.setAllMotors(0, 0, 0, 0);
 
             }
         }
