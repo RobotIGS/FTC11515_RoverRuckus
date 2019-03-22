@@ -48,7 +48,7 @@ public class DistanceTools {
             case Left:
                 //Drives until left sensor registers a wall.
                 while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
-                    motorStuff.driveInOneDirection(0.2, 0.2);
+                    motorStuff.driveInOneDirection(0.4, 0.4);
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
                 //Turns until other (right)  sensor also registers a wall, so the robot is parallel to the wall
@@ -60,7 +60,7 @@ public class DistanceTools {
             case Right:
                 //Drives until right sensor registers a wall.
                 while (!isThereAWall(hwChss.distance_right.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
-                    motorStuff.driveInOneDirection(0.2, 0.2); //drive forward
+                    motorStuff.driveInOneDirection(0.4, 0.4); //drive forward
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
 
@@ -77,7 +77,7 @@ public class DistanceTools {
                 motorStuff.setAllMotors(0,0,0,0);
                 //Drives until left sensor registers a wall.
                 while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
-                    motorStuff.driveLeft(0.2, 0.2);
+                    motorStuff.driveLeft(0.4, 0.4);
 
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
@@ -124,49 +124,57 @@ public class DistanceTools {
             case Crater:
                 motorStuff.turnToDegreeV4((float) (360 - 25)); //todo changed from 22.5
 
-                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested() && !farbHelfer.isColor(color, hwChss.color_back_left)){
                     float difference = motorStuff.getDegree() - initialOrientation;
                     if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
-                        motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
+                        motorStuff.setAllMotors(-0.2, -0.3 - newSigLog(difference),-0.2,-0.3 + newSigLog(difference));
                     }
                     if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                        motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
+                        motorStuff.setAllMotors(0.3,-0.3 - newSigLog(difference),0.3,-0.3 + newSigLog(difference));
                     }
                 }
                 break;
             case Right:
-                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested() && !farbHelfer.isColor(color, hwChss.color_back_left)){
                     float difference = initialOrientation -  motorStuff.getDegree();
                     if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                        motorStuff.setAllMotors(-0.15 ,-0.15 + newSigLog(difference),-0.15 , -0.15  - newSigLog(difference));
+                        motorStuff.setAllMotors(-0.3 ,-0.3 + newSigLog(difference),-0.3 , -0.3  - newSigLog(difference));
                     }
                     if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                        motorStuff.setAllMotors(0.15 ,-0.15 + newSigLog(difference),0.15,-0.15 - newSigLog(difference));
+                        motorStuff.setAllMotors(0.3 ,-0.3 + newSigLog(difference),0.3,-0.3 - newSigLog(difference));
                     }
                     tools.stopForMilliSeconds(10);
                 }
+                tools.kickMarkerLeft(hwChss);
                 break;
             case Left:
 
-                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
+                while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested() && !farbHelfer.isColor(color, hwChss.color_back_left)){
                     float difference = initialOrientation -  motorStuff.getDegree();
                     if(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) < 9){
-                        motorStuff.setAllMotors(-0.15 ,+0.15 + newSigLog(difference),-0.15 , +0.15  - newSigLog(difference));
+                        motorStuff.setAllMotors(-0.3 ,+0.3 + newSigLog(difference),-0.3 , +0.3  - newSigLog(difference));
                     }
                     if (triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)) >= 9 || isNaN(triDist(hwChss.distance_right.getDistance(DistanceUnit.CM)))) {
-                        motorStuff.setAllMotors(0.15 ,+0.15 + newSigLog(difference),0.15,+0.15 - newSigLog(difference));
+                        motorStuff.setAllMotors(0.3 ,+0.3 + newSigLog(difference),0.3,+0.3 - newSigLog(difference));
                     }
                     tools.stopForMilliSeconds(10);
                 }
+
+                motorStuff.turnToDegreeV4(90);
+                motorStuff.driveInOneDirection(0.4,0.4);
+                motorStuff.driveRight(0.4,0.4);
+                tools.stopForMilliSeconds(500);
+                motorStuff.setAllMotors(0,0,0,0);
+                tools.kickMarkerLeft(hwChss);
                 break;
             case BackUpCrater:
                 while(!farbHelfer.isColor(color, hwChss.color_back_right) && !opMode.isStopRequested()){
                     float difference = motorStuff.getDegree() - initialOrientation;
                     if(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) < WALLDISTANCE){
-                        motorStuff.setAllMotors(-0.1, -0.15 - newSigLog(difference),-0.1,-0.15 + newSigLog(difference));
+                        motorStuff.setAllMotors(-0.2, -0.3 - newSigLog(difference),-0.2,-0.3 + newSigLog(difference));
                     }
                     if (triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)) >= WALLDISTANCE || isNaN(triDist(hwChss.distance_left.getDistance(DistanceUnit.CM)))) {
-                        motorStuff.setAllMotors(0.15,-0.15 - newSigLog(difference),0.15,-0.15 + newSigLog(difference));
+                        motorStuff.setAllMotors(0.3,-0.3 - newSigLog(difference),0.3,-0.3 + newSigLog(difference));
                     }
                 }
                 break;

@@ -151,7 +151,7 @@ public class MotorStuff {
         float goal = (this.getDegree() + degree)%360;
         while((difference>1 || difference<-1 )  && !opMode.isStopRequested()){
             difference = -1*/*Math.abs*/(goal-this.getDegree());
-            this.turn(this.personalTanH(difference/200),Direction_Enum.Right);
+            this.turn(this.personalTanH(3*difference/200),Direction_Enum.Right);
         }
         this.setAllMotors(0,0,0,0);
     }

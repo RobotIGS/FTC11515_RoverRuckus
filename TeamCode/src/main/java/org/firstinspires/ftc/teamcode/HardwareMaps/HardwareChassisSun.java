@@ -19,7 +19,8 @@ public class HardwareChassisSun extends HardwareChassis{
     public DistanceSensor distance_back_left;
     public DistanceSensor distance_back_right;
     public DcMotor motor_pull;
-
+    public DcMotor motor_sweep;
+    public DcMotor motor_driveOut;
 
 
     //CONSTRUCTOR RUN ABSTRACT CLASS AND INITIALIZE HARDWARE
@@ -32,10 +33,6 @@ public class HardwareChassisSun extends HardwareChassis{
         distance_right= ahwMap.get(DistanceSensor.class, "color_distance_front_right");
         //color_back_left= ahwMap.get(ColorSensor.class, "color_distance_back_left"); //?????
         color_back_right= ahwMap.get(ColorSensor.class, "color_distance_back_right");
-        //servoCam = ahwMap.get(Servo.class,  "Front_Cam_Motion");
-        //servoCam = ahwMap.servo.get("Front_Cam_Motion");
-
-
 
         //super.init(ahwMap);
         distance_left = ahwMap.get(DistanceSensor.class, "color_distance_front_left");
@@ -47,6 +44,10 @@ public class HardwareChassisSun extends HardwareChassis{
 
         motor_pull = ahwMap.get(DcMotor.class, "motor_pull");
         motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        motor_sweep = ahwMap.get(DcMotor.class, "motor_sweep");
+        motor_driveOut = ahwMap.get(DcMotor.class, "motor_driveOut");
     }
 
     @Override

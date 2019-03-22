@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -16,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 import java.io.LineNumberReader;
 
+@Autonomous (name = "AutonomousPullTest")
 public class AutonomousPullTest extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
@@ -24,7 +27,7 @@ public class AutonomousPullTest extends LinearOpMode {
     private final int degreeRight = 37;
     private final int degreeLeft = 37;
 
-    private final double driveSpeed = 0.2;
+    private final double driveSpeed = 0.4;
 
 
     @Override
@@ -62,24 +65,45 @@ public class AutonomousPullTest extends LinearOpMode {
 
         waitForStart();
         //Start of autonomous code
-        hwChss.motor_pull.setPower(0.8); //todo revert
+        hwChss.motor_pull.setPower(-0.8); //todo revert
         tools.stopForMilliSeconds(750);
 
-        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
-            hwChss.motor_pull.setPower(-0.5);
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 100 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+            hwChss.motor_pull.setPower(0.5);
         }
+        hwChss.motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         hwChss.motor_pull.setPower(0);
-        motorStuff.driveLeft(0.2,0.2);
-        tools.stopForMilliSeconds(500);
+
+
+        hwChss.motor_pull.setPower(0.3);
+        tools.stopForMilliSeconds(200);
+        hwChss.motor_pull.setPower(0);
+        //drive right additional seconds
+        tools.stopForMilliSeconds(1000);
+        motorStuff.driveRight(0.3,0.3);
+        tools.stopForMilliSeconds(1000);
         motorStuff.setAllMotors(0,0,0,0);
-        distanceTools.orientateBothBlueLine(hwChss.color_back_left, hwChss.color_back_right, blueline);
-        //Drives forward a certain amount of time
-        motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-        long time  = System.currentTimeMillis();
+        //drive forward additional seconds
+        motorStuff.driveInOneDirection(0.4,0.4);
         tools.stopForMilliSeconds(1500);
         motorStuff.setAllMotors(0,0,0,0);
-
+        //drive left additional seconds
+        motorStuff.driveLeft(0.3,0.3);
         tools.stopForMilliSeconds(1000);
+        motorStuff.setAllMotors(0,0,0,0);
+
+
+        hwChss.motor_pull.setPower(-0.3);
+        tools.stopForMilliSeconds(200);
+        hwChss.motor_pull.setPower(0);
+
+        //distanceTools.orientateBothBlueLine(hwChss.color_back_left, hwChss.color_back_right, blueline);
+        //Drives forward a certain amount of time
+        //todo motorStuff.driveInOneDirection(0.4, 0.4);
+        //todo tools.stopForMilliSeconds(1500);
+        motorStuff.setAllMotors(0,0,0,0);
+
+        tools.stopForMilliSeconds(100);
         //Sees middle mineral. Checks whether is't gold or not.
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
@@ -88,16 +112,17 @@ public class AutonomousPullTest extends LinearOpMode {
 
             //Drive forward to seconds
             motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-            time = System.currentTimeMillis();
-            while ((System.currentTimeMillis() < time+2000) && !isStopRequested()) {
-                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-            }
+            tools.stopForMilliSeconds(5000);
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_left))&& !isStopRequested()) {
                 motorStuff.setAllMotors(driveSpeed,0,driveSpeed, 0);
             }
-
             motorStuff.setAllMotors(0,0,0,0);
+            //drive left additional seconds
+            motorStuff.driveLeft(0.4,0.4);
+            tools.stopForMilliSeconds(2000);
+            motorStuff.setAllMotors(0,0,0,0);
+            tools.kickMarkerLeft(hwChss);
         } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
