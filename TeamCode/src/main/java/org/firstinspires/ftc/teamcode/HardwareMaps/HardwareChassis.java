@@ -16,9 +16,9 @@ public abstract class HardwareChassis {
     public DcMotor motor_back_right = null;
     public DcMotor motor_back_left = null;
     //public DcMotor motor_arm = null;
-    public Servo servoMarker;
+    public Servo servoMarkerLeft;
+    public Servo servoMarkerRight;
 
-    public Servo servo_marker;
     //declare a variable to get easier use of the right Hardwaremap
     private HardwareMap hwmap = null;
 
@@ -65,7 +65,8 @@ public abstract class HardwareChassis {
         motor_back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //motor_arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servoMarker = hwMap.get(Servo.class, "servo_marker");
+        servoMarkerLeft = hwMap.get(Servo.class, "servo_marker_left");
+        servoMarkerRight = hwMap.get(Servo.class, "servo_marker_right");
     }
 
     //force a method to set the right directions per wheel-layout

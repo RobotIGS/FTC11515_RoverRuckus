@@ -88,7 +88,7 @@ public class CompetitionDrive extends OpMode {
         //to turn the robot if wanted
         motstff.turnWithGamepad(gamepad1.left_bumper,gamepad1.right_bumper,1);
 
-        motor_pull.setPower(gamepad2.left_stick_x);
+        motor_pull.setPower(-gamepad2.left_stick_x);
 
         //Servo
         if(gamepad2.left_bumper) {

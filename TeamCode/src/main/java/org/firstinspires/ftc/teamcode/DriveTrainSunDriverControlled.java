@@ -84,10 +84,12 @@ public class DriveTrainSunDriverControlled extends OpMode {
         motor_pull.setPower(-gamepad2.left_stick_y);
 
         if(gamepad2.a) {
-            ghwchss.servo_marker.setPosition(90);
+            ghwchss.servoMarkerLeft.setPosition(90);
+            ghwchss.servoMarkerRight.setPosition(90);
         }
         if(gamepad2.b) {
-            ghwchss.servo_marker.setPosition(0);
+            ghwchss.servoMarkerLeft.setPosition(0);
+            ghwchss.servoMarkerRight.setPosition(0);
         }
 
     }
