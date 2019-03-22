@@ -81,7 +81,7 @@ public class CompetitionDrive extends OpMode {
         if (gamepad1.dpad_right) { //drive right
             motstff.driveRight(gamepad1.right_trigger,gamepad1.right_trigger);
         }
-        if (!gamepad1.dpad_left && !gamepad1.dpad_right) {
+        if (!gamepad1.dpad_left && !gamepad1.dpad_right) { //stop driving
             motstff.driveLeft(0, 0);
         }
 
