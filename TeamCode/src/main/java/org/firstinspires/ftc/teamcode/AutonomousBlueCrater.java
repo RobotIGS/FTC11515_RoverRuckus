@@ -66,10 +66,8 @@ public class AutonomousBlueCrater extends LinearOpMode {
 
         //Sees middle mineral. Checks whether it's gold or not.
         boolean isGold = detector.isFound();
-        telemetry.addData("Is Gold: " ,isGold);
-        telemetry.addData("Where: ", detector.getXPosition());
-        telemetry.update();
-        tools.stopForMilliSeconds(1000);
+
+        tools.stopForMilliSeconds(100);
         if (isGold && opModeIsActive() && !isStopRequested()) { //Middle
 
             //Drive forward two seconds
@@ -84,15 +82,13 @@ public class AutonomousBlueCrater extends LinearOpMode {
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right todo changed from 22
             //Waits one second to ensure that the robot has turned completely
 
-            tools.stopForMilliSeconds(1000);
+            tools.stopForMilliSeconds(100);
             if(detector.isFound() && !isStopRequested()) { //Gold mineral is on the right side
-                telemetry.addData("Where: ", detector.getXPosition());
-                telemetry.update();
-                tools.stopForMilliSeconds(1000);
+                tools.stopForMilliSeconds(100);
 
                 //Drive forward two seconds to push away the mineral
                 motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-                tools.stopForMilliSeconds(timeDriveForward); //todo 2500
+                tools.stopForMilliSeconds(timeDriveForward);
 
                 //Drive backward additional time
 
@@ -102,13 +98,11 @@ public class AutonomousBlueCrater extends LinearOpMode {
                 motorStuff.turnToDegreeV4(360-degreeRight); //Changed from 360 - 22
 
                 //waits additional second
-                tools.stopForMilliSeconds(1000);
+                //tools.stopForMilliSeconds(1000);
 
             }
             else if (!isStopRequested()){ //Same for the left side
-                telemetry.addData("Where: ", detector.getXPosition());
-                telemetry.update();
-                tools.stopForMilliSeconds(1000);
+                tools.stopForMilliSeconds(100);
                 motorStuff.turnToDegreeV4(360 - (degreeLeft + degreeRight)); //Left
 
                 //Drive forward two seconds
@@ -121,7 +115,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
                 motorStuff.turnToDegreeV4(30); //Changed
 
                 //waits additional second
-                tools.stopForMilliSeconds(1000);
+                //tools.stopForMilliSeconds(1000);
             }
         }
         //It doesn't matter, if the mineral was left, right or in the center.
@@ -129,7 +123,7 @@ public class AutonomousBlueCrater extends LinearOpMode {
         //It will drive until one sensor registers the wall, then follow the wall.
         distanceTools.driveToWall(Direction_Enum.Crater);
         distanceTools.orientateToSensorLeft(hwChss.distance_left, hwChss.distance_right);
-        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Blue);
+        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Red);
 
     }
 

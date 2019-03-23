@@ -77,7 +77,7 @@ public class DistanceTools {
                 motorStuff.setAllMotors(0,0,0,0);
                 //Drives until left sensor registers a wall.
                 while (!isThereAWall(hwChss.distance_left.getDistance(DistanceUnit.MM)) && !opMode.isStopRequested()) {
-                    motorStuff.driveLeft(0.4, 0.4);
+                    motorStuff.driveLeft(0.6, 0.6); //0.4
 
                 }
                 motorStuff.setAllMotors(0, 0, 0, 0);
