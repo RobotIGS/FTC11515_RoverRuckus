@@ -6,11 +6,13 @@ import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
@@ -23,6 +25,7 @@ public class AutonomousBlueSide extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer blueline; //Recognizes blue line
     private Tools tools;
+    private DistanceAlternativeTools alternativeTools;
 
     private final int degreeRight = 37;
     private final int degreeLeft = 37;
@@ -40,6 +43,8 @@ public class AutonomousBlueSide extends LinearOpMode {
         tools = new Tools(this);
 
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
+
+        alternativeTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
         blueline = new FarbHelfer();
 
@@ -130,13 +135,14 @@ public class AutonomousBlueSide extends LinearOpMode {
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(100);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                distanceTools.driveToWall(Direction_Enum.Right);
+                alternativeTools.driveToWall(Direction_Enum.Right, Color_Enum.Blue, blueline, tools);
 
                 //waits additional second
                 tools.stopForMilliSeconds(100);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
+                alternativeTools.driveBackFromWall(Direction_Enum.Right);
+                //distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
                 tools.kickMarkerLeft(hwChss);
             }
             else if (!isStopRequested()) { //Same for the left side

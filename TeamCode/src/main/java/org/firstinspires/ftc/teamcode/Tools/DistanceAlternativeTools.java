@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 
 /**
@@ -32,30 +33,35 @@ public class DistanceAlternativeTools {
      * When the robot removed the golden mineral, this method will let it drive until it registers a wall
      * @param direction From which position the robot will come. Crater or not crater left and not crater right
      */
-    public void driveToWall(Direction_Enum direction){
+    public void driveToWall(Direction_Enum direction, Color_Enum color, FarbHelfer farbHelfer, Tools tools){
         switch (direction){
             case Left:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeAdvance) && !opMode.isStopRequested()){
-                    motorStuff.driveInOneDirection(0.2, 0.2);
+                    motorStuff.driveInOneDirection(0.4, 0.4);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
                 callTime = System.currentTimeMillis();
-                while ((!this.timeIsUp(timeRotate)) && !opMode.isStopRequested()){
-                    motorStuff.setAllMotors(0,0,0.4,0);
-                }
+                motorStuff.driveBack(0.3, 0.3);
+                tools.stopForMilliSeconds(50);
                 motorStuff.setAllMotors(0,0,0,0);
+
+
+
                 break;
             case Right:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeAdvanceRight) && !opMode.isStopRequested()){
-                    motorStuff.driveInOneDirection(0.2, 0.2);
+                    motorStuff.driveInOneDirection(0.4, 0.4);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
                 callTime = System.currentTimeMillis();
-                while ((!this.timeIsUp(timeRotate)) && !opMode.isStopRequested()){
-                    motorStuff.setAllMotors(0.4,0,0,0);
-                }
+                motorStuff.driveBack(0.3, 0.3);
+                tools.stopForMilliSeconds(50);
+                motorStuff.setAllMotors(0,0,0,0);
+
+                motorStuff.driveLeft(0.4, 0.4);
+                tools.stopForMilliSeconds(2000);
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
             case Crater:
@@ -78,19 +84,19 @@ public class DistanceAlternativeTools {
             case Left:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeDevance)&& !opMode.isStopRequested()) {
-                    motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                    motorStuff.setAllMotors(-0.4,0,-0.4,0);
                 }
                 break;
             case Right:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeDevance)&& !opMode.isStopRequested()) {
-                    motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                    motorStuff.setAllMotors(-0.4,0,-0.4,0);
                 }
                 break;
             case Crater:
                 callTime = System.currentTimeMillis();
                 while (!this.timeIsUp(timeDevanceCrater)&& !opMode.isStopRequested()) {
-                    motorStuff.setAllMotors(-0.2,0,-0.2,0);
+                    motorStuff.setAllMotors(-0.4,0,-0.4,0);
                 }
                 break;
         }

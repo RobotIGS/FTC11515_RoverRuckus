@@ -4,6 +4,7 @@ import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
-
+@Disabled
 @Autonomous (name = "BackUpAutonomusRedSide")
 public class AutonomusRedSideBackUp extends LinearOpMode {
 
@@ -90,7 +91,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                distanceAlternativeTools.driveToWall(Direction_Enum.Right);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Right, );
 
                 //waits additional second
                 tools.stopForMilliSeconds(1000);
@@ -109,7 +110,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
                 tools.stopForMilliSeconds(1000);
-                distanceAlternativeTools.driveToWall(Direction_Enum.Left);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Left);
 
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);

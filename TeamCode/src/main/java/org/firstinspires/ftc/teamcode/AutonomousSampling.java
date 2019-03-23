@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "AutonomousRedSide")
-public class AutonomousRedSide extends LinearOpMode {
+@Autonomous (name = "AutonomousSampling")
+public class AutonomousSampling extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer redline; //Recognizes blue line
     private Tools tools;
@@ -92,7 +92,7 @@ public class AutonomousRedSide extends LinearOpMode {
         //drive right additional seconds
 
         motorStuff.driveRight(0.4,0.4);
-        tools.stopForMilliSeconds(1000);
+        tools.stopForMilliSeconds(500);
         motorStuff.setAllMotors(0,0,0,0);
         //drive forward additional seconds
         motorStuff.driveInOneDirection(0.4,0.4);
@@ -100,7 +100,7 @@ public class AutonomousRedSide extends LinearOpMode {
         motorStuff.setAllMotors(0,0,0,0);
         //drive left additional seconds
         motorStuff.driveLeft(0.4,0.4);
-        tools.stopForMilliSeconds(100);
+        tools.stopForMilliSeconds(500);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(100);
@@ -114,65 +114,24 @@ public class AutonomousRedSide extends LinearOpMode {
 
             //Drives forward a lot
             motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-            tools.stopForMilliSeconds(5000);
+            tools.stopForMilliSeconds(3500);
 
-            //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_left))&& !isStopRequested()) {
-                motorStuff.setAllMotors(driveSpeed,0,driveSpeed, 0);
-            }
-            motorStuff.setAllMotors(0,0,0,0);
-            //drive left additional seconds
-            motorStuff.driveRight(0.4,0.4);
-            tools.stopForMilliSeconds(1000);
-            motorStuff.setAllMotors(0,0,0,0);
-            motorStuff.turnToDegreeV4(20);
-            tools.kickMarkerRight(hwChss);
         } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(100);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                //distanceTools.driveToWall(Direction_Enum.Right);
-                alternativeTools.driveToWall(Direction_Enum.Right, Color_Enum.Red, redline, tools);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
+                tools.stopForMilliSeconds(3500);
 
-                //waits additional second
-                tools.stopForMilliSeconds(100);
-
-                motorStuff.setAllMotors(0,0,0,0);
-                alternativeTools.driveBackFromWall(Direction_Enum.Right);
-                //distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Red);
-                tools.kickMarkerRight(hwChss);
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(driveSpeed, 0, driveSpeed, 0);
 
-                tools.stopForMilliSeconds(100);
-                alternativeTools.driveToWall(Direction_Enum.Left, Color_Enum.Red, redline, tools);
-
-                motorStuff.driveRight(0.4, 0.4);
-                tools.stopForMilliSeconds(3000);
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
+                tools.stopForMilliSeconds(3500);
                 motorStuff.setAllMotors(0,0,0,0);
-
-                motorStuff.turnToDegreeV4(90);
-
-                motorStuff.driveRight(0.4,0.4);
-                tools.stopForMilliSeconds(500);
-                motorStuff.setAllMotors(0,0,0,0);
-
-                //Waits additional second
-                tools.stopForMilliSeconds(100);
-                //Drives from the wall to the marker zone.
-                motorStuff.setAllMotors(0,0,0,0);
-                //alternativeTools.driveBackFromWall(Direction_Enum.Left);
-
-                tools.kickMarkerRight(hwChss);
-
-                motorStuff.setAllMotors(-driveSpeed, 0, -driveSpeed, 0);
-
-                tools.stopForMilliSeconds(1000);
-
-                motorStuff.setAllMotors(0, 0, 0, 0);
 
             }
         }
