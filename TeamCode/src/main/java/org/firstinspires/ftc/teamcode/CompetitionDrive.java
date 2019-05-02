@@ -106,6 +106,8 @@ public class CompetitionDrive extends OpMode {
         if(gamepad2.x) {
             motor_sweep.setPower(-0.5);
         }
+
+
         if(gamepad2.b) {
             motor_sweep.setPower(0);
         }

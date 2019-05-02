@@ -61,7 +61,7 @@ public class DistanceAlternativeTools {
                 motorStuff.setAllMotors(0,0,0,0);
 
                 motorStuff.driveLeft(0.4, 0.4);
-                tools.stopForMilliSeconds(2000);
+                tools.stopForMilliSeconds(2500);
                 motorStuff.setAllMotors(0,0,0,0);
                 break;
             case Crater:

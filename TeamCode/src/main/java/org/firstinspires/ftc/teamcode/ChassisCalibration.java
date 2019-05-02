@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 import org.firstinspires.ftc.teamcode.Tools.TurnStuffCalibration;
 
+@Disabled
 @Autonomous (name = "CalibrationMinSpeed")
 public class ChassisCalibration extends LinearOpMode {
     private double var;

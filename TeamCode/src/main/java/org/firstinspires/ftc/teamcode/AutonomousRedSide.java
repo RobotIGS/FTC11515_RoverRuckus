@@ -74,7 +74,7 @@ public class AutonomousRedSide extends LinearOpMode {
 
         //WHile robot not on ground, let robot down.
         float backUpTime = System.currentTimeMillis();
-        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 100 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
             hwChss.motor_pull.setPower(0.5);
             if (System.currentTimeMillis() > backUpTime + 5000) { //Backup, if robot doens't come down
                 hwChss.motor_pull.setPower(0);
@@ -91,6 +91,8 @@ public class AutonomousRedSide extends LinearOpMode {
         hwChss.motor_pull.setPower(0);
         //drive right additional seconds
 
+        tools.stopForMilliSeconds(3000);
+
         motorStuff.driveRight(0.4,0.4);
         tools.stopForMilliSeconds(1000);
         motorStuff.setAllMotors(0,0,0,0);
@@ -100,7 +102,7 @@ public class AutonomousRedSide extends LinearOpMode {
         motorStuff.setAllMotors(0,0,0,0);
         //drive left additional seconds
         motorStuff.driveLeft(0.4,0.4);
-        tools.stopForMilliSeconds(100);
+        tools.stopForMilliSeconds(1000);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(100);

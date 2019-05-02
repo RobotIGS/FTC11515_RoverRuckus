@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "AutonomousBlueSide2")
+@Autonomous (name = "AutonomousBlueSide")
 public class AutonomousBlueSide2 extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer redline; //Recognizes blue line
@@ -92,7 +92,7 @@ public class AutonomousBlueSide2 extends LinearOpMode {
         //drive right additional seconds
 
         motorStuff.driveRight(0.4,0.4);
-        tools.stopForMilliSeconds(500);
+        tools.stopForMilliSeconds(1000);
         motorStuff.setAllMotors(0,0,0,0);
         //drive forward additional seconds
         motorStuff.driveInOneDirection(0.4,0.4);
@@ -100,7 +100,7 @@ public class AutonomousBlueSide2 extends LinearOpMode {
         motorStuff.setAllMotors(0,0,0,0);
         //drive left additional seconds
         motorStuff.driveLeft(0.4,0.4);
-        tools.stopForMilliSeconds(500);
+        tools.stopForMilliSeconds(1000);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(100);
@@ -122,10 +122,11 @@ public class AutonomousBlueSide2 extends LinearOpMode {
             }
             motorStuff.setAllMotors(0,0,0,0);
             //drive left additional seconds
-            motorStuff.driveLeft(0.4,0.4);
-            tools.stopForMilliSeconds(2000);
+            motorStuff.driveRight(0.4,0.4);
+            tools.stopForMilliSeconds(1000);
             motorStuff.setAllMotors(0,0,0,0);
-            tools.kickMarkerLeft(hwChss);
+            motorStuff.turnToDegreeV4(20);
+            tools.kickMarkerRight(hwChss);
         } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly

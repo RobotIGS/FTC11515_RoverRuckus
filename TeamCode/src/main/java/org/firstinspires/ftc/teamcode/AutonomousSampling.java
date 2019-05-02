@@ -74,7 +74,7 @@ public class AutonomousSampling extends LinearOpMode {
 
         //WHile robot not on ground, let robot down.
         float backUpTime = System.currentTimeMillis();
-        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 100 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
             hwChss.motor_pull.setPower(0.5);
             if (System.currentTimeMillis() > backUpTime + 5000) { //Backup, if robot doens't come down
                 hwChss.motor_pull.setPower(0);
@@ -84,7 +84,6 @@ public class AutonomousSampling extends LinearOpMode {
         //Let robot go down freely
         hwChss.motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         hwChss.motor_pull.setPower(0);
-
 
         hwChss.motor_pull.setPower(0.3);
         tools.stopForMilliSeconds(200);
@@ -100,7 +99,7 @@ public class AutonomousSampling extends LinearOpMode {
         motorStuff.setAllMotors(0,0,0,0);
         //drive left additional seconds
         motorStuff.driveLeft(0.4,0.4);
-        tools.stopForMilliSeconds(500);
+        tools.stopForMilliSeconds(400);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(100);
@@ -114,7 +113,7 @@ public class AutonomousSampling extends LinearOpMode {
 
             //Drives forward a lot
             motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-            tools.stopForMilliSeconds(3500);
+            tools.stopForMilliSeconds(2000);
 
         } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
@@ -122,15 +121,15 @@ public class AutonomousSampling extends LinearOpMode {
             tools.stopForMilliSeconds(100);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
                 motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-                tools.stopForMilliSeconds(3500);
+                tools.stopForMilliSeconds(2000);
 
             }
-            else if (!isStopRequested()) { //Same for the left side
+            else if (!isStopRequested()) {
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(driveSpeed, 0, driveSpeed, 0);
 
                 motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-                tools.stopForMilliSeconds(3500);
+                tools.stopForMilliSeconds(2000);
                 motorStuff.setAllMotors(0,0,0,0);
 
             }

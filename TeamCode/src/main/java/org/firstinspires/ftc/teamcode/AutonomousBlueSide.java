@@ -4,6 +4,7 @@ import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 import java.io.LineNumberReader;
 
+@Disabled
 @Autonomous (name = "AutonomousBlueSide")
 public class AutonomousBlueSide extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
@@ -78,7 +80,7 @@ public class AutonomousBlueSide extends LinearOpMode {
 
         //WHile robot not on ground, let robot down.
         float backUpTime = System.currentTimeMillis();
-        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 100 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
             hwChss.motor_pull.setPower(0.5);
             if (System.currentTimeMillis() > backUpTime + 5000) { //Backup, if robot doens't come down
                 hwChss.motor_pull.setPower(0);
@@ -90,10 +92,13 @@ public class AutonomousBlueSide extends LinearOpMode {
         hwChss.motor_pull.setPower(0);
 
 
+
         hwChss.motor_pull.setPower(0.3);
         tools.stopForMilliSeconds(200);
         hwChss.motor_pull.setPower(0);
         //drive right additional seconds
+
+        tools.stopForMilliSeconds(3000);
 
         motorStuff.driveRight(0.4,0.4);
         tools.stopForMilliSeconds(500);
@@ -104,7 +109,7 @@ public class AutonomousBlueSide extends LinearOpMode {
         motorStuff.setAllMotors(0,0,0,0);
         //drive left additional seconds
         motorStuff.driveLeft(0.4,0.4);
-        tools.stopForMilliSeconds(500);
+        tools.stopForMilliSeconds(400);
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(100);

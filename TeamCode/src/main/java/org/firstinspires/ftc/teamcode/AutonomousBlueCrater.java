@@ -4,6 +4,7 @@ import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Tools.Tools;
  * Our actual approach to the autonomous period.
  * Works for blue side, right position
  */
+@Disabled
 @Autonomous(name = "AutonomousBlueCrater")
 public class AutonomousBlueCrater extends LinearOpMode {
 
