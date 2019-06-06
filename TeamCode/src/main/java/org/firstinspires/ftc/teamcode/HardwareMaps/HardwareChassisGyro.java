@@ -4,6 +4,9 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.teamcode.Tools.Tools;
+
 /*
     Use this an object of this class, if you need to access the imu (also called gyro) sensor.
     If you need to drive using the gyro look in the GyroTools class in the tools package.
@@ -39,6 +42,9 @@ public class HardwareChassisGyro {
         // and named "imu".
         imu = ahwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+
+        Acceleration a = imu.getAcceleration();
+
 
 
     }
