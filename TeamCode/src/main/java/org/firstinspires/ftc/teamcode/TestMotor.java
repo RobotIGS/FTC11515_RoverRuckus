@@ -13,6 +13,7 @@ public class TestMotor extends OpMode {
 
     @Override
     public void init() {
+
         motor_port_0 = hardwareMap.dcMotor.get("test_motor");
     }
 
