@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.AutonomousBlueCrater;
+
 /**
  * Requested by Felix
  * Is able to set the power of every of the eight motors
@@ -34,8 +36,6 @@ public class WorkshopAllMotors extends OpMode {
     private boolean servo2;
     private boolean servo3;
 
-
-
     @Override
     public void init() {
         motor_hub1_port0 = hardwareMap.dcMotor.get("motor_hub1_port0");
@@ -60,6 +60,7 @@ public class WorkshopAllMotors extends OpMode {
         servo1 = false;
         servo2 = false;
         servo3 = false;
+
     }
 
     @Override
@@ -119,7 +120,7 @@ public class WorkshopAllMotors extends OpMode {
             }
             servo2 = !servo2;
         }
-        if(gamepad1.a) {
+        if(gamepad1.y) {
             if(servo3) {
                 servo_hub1_port3.setPosition(0);
             } else {
