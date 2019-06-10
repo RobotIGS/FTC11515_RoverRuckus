@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Fahrklassen;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -18,7 +19,8 @@ public class WorkshopEinfachFahren extends OpMode {
     private DcMotor motor_addition_port2;
     private DcMotor motor_addition_port3;
 
-
+    private CRServoImplEx servo0;
+    private CRServoImplEx servo1;
 
     @Override
     public void init() {
@@ -29,6 +31,10 @@ public class WorkshopEinfachFahren extends OpMode {
 
         motor_driveLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_driveRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        servo0 = hardwareMap.get(CRServoImplEx.class, "servo0");
+        servo1 = hardwareMap.get(CRServoImplEx.class, "servo1");
+        servo1.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -56,6 +62,14 @@ public class WorkshopEinfachFahren extends OpMode {
         motor_addition_port2.setPower(gamepad1.left_stick_y);
         motor_addition_port3.setPower(gamepad1.right_stick_y);
 
+        if(gamepad1.left_bumper) {
+            servo0.setPower(1);
+            servo1.setPower(1);
+        }
+        if(gamepad1.right_bumper) {
+            servo0.setPower(0);
+            servo1.setPower(0);
+        }
 
     }
 }
