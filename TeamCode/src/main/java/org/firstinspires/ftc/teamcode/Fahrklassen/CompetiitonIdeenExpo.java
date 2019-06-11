@@ -35,7 +35,15 @@ public class CompetiitonIdeenExpo extends OpMode {
 
     @Override
     public void init() {
-        //todo
+
+        motor_front_left = hardwareMap.dcMotor.get("motor_hub2_port1");
+        motor_front_right = hardwareMap.dcMotor.get("motor_hub2_port2");
+        motor_back_left = hardwareMap.dcMotor.get("motor_hub2_port0");
+        motor_back_right = hardwareMap.dcMotor.get("motor_hub2_port3");
+
+        motor_back_right.setDirection(DcMotorSimple.Direction.REVERSE);
+        motor_back_left.setDirection(DcMotorSimple.Direction.REVERSE);
+
         motor_tilt_collector = hardwareMap.dcMotor.get("motor_hub1_port3");
         motor_arm_vertical_coll = hardwareMap.dcMotor.get("motor_hub1_port1");
         motor_arm_horizontal_mineral = hardwareMap.dcMotor.get("motor_hub1_port0");
@@ -124,17 +132,55 @@ public class CompetiitonIdeenExpo extends OpMode {
             servo_throw_out.setPosition(0);
         }
 
+        //Driving
+        if(gamepad2.right_stick_x == 0 && gamepad2.right_stick_y == 0) {
+            motor_back_left.setPower(gamepad2.left_stick_y);
+            motor_front_right.setPower(gamepad2.left_stick_y);
+            motor_front_left.setPower(gamepad2.left_stick_x);
+            motor_back_right.setPower(gamepad2.left_stick_x);
+        }
 
-
+        //Avoid to turn and drive at simultaneously
+        if(gamepad2.left_stick_x == 0 && gamepad2.left_stick_y == 0) {
+            double speed = calcTurnPower(gamepad2.left_stick_x, gamepad2.left_stick_y);
+            motor_back_left.setPower(-speed);
+            motor_front_right.setPower(speed);
+            motor_front_left.setPower(speed);
+            motor_back_right.setPower(-speed);
+        }
+        if(gamepad2.right_stick_x == 0 && gamepad2.right_stick_y == 0 && gamepad2.left_stick_x == 0 && gamepad2.left_stick_y == 0) {
+            motor_back_left.setPower(0);
+            motor_front_right.setPower(0);
+            motor_front_left.setPower(0);
+            motor_back_right.setPower(0);
+        }
     }
 
+    
     /**
      * pauses the program for additional seconds
      * @param timeStop double, in Milliseconds
      */
-    public void stopForMilliSeconds(double timeStop) {
+    private void stopForMilliSeconds(double timeStop) {
         double time = System.currentTimeMillis();
 
         while ((System.currentTimeMillis() < time + timeStop) ) {}
+    }
+
+    private double calcTurnPower(double x, double y ) {
+        if(x < 0) {
+           //Left
+           //Positive
+           double directX = x - -1;
+           double directY = y -0;
+           double absDist = Math.sqrt(Math.pow(directX, 2) + Math.pow(directY, 2));
+           return 1 - absDist;
+        } else if(x > 0) {
+            double directX = x - 1;
+            double directY = y -0;
+            double absDist = Math.sqrt(Math.pow(directX, 2) + Math.pow(directY, 2));
+            return (1 - absDist) * -1;
+        }
+        return 0;
     }
 }
