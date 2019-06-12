@@ -156,7 +156,7 @@ public class CompetiitonIdeenExpo extends OpMode {
         }
     }
 
-    
+
     /**
      * pauses the program for additional seconds
      * @param timeStop double, in Milliseconds
