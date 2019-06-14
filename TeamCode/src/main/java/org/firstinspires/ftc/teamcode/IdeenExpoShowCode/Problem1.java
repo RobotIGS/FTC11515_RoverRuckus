@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.IdeenExpoShowCode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
+@Autonomous (name = "Problem1")
 public class Problem1 extends LinearOpMode {
     private HardwareChassisIdeenExpo robot;
     private MotorStuff motorStuff;
@@ -32,7 +34,9 @@ public class Problem1 extends LinearOpMode {
         int z = -1;
         int v = 0;
         if (x == y) {
-            System.out.println("0.5");
+            motorStuff.driveRight(0.5, 0.5);
+            tools.stopForMilliSeconds(1000);
+            motorStuff.setAllMotors(0,0,0,0);
         } else {
             while (x > 0) {
                 y = y + v;

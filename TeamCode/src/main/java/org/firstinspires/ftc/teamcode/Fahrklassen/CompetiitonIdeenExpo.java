@@ -74,18 +74,17 @@ public class CompetiitonIdeenExpo extends OpMode {
         if(!gamepad1.dpad_left && !gamepad1.dpad_right) {
             motor_arm_horizontal_mineral.setPower(0);
         }
-        if(gamepad1.dpad_up) {
-            motor_arm_vertical_coll.setPower(-1);
-        }
-        if(gamepad1.dpad_down) {
-            motor_arm_vertical_coll.setPower(1);
-        }
-        if(!gamepad1.dpad_up && !gamepad1.dpad_down) {
-            motor_arm_vertical_coll.setPower(0);
-        }
 
         motor_tilt_collector.setPower((gamepad1.left_stick_y * 0.5));
-        motor_climb.setPower(gamepad1.right_stick_y);
+        if(gamepad2.dpad_up) {
+            motor_climb.setPower(1);
+        }
+        if(gamepad2.dpad_down) {
+            motor_climb.setPower(-1);
+        }
+        if (!gamepad2.dpad_up && !gamepad2.dpad_down) {
+            motor_climb.setPower(0);
+        }
 
         if(gamepad1.left_bumper) {
             crservo_collect_left.setPower(1);
@@ -132,17 +131,29 @@ public class CompetiitonIdeenExpo extends OpMode {
             servo_throw_out.setPosition(0);
         }
 
+        if(gamepad2.right_bumper) {
+            motor_arm_vertical_coll.setPower(-1);
+        }
+        if(gamepad2.left_bumper) {
+            motor_arm_vertical_coll.setPower(1);
+        }
+        if(!gamepad2.left_bumper && !gamepad2.right_bumper) {
+            motor_arm_vertical_coll.setPower(0);
+        }
+
         //Driving
         if(gamepad2.right_stick_x == 0 && gamepad2.right_stick_y == 0) {
-            motor_back_left.setPower(gamepad2.left_stick_y);
-            motor_front_right.setPower(gamepad2.left_stick_y);
-            motor_front_left.setPower(gamepad2.left_stick_x);
-            motor_back_right.setPower(gamepad2.left_stick_x);
+            motor_back_left.setPower(-gamepad2.left_stick_x);
+            motor_front_right.setPower(-gamepad2.left_stick_x);
+            motor_front_left.setPower(gamepad2.left_stick_y);
+            motor_back_right.setPower(gamepad2.left_stick_y);
         }
 
         //Avoid to turn and drive at simultaneously
         if(gamepad2.left_stick_x == 0 && gamepad2.left_stick_y == 0) {
-            double speed = calcTurnPower(gamepad2.left_stick_x, gamepad2.left_stick_y);
+            telemetry.addData("IsInTurn: ", true);
+            double speed = calcTurnPower(gamepad2.right_stick_x, gamepad2.right_stick_y);
+            telemetry.addData("Speed", speed);
             motor_back_left.setPower(-speed);
             motor_front_right.setPower(speed);
             motor_front_left.setPower(speed);

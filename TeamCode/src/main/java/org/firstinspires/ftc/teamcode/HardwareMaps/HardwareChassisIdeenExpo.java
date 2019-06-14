@@ -6,15 +6,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class HardwareChassisIdeenExpo extends HardwareChassis {
 
-    private DcMotor motor_back_left;
-    private DcMotor motor_back_right;
-    private DcMotor motor_front_left;
-    private DcMotor motor_front_right;
+    public DcMotor motor_back_left;
+    public DcMotor motor_back_right;
+    public DcMotor motor_front_left;
+    public DcMotor motor_front_right;
 
-    private DcMotor motor_tilt_collector;
-    private DcMotor motor_arm_vertical_coll;
-    private DcMotor motor_arm_horizontal_mineral;
-    private DcMotor motor_climb;
+    public DcMotor motor_tilt_collector;
+    public DcMotor motor_arm_vertical_coll;
+    public DcMotor motor_arm_horizontal_mineral;
+    public DcMotor motor_climb;
 
     public HardwareChassisIdeenExpo(HardwareMap hardwareMap) {
         super(hardwareMap);
