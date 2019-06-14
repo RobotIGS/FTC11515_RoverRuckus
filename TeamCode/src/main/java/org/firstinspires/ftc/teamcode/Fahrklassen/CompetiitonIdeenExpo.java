@@ -118,7 +118,8 @@ public class CompetiitonIdeenExpo extends OpMode {
 
 
 
-        }        if(gamepad1.a) servo_move_mineral.setPosition(0.55);
+        }
+        if(gamepad1.a) servo_move_mineral.setPosition(0.55);
         if(gamepad1.right_stick_button) servo_move_mineral.setPosition(0.1);
 
         if(gamepad1.right_bumper) {

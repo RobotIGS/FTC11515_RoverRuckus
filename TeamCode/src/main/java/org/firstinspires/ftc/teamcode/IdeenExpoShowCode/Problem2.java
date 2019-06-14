@@ -26,7 +26,7 @@ public class Problem2 extends OpMode {
 
         if(gamepad1.a && gamepad1.b) {
             robot.motor_front_left.setPower(1);
-            robot.motor_back_right.setPower(-1);
+            robot.motor_back_right.setPower(1);
         } else {
             robot.motor_front_left.setPower(0);
             robot.motor_back_right.setPower(0);

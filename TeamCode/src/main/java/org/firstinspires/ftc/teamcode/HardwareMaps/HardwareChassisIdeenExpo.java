@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class HardwareChassisIdeenExpo extends HardwareChassis {
+public class HardwareChassisIdeenExpo {
 
     public DcMotor motor_back_left;
     public DcMotor motor_back_right;
@@ -17,7 +17,6 @@ public class HardwareChassisIdeenExpo extends HardwareChassis {
     public DcMotor motor_climb;
 
     public HardwareChassisIdeenExpo(HardwareMap hardwareMap) {
-        super(hardwareMap);
 
         motor_front_left = hardwareMap.dcMotor.get("motor_hub2_port1");
         motor_front_right = hardwareMap.dcMotor.get("motor_hub2_port2");
@@ -33,7 +32,6 @@ public class HardwareChassisIdeenExpo extends HardwareChassis {
     }
 
 
-    @Override
     protected void setDirections() {
         motor_front_left.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_front_right.setDirection(DcMotorSimple.Direction.FORWARD);

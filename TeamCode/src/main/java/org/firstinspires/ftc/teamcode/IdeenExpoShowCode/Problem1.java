@@ -5,19 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
+import org.firstinspires.ftc.teamcode.Tools.MotorStuffExpo;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
 @Autonomous (name = "Problem1")
 public class Problem1 extends LinearOpMode {
     private HardwareChassisIdeenExpo robot;
-    private MotorStuff motorStuff;
+    private MotorStuffExpo motorStuff;
     private Tools tools;
 
     @Override
     public void runOpMode() {
         //Init
         robot = new HardwareChassisIdeenExpo(hardwareMap);
-        motorStuff = new MotorStuff(robot);
+        motorStuff = new MotorStuffExpo(robot);
         tools = new Tools(this);
         waitForStart();
 
@@ -58,10 +59,6 @@ public class Problem1 extends LinearOpMode {
             if (v == 3 && z == 1) {
                 //Forward
                 motorStuff.driveInOneDirection(0.5, 0.5);
-                tools.stopForMilliSeconds(1000);
-                motorStuff.setAllMotors(0,0,0,0);
-            } else {
-                motorStuff.driveLeft(0.5, 0.5);
                 tools.stopForMilliSeconds(1000);
                 motorStuff.setAllMotors(0,0,0,0);
             }
