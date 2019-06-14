@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.configuration.annotations.MotorType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -18,25 +20,26 @@ import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Disabled
-@Autonomous (name = "AutonomousSampling")
-public class AutonomousSampling extends LinearOpMode {
-    private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer redline; //Recognizes blue line
-    private Tools tools;
+import java.io.LineNumberReader;
 
-    private final int degreeRight = 45; //todo
-    private final int degreeLeft = 29; //37
+@Disabled
+@Autonomous (name = "AutonomousBlueSide")
+public class AutonomousBlueSide extends LinearOpMode {
+    private GoldAlignDetector detector; //Recognizes golden mineral
+    private FarbHelfer blueline; //Recognizes blue line
+    private Tools tools;
+    private DistanceAlternativeTools alternativeTools;
+
+    private final int degreeRight = 37;
+    private final int degreeLeft = 37;
 
     private final double driveSpeed = 0.4;
 
-    private DistanceAlternativeTools alternativeTools;
 
     @Override
     public void runOpMode() {
 
         //Init
-
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
         tools = new Tools(this);
@@ -44,7 +47,8 @@ public class AutonomousSampling extends LinearOpMode {
         DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
 
         alternativeTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
-        redline = new FarbHelfer();
+
+        blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -87,10 +91,14 @@ public class AutonomousSampling extends LinearOpMode {
         hwChss.motor_pull.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         hwChss.motor_pull.setPower(0);
 
+
+
         hwChss.motor_pull.setPower(0.3);
         tools.stopForMilliSeconds(200);
         hwChss.motor_pull.setPower(0);
         //drive right additional seconds
+
+        tools.stopForMilliSeconds(3000);
 
         motorStuff.driveRight(0.4,0.4);
         tools.stopForMilliSeconds(500);
@@ -115,24 +123,52 @@ public class AutonomousSampling extends LinearOpMode {
 
             //Drives forward a lot
             motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-            tools.stopForMilliSeconds(2000);
+            tools.stopForMilliSeconds(5000);
 
+            //Drive until a blue line is registered (robot is in the marker zone)
+            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_left))&& !isStopRequested()) {
+                motorStuff.setAllMotors(driveSpeed,0,driveSpeed, 0);
+            }
+            motorStuff.setAllMotors(0,0,0,0);
+            //drive left additional seconds
+            motorStuff.driveLeft(0.4,0.4);
+            tools.stopForMilliSeconds(2000);
+            motorStuff.setAllMotors(0,0,0,0);
+            tools.kickMarkerLeft(hwChss);
         } else if (!isStopRequested()) { //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(100);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-                tools.stopForMilliSeconds(2000);
+                alternativeTools.driveToWall(Direction_Enum.Right, Color_Enum.Blue, blueline, tools);
 
+                //waits additional second
+                tools.stopForMilliSeconds(100);
+
+                motorStuff.setAllMotors(0,0,0,0);
+                alternativeTools.driveBackFromWall(Direction_Enum.Right);
+                //distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
+                tools.kickMarkerLeft(hwChss);
             }
-            else if (!isStopRequested()) {
+            else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(driveSpeed, 0, driveSpeed, 0);
 
-                motorStuff.setAllMotors(driveSpeed,0,driveSpeed,0);
-                tools.stopForMilliSeconds(2000);
+                tools.stopForMilliSeconds(100);
+                distanceTools.driveToWall(Direction_Enum.Left);
+
+                //Waits additional second
+                tools.stopForMilliSeconds(100);
+                //Drives from the wall to the marker zone.
                 motorStuff.setAllMotors(0,0,0,0);
+                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Left, Color_Enum.Blue);
+                tools.kickMarkerRight(hwChss);
+
+                motorStuff.setAllMotors(-driveSpeed, 0, -driveSpeed, 0);
+
+                tools.stopForMilliSeconds(1000);
+
+                motorStuff.setAllMotors(0, 0, 0, 0);
 
             }
         }

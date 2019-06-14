@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
@@ -13,10 +13,9 @@ import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
-
 @Disabled
-@Autonomous (name = "BackUpAutonomusBlueCrater")
-public class AutonomusBlueCraterBackUp extends LinearOpMode {
+@Autonomous(name = "BackUpAutonomusRedCrater")
+public class AutonomusRedCraterBackUp extends LinearOpMode {
 
     private final int timeDriveForward = 2345;
     private final int timeDriveBackward = 1300;
@@ -131,7 +130,7 @@ public class AutonomusBlueCraterBackUp extends LinearOpMode {
 
         distanceTools.driveBackFromWall(Direction_Enum.Crater);
 
-        while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
+        while ((!blueline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
             motorStuff.setAllMotors(0,-0.2,0,-0.2);
         }
         motorStuff.setAllMotors(0,0,0,0);

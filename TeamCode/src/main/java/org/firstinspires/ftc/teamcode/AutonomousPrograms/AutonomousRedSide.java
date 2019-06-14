@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.configuration.annotations.DigitalIoDeviceType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
@@ -16,9 +18,9 @@ import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
-
-@Autonomous (name = "AutonomousBlueSide")
-public class AutonomousBlueSide2 extends LinearOpMode {
+@Disabled
+@Autonomous (name = "AutonomousRedSide")
+public class AutonomousRedSide extends LinearOpMode {
     private GoldAlignDetector detector; //Recognizes golden mineral
     private FarbHelfer redline; //Recognizes blue line
     private Tools tools;
@@ -74,7 +76,7 @@ public class AutonomousBlueSide2 extends LinearOpMode {
 
         //WHile robot not on ground, let robot down.
         float backUpTime = System.currentTimeMillis();
-        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 100 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
+        while (((hwChss.distance_back_right.getDistance(DistanceUnit.MM) > 180 ) || distanceTools.isNaN(hwChss.distance_back_right.getDistance(DistanceUnit.MM)))&& !isStopRequested()) {
             hwChss.motor_pull.setPower(0.5);
             if (System.currentTimeMillis() > backUpTime + 5000) { //Backup, if robot doens't come down
                 hwChss.motor_pull.setPower(0);
@@ -90,6 +92,8 @@ public class AutonomousBlueSide2 extends LinearOpMode {
         tools.stopForMilliSeconds(200);
         hwChss.motor_pull.setPower(0);
         //drive right additional seconds
+
+        tools.stopForMilliSeconds(3000);
 
         motorStuff.driveRight(0.4,0.4);
         tools.stopForMilliSeconds(1000);
@@ -117,7 +121,7 @@ public class AutonomousBlueSide2 extends LinearOpMode {
             tools.stopForMilliSeconds(5000);
 
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!redline.isBlue(hwChss.color_back_right)) && (!redline.isBlue(hwChss.color_back_left))&& !isStopRequested()) {
+            while ((!redline.isRed(hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_left))&& !isStopRequested()) {
                 motorStuff.setAllMotors(driveSpeed,0,driveSpeed, 0);
             }
             motorStuff.setAllMotors(0,0,0,0);
