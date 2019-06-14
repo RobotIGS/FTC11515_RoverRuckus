@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.IdeenExpoShowCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 
@@ -14,6 +15,8 @@ public class Problem2 extends OpMode {
     public void init() {
         //Initializes the motors
         robot = new HardwareChassisIdeenExpo(hardwareMap);
+        robot.motor_front_left.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.motor_back_right.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 

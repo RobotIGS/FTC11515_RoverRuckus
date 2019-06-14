@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 
-@TeleOp(name = "Redacted")
+@TeleOp(name = "Problem4")
 public class Problem4 extends OpMode {
     private DcMotor motor_hub2_port1;
     private DcMotor motor_hub2_port3;
