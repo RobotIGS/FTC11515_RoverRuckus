@@ -86,14 +86,14 @@ public class CompetiitonIdeenExpo extends OpMode {
             motor_climb.setPower(0);
         }
 
-        if(gamepad1.left_bumper) {
+        /*if(gamepad1.left_bumper) {
             crservo_collect_left.setPower(1);
             crservo_collect_right.setPower(1);
         }
         if(gamepad1.right_bumper) {
             crservo_collect_left.setPower(0);
             crservo_collect_right.setPower(0);
-        }
+        }*/
         //Servo move mineral_ Collect: 0.6 Move: 0.1 (+- 0.05
         if(gamepad1.y) {
             motor_tilt_collector.setPower(1);
@@ -120,16 +120,13 @@ public class CompetiitonIdeenExpo extends OpMode {
 
         }
         if(gamepad1.a) servo_move_mineral.setPosition(0.55);
-        if(gamepad1.right_stick_button) servo_move_mineral.setPosition(0.1);
+        if(gamepad1.x) servo_move_mineral.setPosition(0.1);
 
         if(gamepad1.right_bumper) {
             servo_throw_out.setPosition(1);
         }
         if(gamepad1.left_bumper) {
             servo_throw_out.setPosition(-0.8);
-        }
-        if(gamepad1.guide) {
-            servo_throw_out.setPosition(0);
         }
 
         if(gamepad2.right_bumper) {
@@ -155,10 +152,10 @@ public class CompetiitonIdeenExpo extends OpMode {
             telemetry.addData("IsInTurn: ", true);
             double speed = calcTurnPower(gamepad2.right_stick_x, gamepad2.right_stick_y);
             telemetry.addData("Speed", speed);
-            motor_back_left.setPower(-speed);
-            motor_front_right.setPower(speed);
-            motor_front_left.setPower(speed);
-            motor_back_right.setPower(-speed);
+            motor_back_left.setPower(speed);
+            motor_front_right.setPower(-speed);
+            motor_front_left.setPower(-speed);
+            motor_back_right.setPower(speed);
         }
         if(gamepad2.right_stick_x == 0 && gamepad2.right_stick_y == 0 && gamepad2.left_stick_x == 0 && gamepad2.left_stick_y == 0) {
             motor_back_left.setPower(0);
