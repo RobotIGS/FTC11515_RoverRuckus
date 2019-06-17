@@ -47,6 +47,7 @@ public class CompetiitonIdeenExpo extends OpMode {
         motor_tilt_collector = hardwareMap.dcMotor.get("motor_hub1_port3");
         motor_arm_vertical_coll = hardwareMap.dcMotor.get("motor_hub1_port1");
         motor_arm_horizontal_mineral = hardwareMap.dcMotor.get("motor_hub1_port0");
+        motor_arm_horizontal_mineral.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor_climb = hardwareMap.dcMotor.get("motor_hub1_port2");
 
         servo_throw_out = hardwareMap.servo.get("servo_hub1_port3");
@@ -75,7 +76,7 @@ public class CompetiitonIdeenExpo extends OpMode {
             motor_arm_horizontal_mineral.setPower(0);
         }
 
-        motor_tilt_collector.setPower((gamepad1.left_stick_y * 0.5));
+        motor_tilt_collector.setPower((gamepad1.right_stick_y * 0.5));
         if(gamepad2.dpad_up) {
             motor_climb.setPower(1);
         }
@@ -86,11 +87,11 @@ public class CompetiitonIdeenExpo extends OpMode {
             motor_climb.setPower(0);
         }
 
-        /*if(gamepad1.left_bumper) {
+        /*if(gamepad1.dpad_right) {
             crservo_collect_left.setPower(1);
             crservo_collect_right.setPower(1);
         }
-        if(gamepad1.right_bumper) {
+        if(gamepad1.dpad_left) {
             crservo_collect_left.setPower(0);
             crservo_collect_right.setPower(0);
         }*/
@@ -120,7 +121,9 @@ public class CompetiitonIdeenExpo extends OpMode {
 
         }
         if(gamepad1.a) servo_move_mineral.setPosition(0.55);
-        if(gamepad1.x) servo_move_mineral.setPosition(0.1);
+        if(gamepad1.x) servo_move_mineral.setPosition(0.15);
+        if(gamepad1.left_stick_button) servo_move_mineral.setPosition(.08);
+        if(gamepad1.dpad_up) servo_move_mineral.setPosition(0.1);
 
         if(gamepad1.right_bumper) {
             servo_throw_out.setPosition(1);
@@ -151,6 +154,7 @@ public class CompetiitonIdeenExpo extends OpMode {
         if(gamepad2.left_stick_x == 0 && gamepad2.left_stick_y == 0) {
             telemetry.addData("IsInTurn: ", true);
             double speed = calcTurnPower(gamepad2.right_stick_x, gamepad2.right_stick_y);
+            speed = speed * 0.5;
             telemetry.addData("Speed", speed);
             motor_back_left.setPower(speed);
             motor_front_right.setPower(-speed);
