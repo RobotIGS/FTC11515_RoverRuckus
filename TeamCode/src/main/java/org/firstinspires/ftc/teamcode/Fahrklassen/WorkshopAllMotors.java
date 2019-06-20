@@ -49,6 +49,8 @@ public class WorkshopAllMotors extends OpMode {
         motor_hub2_port2 = hardwareMap.dcMotor.get("motor_hub2_port2");
         motor_hub2_port3 = hardwareMap.dcMotor.get("motor_hub2_port3");
 
+        motor_hub2_port2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         servo_hub2_port0 = hardwareMap.servo.get("servo_hub2_port0");
         servo_hub2_port1 = hardwareMap.servo.get("servo_hub2_port1");
@@ -82,42 +84,42 @@ public class WorkshopAllMotors extends OpMode {
 
         //trigger rechts rückwärts
         motor_hub2_port0.setPower(gamepad1.right_trigger);
-        motor_hub2_port2.setPower(-gamepad1.right_trigger);
+        motor_hub2_port1.setPower(-gamepad1.right_trigger);
 
         //triger links vorwärts
         motor_hub2_port0.setPower(-gamepad1.left_trigger);
-        motor_hub2_port2.setPower(gamepad1.left_trigger);
+        motor_hub2_port1.setPower(gamepad1.left_trigger);
 
         //linker stick drehen steuerkreuz
         if (gamepad1.dpad_left) {
             motor_hub2_port0.setPower(0.5);
-            motor_hub2_port2.setPower(0.5);
+            motor_hub2_port1.setPower(0.5);
         }
 
         if (gamepad1.dpad_right) {
             motor_hub2_port0.setPower(-0.5);
-            motor_hub2_port2.setPower(-0.5);
+            motor_hub2_port1.setPower(-0.5);
         }
 
         //rechter stick kurven
         //soll wert von stick von trigger auf einem motor abziehen, deshalb kurve
         if (gamepad1.right_stick_x < 0 && gamepad1.left_trigger > 0) {
             motor_hub2_port0.setPower(-gamepad1.right_trigger);
-            motor_hub2_port2.setPower(gamepad1.right_trigger + gamepad1.left_stick_x);
+            motor_hub2_port1.setPower(gamepad1.right_trigger + gamepad1.left_stick_x);
         }
 
         if (gamepad1.right_stick_x > 0 && gamepad1.left_trigger > 0) {
             motor_hub2_port0.setPower(-gamepad1.right_trigger - gamepad1.left_stick_x );
-            motor_hub2_port2.setPower(gamepad1.right_trigger);
+            motor_hub2_port1.setPower(gamepad1.right_trigger);
         }
 
 
-        //motor arm up down
+        
         if (gamepad1.a) {
-            motor_hub2_port1.setPower(0.5);
+            motor_hub2_port2.setPower(0.5);
         }
         if (gamepad1.b){
-            motor_hub2_port1.setPower(-0.5);
+            motor_hub2_port2.setPower(-0.5);
         }
 
         //motor collector
@@ -130,7 +132,7 @@ public class WorkshopAllMotors extends OpMode {
 
         if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x) {
             motor_hub2_port3.setPower(0);
-            motor_hub2_port1.setPower(0);
+            motor_hub2_port2.setPower(0);
         }
 
 
