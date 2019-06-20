@@ -19,8 +19,6 @@ public class WorkshopEinfachFahren extends OpMode {
     private DcMotor motor_addition_port2;
     private DcMotor motor_addition_port3;
 
-    private CRServoImplEx servo0;
-    private CRServoImplEx servo1;
 
     @Override
     public void init() {
@@ -32,9 +30,6 @@ public class WorkshopEinfachFahren extends OpMode {
         motor_driveLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_driveRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        servo0 = hardwareMap.get(CRServoImplEx.class, "servo0");
-        servo1 = hardwareMap.get(CRServoImplEx.class, "servo1");
-        servo1.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -45,31 +40,34 @@ public class WorkshopEinfachFahren extends OpMode {
             motor_driveRight.setPower(1);
         }
         if(gamepad1.dpad_left && !gamepad1.dpad_up && ! gamepad1.dpad_right) {
+            double speed = 0.5;
+            if(gamepad1.right_bumper) speed = 1;
             //TurnLeft
-            motor_driveLeft.setPower(-0.5);
-            motor_driveRight.setPower(0.5);
+            motor_driveLeft.setPower(speed);
+            motor_driveRight.setPower(-speed);
+
         }
         if(gamepad1.dpad_right && !gamepad1.dpad_up && ! gamepad1.dpad_left) {
+            double speed = 0.5;
+            if(gamepad1.right_bumper) speed = 1;
             //TurnLeft
-            motor_driveRight.setPower(-0.5);
-            motor_driveLeft.setPower(0.5);
+            motor_driveLeft.setPower(-speed);
+            motor_driveRight.setPower(speed);
         }
-        if(!gamepad1.dpad_right && !gamepad1.dpad_up && ! gamepad1.dpad_left) {
+        if(!gamepad1.dpad_right && !gamepad1.dpad_up && ! gamepad1.dpad_left && !gamepad1.dpad_down) {
             //TurnLeft
             motor_driveRight.setPower(0);
             motor_driveLeft.setPower(0);
         }
+        if(gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right && !gamepad1.dpad_up ) {
+            //Drive Forward
+            motor_driveLeft.setPower(-1);
+            motor_driveRight.setPower(-1);
+        }
+
         motor_addition_port2.setPower(gamepad1.left_stick_y);
         motor_addition_port3.setPower(gamepad1.right_stick_y);
 
-        if(gamepad1.left_bumper) {
-            servo0.setPower(1);
-            servo1.setPower(1);
-        }
-        if(gamepad1.right_bumper) {
-            servo0.setPower(0);
-            servo1.setPower(0);
-        }
 
     }
 }

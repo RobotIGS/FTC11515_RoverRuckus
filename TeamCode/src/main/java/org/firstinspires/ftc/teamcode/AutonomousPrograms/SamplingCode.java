@@ -4,12 +4,14 @@ import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuffExpo;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
+@Disabled
 @Autonomous (name = "SamplingCode")
 public class SamplingCode extends LinearOpMode {
 

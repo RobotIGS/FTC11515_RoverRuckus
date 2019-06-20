@@ -66,7 +66,7 @@ public class CompetiitonIdeenExpo extends OpMode {
 
     @Override
     public void loop() {
-        if(gamepad1.dpad_left) {
+        /*if(gamepad1.dpad_left) {
             motor_arm_horizontal_mineral.setPower(1);
         }
         if(gamepad1.dpad_right) {
@@ -74,7 +74,8 @@ public class CompetiitonIdeenExpo extends OpMode {
         }
         if(!gamepad1.dpad_left && !gamepad1.dpad_right) {
             motor_arm_horizontal_mineral.setPower(0);
-        }
+        }*/
+        motor_arm_horizontal_mineral.setPower(gamepad1.left_stick_x);
 
         motor_tilt_collector.setPower((gamepad1.right_stick_y * 0.5));
         if(gamepad2.dpad_up) {
