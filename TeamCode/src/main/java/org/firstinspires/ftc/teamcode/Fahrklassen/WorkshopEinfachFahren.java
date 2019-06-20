@@ -30,6 +30,7 @@ public class WorkshopEinfachFahren extends OpMode {
         motor_driveLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_driveRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        motor_addition_port2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE );
     }
 
     @Override
