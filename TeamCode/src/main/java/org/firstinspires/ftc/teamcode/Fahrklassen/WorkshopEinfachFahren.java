@@ -19,6 +19,8 @@ public class WorkshopEinfachFahren extends OpMode {
     private DcMotor motor_addition_port2;
     private DcMotor motor_addition_port3;
 
+    //private DcMotor motor_addition_hub2;
+
 
     @Override
     public void init() {
@@ -30,7 +32,11 @@ public class WorkshopEinfachFahren extends OpMode {
         motor_driveLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         motor_driveRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
+
         motor_addition_port2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE );
+
+       // motor_addition_hub2 = hardwareMap.dcMotor.get("motor_hub2_port0");
     }
 
     @Override
@@ -68,6 +74,7 @@ public class WorkshopEinfachFahren extends OpMode {
 
         motor_addition_port2.setPower(gamepad1.left_stick_y);
         motor_addition_port3.setPower(gamepad1.right_stick_y);
+        //motor_addition_hub2.setPower(gamepad1.left_stick_x);
 
 
     }
