@@ -5,9 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp (name = "CompetitionIdeenExpo")
+
+//this drivemethod is for chassis sun, our robot
 public class CompetiitonIdeenExpo extends OpMode {
     private final double SERVO_POS_TRANSMIT = 0;
     private final double SERVO_POS_ELEVATE = 45;
@@ -30,6 +33,8 @@ public class CompetiitonIdeenExpo extends OpMode {
 
     private Servo servo_throw_out;
     private Servo servo_move_mineral;
+
+
 
 
 
@@ -61,6 +66,8 @@ public class CompetiitonIdeenExpo extends OpMode {
 
 
 
+
+
     }
 
 
@@ -78,11 +85,12 @@ public class CompetiitonIdeenExpo extends OpMode {
         motor_arm_horizontal_mineral.setPower(gamepad1.left_stick_x);
 
         motor_tilt_collector.setPower((gamepad1.right_stick_y * 0.5));
+
         if(gamepad2.dpad_up) {
-            motor_climb.setPower(1);
+            motor_climb.setPower(1);    //1
         }
         if(gamepad2.dpad_down) {
-            motor_climb.setPower(-1);
+            motor_climb.setPower(-1);   //-1
         }
         if (!gamepad2.dpad_up && !gamepad2.dpad_down) {
             motor_climb.setPower(0);
@@ -168,6 +176,7 @@ public class CompetiitonIdeenExpo extends OpMode {
             motor_front_left.setPower(0);
             motor_back_right.setPower(0);
         }
+
     }
 
 
