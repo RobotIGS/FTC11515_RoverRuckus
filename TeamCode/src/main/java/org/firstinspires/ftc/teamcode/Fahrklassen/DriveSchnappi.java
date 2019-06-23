@@ -90,6 +90,8 @@ public class DriveSchnappi extends OpMode {
             motor_driveLeft.setPower(-0.5);   //-1
             motor_driveRight.setPower(-0.5);  //-1
         }*/
+
+        //arm tilt
         if(gamepad1.dpad_up && !gamepad1.dpad_down){
             motor_addition_port2.setPower(1 / 3);
         }
@@ -109,11 +111,13 @@ public class DriveSchnappi extends OpMode {
         motor_driveLeft.setPower(speedLeft);
         motor_driveRight.setPower(speedRight);
 
-        if (gamepad1.left_stick_y != 0) {
+        /*if (gamepad1.left_stick_y != 0) {
             motor_addition_port2.setPower(gamepad1.left_stick_y / 3);
         }else{
             motor_addition_port2.setPower(0);
         }
+        */
+        //arm lift
         if(gamepad1.right_stick_y > 0 && sensor_touch_1.getState()) {
             motor_addition_port3.setPower(gamepad1.right_stick_y / 1.5);
         }
@@ -123,11 +127,15 @@ public class DriveSchnappi extends OpMode {
         if(gamepad1.right_stick_y == 0) {
             motor_addition_port3.setPower(0);
         }
+        if(!sensor_touch_1.getState() || !sensor_touch_2.getState()) {
+            motor_addition_port3.setPower(0);
+        }
         /*if (gamepad1.right_stick_y != 0){
             motor_addition_port3.setPower(gamepad1.right_stick_y/1.5);
         }else{
             motor_addition_port3.setPower(0);
         }*/
+        //arm claw
         if(gamepad1.left_trigger != 0) {
             motor_addition_hub2_port0.setPower(gamepad1.left_trigger * 0.4);
         }
@@ -141,8 +149,8 @@ public class DriveSchnappi extends OpMode {
 
 
         if (gamepad1.a) {
-            servo_3.setPosition(0.89);
-            servo_2.setPosition(0.32);
+            servo_3.setPosition(0.9); //0.89
+            servo_2.setPosition(0.3); //0.32
         }else if(gamepad1.b){
             servo_2.setPosition(0.8);
             servo_3.setPosition(0.3);
@@ -153,6 +161,7 @@ public class DriveSchnappi extends OpMode {
 
 
         telemetry.addData("sensor_touch_1", sensor_touch_1.getState());
+        telemetry.addData("sensor_touch_ 2", sensor_touch_2.getState());
         telemetry.update();
 
     }
