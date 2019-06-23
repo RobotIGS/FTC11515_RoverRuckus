@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.IdeenExpoShowCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuffExpo;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
-
+@Disabled
 @Autonomous (name = "Problem1")
 public class Problem1 extends LinearOpMode {
     private HardwareChassisIdeenExpo robot;

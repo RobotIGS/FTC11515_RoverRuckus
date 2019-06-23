@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Fahrklassen;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServoImplEx;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Erlaubt einfaches Fahren mit zwei FahrtMotoren.
  * Zusätzlich Steuerung von zwei Motoren
  */
+@Disabled
 @TeleOp (name = "WorkshopEinfachFahren")
 public class WorkshopEinfachFahren extends OpMode {
 

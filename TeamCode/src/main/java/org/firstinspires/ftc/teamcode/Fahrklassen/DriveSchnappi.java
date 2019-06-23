@@ -6,10 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@TeleOp (name = "WorkshopEinfachFahrenMitServos")
-public class WorkshopEinfachFahrenServos extends OpMode {
+@TeleOp (name = "DriveSchnappi")
+public class DriveSchnappi extends OpMode {
 
     private DcMotor motor_driveLeft;
     private DcMotor motor_driveRight;
@@ -23,6 +22,9 @@ public class WorkshopEinfachFahrenServos extends OpMode {
 
     private DigitalChannel sensor_touch_1;
     private DigitalChannel sensor_touch_2;
+
+    private double speedLeft = 0;
+    private double speedRight = 0;
 
 
 
@@ -58,7 +60,7 @@ public class WorkshopEinfachFahrenServos extends OpMode {
 
     @Override
     public void loop() {
-        if(gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right ) {
+        /*if(gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right ) {
             //drive backwards
             motor_driveLeft.setPower(0.5);  //1
             motor_driveRight.setPower(0.5); //1
@@ -87,7 +89,25 @@ public class WorkshopEinfachFahrenServos extends OpMode {
             //drive forward
             motor_driveLeft.setPower(-0.5);   //-1
             motor_driveRight.setPower(-0.5);  //-1
+        }*/
+        if(gamepad1.dpad_up && !gamepad1.dpad_down){
+            motor_addition_port2.setPower(1 / 3);
         }
+        if(gamepad1.dpad_down && !gamepad1.dpad_up) {
+            motor_addition_port2.setPower( - 1 / 3);
+        }
+        if(!gamepad1.dpad_up && !gamepad1.dpad_down) {
+            motor_addition_port2.setPower(0);
+        }
+
+        speedLeft = gamepad1.left_stick_y;
+        speedRight = gamepad1.right_stick_y;
+
+        speedLeft -= gamepad1.left_stick_x;
+        speedRight += gamepad1.left_stick_x;
+
+        motor_driveLeft.setPower(speedLeft);
+        motor_driveRight.setPower(speedRight);
 
         if (gamepad1.left_stick_y != 0) {
             motor_addition_port2.setPower(gamepad1.left_stick_y / 3);

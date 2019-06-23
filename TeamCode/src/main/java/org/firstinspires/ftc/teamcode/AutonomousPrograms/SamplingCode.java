@@ -11,11 +11,10 @@ import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisIdeenExpo;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuffExpo;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Disabled
-@Autonomous (name = "SamplingCode")
+@Autonomous (name = "AutonomWettkampg")
 public class SamplingCode extends LinearOpMode {
 
-    private final double driveSpeed = 0.4;
+    private final double driveSpeed = 0.5;
     private final int degreeRight = 45; //todo
     private final int degreeLeft = 45; //37
 
@@ -34,12 +33,13 @@ public class SamplingCode extends LinearOpMode {
 
         waitForStart();
 
-        motorStuffExpo.driveInOneDirection(0.4,0.4);
-        t.stopForMilliSeconds(1000);
+        motorStuffExpo.driveInOneDirection( 0.4,0.4);
+        t.stopForMilliSeconds(2000);
         motorStuffExpo.setAllMotors(0,0,0,0);
 
         t.stopForMilliSeconds(100);
-
+        telemetry.addData("Hey", true);
+        telemetry.update();
         //Sampling
         //Sees middle mineral. Checks whether is't gold or not.
 

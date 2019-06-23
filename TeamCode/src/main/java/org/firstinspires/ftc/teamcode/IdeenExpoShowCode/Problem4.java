@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.IdeenExpoShowCode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-
+@Disabled
 @TeleOp(name = "Problem4")
 public class Problem4 extends OpMode {
     private DcMotor motor_hub2_port1;

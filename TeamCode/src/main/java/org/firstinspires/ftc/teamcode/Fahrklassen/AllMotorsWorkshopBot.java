@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Fahrklassen;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Requested by Felix
  * Is able to set the power of every of the eight motors
  */
+@Disabled
 @TeleOp (name = "WorkshopBot")
 public class AllMotorsWorkshopBot extends OpMode {
     private DcMotor motor_hub1_port0;

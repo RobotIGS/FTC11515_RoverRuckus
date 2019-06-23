@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.IdeenExpoShowCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+@Disabled
 @Autonomous (name = "Problem3")
 public class Problem3 extends LinearOpMode {
 
