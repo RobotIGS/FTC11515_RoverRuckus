@@ -1,24 +1,27 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
 import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-@Autonomous (name = "BackUpAutonomusRedSide")
-public class AutonomusRedSideBackUp extends LinearOpMode {
+@Disabled
+@Autonomous (name = "BackUpAutonomusBlueSide")
+public class AutonomusBlueSideBackUp extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer redline; //Recognizes blue line
+    private FarbHelfer blueline; //Recognizes blue line
     private Tools tools;
 
     private final int degreeRight = 37;
@@ -36,7 +39,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
 
         DistanceAlternativeTools distanceAlternativeTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
-        redline = new FarbHelfer();
+        blueline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -81,7 +84,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!redline.isRed((hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right))) && !isStopRequested()) {
+            while ((!blueline.isBlue((hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))) && !isStopRequested()) {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
@@ -91,7 +94,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                distanceAlternativeTools.driveToWall(Direction_Enum.Right);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Right);
 
                 //waits additional second
                 tools.stopForMilliSeconds(1000);
@@ -100,7 +103,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
 
                 distanceAlternativeTools.driveBackFromWall(Direction_Enum.Right);
 
-                while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
+                while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
                     motorStuff.setAllMotors(0,-0.2,0,-0.2);
                 }
                 motorStuff.setAllMotors(0,0,0,0);
@@ -110,7 +113,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
                 tools.stopForMilliSeconds(1000);
-                distanceAlternativeTools.driveToWall(Direction_Enum.Left);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Left);
 
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
@@ -118,7 +121,7 @@ public class AutonomusRedSideBackUp extends LinearOpMode {
                 distanceAlternativeTools.driveBackFromWall(Direction_Enum.Left);
 
                 //Drives from the wall to the marker zone.
-                while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
+                while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
                     motorStuff.setAllMotors(0,0.2,0,0.2);
                 }
                 //ZURÜCK

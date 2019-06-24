@@ -1,30 +1,30 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
-import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
+import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
 
-/*
- * Our actual approach to the autonomous period.
- * Works for blue side, right position
- */
-@Autonomous(name = "AutonomousRedCrater")
-public class AutonomousRedCrater extends LinearOpMode {
+@Disabled
+@Autonomous (name = "BackUpAutonomusBlueCrater")
+public class AutonomusBlueCraterBackUp extends LinearOpMode {
 
-    private final int timeDriveForward = 2200;
+    private final int timeDriveForward = 2345;
     private final int timeDriveBackward = 1300;
     private final float degreeRight = 37;
     private final float degreeLeft = 37;
     private GoldAlignDetector detector; //Recognizes golden mineral
+    private FarbHelfer blueline;
+
 
     @Override
     public void runOpMode() {
@@ -33,7 +33,7 @@ public class AutonomousRedCrater extends LinearOpMode {
         Tools tools = new Tools(this);
         HardwareChassisSun hwChss = new HardwareChassisSun(hardwareMap);
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
+        DistanceAlternativeTools distanceTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -55,7 +55,7 @@ public class AutonomousRedCrater extends LinearOpMode {
 
         detector.enable(); // Start the detector!
 
-
+        blueline = new FarbHelfer();
 
         waitForStart();
 
@@ -127,11 +127,13 @@ public class AutonomousRedCrater extends LinearOpMode {
         //It doesn't matter, if the mineral was left, right or in the center.
         //This is independent from the the if else statement above.
         //It will drive until one sensor registers the wall, then follow the wall.
-        distanceTools.driveToWall(Direction_Enum.Crater);
-        distanceTools.orientateToSensorLeft(hwChss.distance_left, hwChss.distance_right);
-        distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Crater, Color_Enum.Red);
+        //todo distanceTools.driveToWall(Direction_Enum.Crater);
 
+        distanceTools.driveBackFromWall(Direction_Enum.Crater);
 
+        while ((!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
+            motorStuff.setAllMotors(0,-0.2,0,-0.2);
+        }
+        motorStuff.setAllMotors(0,0,0,0);
     }
-
 }

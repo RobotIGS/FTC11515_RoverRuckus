@@ -1,31 +1,24 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.AutonomousPrograms;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
-import org.firstinspires.ftc.teamcode.Tools.Color_Enum;
 import org.firstinspires.ftc.teamcode.Tools.Direction_Enum;
-import org.firstinspires.ftc.teamcode.Tools.DistanceTools;
+import org.firstinspires.ftc.teamcode.Tools.DistanceAlternativeTools;
 import org.firstinspires.ftc.teamcode.Tools.FarbHelfer;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 import org.firstinspires.ftc.teamcode.Tools.Tools;
-
-/*
- * Our actual approach to the autonomous period.
- * Works for blue side, right position
- *
- * 22.02.19 Please don't touch. This should work, but need's to be tested again
- */
-@Autonomous(name = "AutonomousBlueSide")
-public class AutonomousBlueSide extends LinearOpMode {
+@Disabled
+@Autonomous (name = "BackUpAutonomusRedSide")
+public class AutonomusRedSideBackUp extends LinearOpMode {
 
     private GoldAlignDetector detector; //Recognizes golden mineral
-    private FarbHelfer blueline; //Recognizes blue line
+    private FarbHelfer redline; //Recognizes blue line
     private Tools tools;
 
     private final int degreeRight = 37;
@@ -41,9 +34,9 @@ public class AutonomousBlueSide extends LinearOpMode {
         MotorStuff motorStuff = new MotorStuff(hwChss, hardwareMap, this);
         tools = new Tools(this);
 
-        DistanceTools distanceTools = new DistanceTools(motorStuff, hwChss, tools, this);
+        DistanceAlternativeTools distanceAlternativeTools = new DistanceAlternativeTools(motorStuff, hwChss, tools, this);
 
-        blueline = new FarbHelfer();
+        redline = new FarbHelfer();
 
         detector = new GoldAlignDetector();
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
@@ -71,7 +64,7 @@ public class AutonomousBlueSide extends LinearOpMode {
         //Drives forward a certain amount of time
         motorStuff.setAllMotors(0.2,0,0.2,0);
         long time  = System.currentTimeMillis();
-        tools.stopForMilliSeconds(1500);
+        while ((System.currentTimeMillis() < time+1500) && !isStopRequested()) { }
         motorStuff.setAllMotors(0,0,0,0);
 
         tools.stopForMilliSeconds(1000);
@@ -79,7 +72,7 @@ public class AutonomousBlueSide extends LinearOpMode {
         boolean isGold = detector.isFound();
         telemetry.addData("Is Gold: " ,isGold);
         telemetry.update();
-        if (isGold  && !isStopRequested()) { //Middle
+        if (isGold && !isStopRequested()) { //Middle
 
             //Drive forward to seconds
             motorStuff.setAllMotors(0.2,0,0.2,0);
@@ -88,37 +81,48 @@ public class AutonomousBlueSide extends LinearOpMode {
                 motorStuff.setAllMotors(0.2,0,0.2,0);
             }
             //Drive until a blue line is registered (robot is in the marker zone)
-            while ((!blueline.isBlue(hwChss.color_back_right)) && (!blueline.isBlue(hwChss.color_back_right))&& !isStopRequested()) {
-               motorStuff.setAllMotors(0.2,0,0.2,0);
+            while ((!redline.isRed((hwChss.color_back_right)) && (!redline.isRed(hwChss.color_back_right))) && !isStopRequested()) {
+                motorStuff.setAllMotors(0.2,0,0.2,0);
             }
 
             motorStuff.setAllMotors(0,0,0,0);
-        } else if (!isStopRequested()) { //Mineral is left or right
+        } else if(!isStopRequested()){ //Mineral is left or right
             motorStuff.turnToDegreeV4(degreeRight); //Turns to the right
             //Waits one second to ensure that the robot has turned completly
             tools.stopForMilliSeconds(1000);
             if(detector.isFound() && !isStopRequested()){ //Mineral is right
-                distanceTools.driveToWall(Direction_Enum.Right);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Right, );
 
                 //waits additional second
                 tools.stopForMilliSeconds(1000);
 
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Right, Color_Enum.Blue);
 
+                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Right);
+
+                while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
+                    motorStuff.setAllMotors(0,-0.2,0,-0.2);
+                }
+                motorStuff.setAllMotors(0,0,0,0);
             }
             else if (!isStopRequested()) { //Same for the left side
                 motorStuff.turnToDegreeV4(360-(degreeRight + degreeLeft)); //Left
                 motorStuff.setAllMotors(0.2, 0, 0.2, 0);
 
                 tools.stopForMilliSeconds(1000);
-                distanceTools.driveToWall(Direction_Enum.Left);
+                //todo distanceAlternativeTools.driveToWall(Direction_Enum.Left);
 
                 //Waits additional second
                 tools.stopForMilliSeconds(1000);
+
+                distanceAlternativeTools.driveBackFromWall(Direction_Enum.Left);
+
                 //Drives from the wall to the marker zone.
+                while ((!redline.isRed(hwChss.color_back_right))&& !isStopRequested()) {
+                    motorStuff.setAllMotors(0,0.2,0,0.2);
+                }
+                //ZURÜCK
                 motorStuff.setAllMotors(0,0,0,0);
-                distanceTools.followWall(motorStuff.getDegree(), Direction_Enum.Left, Color_Enum.Blue);
 
             }
         }
