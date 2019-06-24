@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Programm für den Workshop.
  * Erlaubt einfaches Fahren mit zwei FahrtMotoren.
  * Zusätzlich Steuerung von zwei Motoren
+ *
+ *
  */
+@Deprecated
 @Disabled
 @TeleOp (name = "WorkshopEinfachFahren")
 public class WorkshopEinfachFahren extends OpMode {

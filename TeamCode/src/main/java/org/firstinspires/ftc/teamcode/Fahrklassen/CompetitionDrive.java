@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.DriveModes.DriveHoverOptimized;
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassisSun;
 import org.firstinspires.ftc.teamcode.Tools.MotorStuff;
 
+@Deprecated
 @Disabled
 @TeleOp (name = "CompetitionDrive")
 

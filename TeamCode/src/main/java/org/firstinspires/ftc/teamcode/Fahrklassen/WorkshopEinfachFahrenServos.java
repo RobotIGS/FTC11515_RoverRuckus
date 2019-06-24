@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+@Deprecated
 @TeleOp (name = "WorkshopEinfachFahrenMitServos")
 public class WorkshopEinfachFahrenServos extends OpMode {
 
