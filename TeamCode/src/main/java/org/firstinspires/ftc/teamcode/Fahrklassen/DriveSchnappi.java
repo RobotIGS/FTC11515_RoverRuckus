@@ -92,21 +92,22 @@ public class DriveSchnappi extends OpMode {
         }*/
 
         //arm tilt
-        if(gamepad1.dpad_up && !gamepad1.dpad_down){
-            motor_addition_port2.setPower(1 / 3);
+        if(gamepad2.dpad_up && !gamepad2.dpad_down){
+            telemetry.addData("True", true);
+            motor_addition_port2.setPower(-0.8);
         }
-        if(gamepad1.dpad_down && !gamepad1.dpad_up) {
-            motor_addition_port2.setPower( - 1 / 3);
+        if(gamepad2.dpad_down && !gamepad2.dpad_up) {
+            motor_addition_port2.setPower( 0.8);
         }
-        if(!gamepad1.dpad_up && !gamepad1.dpad_down) {
+        if(!gamepad2.dpad_up && !gamepad2.dpad_down) {
             motor_addition_port2.setPower(0);
         }
 
         speedLeft = gamepad1.left_stick_y;
-        speedRight = gamepad1.right_stick_y;
+        speedRight = gamepad1.left_stick_y;
 
-        speedLeft -= gamepad1.left_stick_x;
-        speedRight += gamepad1.left_stick_x;
+        speedLeft += gamepad1.left_stick_x;
+        speedRight -= gamepad1.left_stick_x;
 
         motor_driveLeft.setPower(speedLeft);
         motor_driveRight.setPower(speedRight);
@@ -118,7 +119,7 @@ public class DriveSchnappi extends OpMode {
         }
         */
         //arm lift
-        if(gamepad1.right_stick_y > 0 && sensor_touch_1.getState()) {
+        if(gamepad1.right_stick_y > 0 && sensor_touch_2.getState()) {
             motor_addition_port3.setPower(gamepad1.right_stick_y / 1.5);
         }
         if(gamepad1.right_stick_y < 0 && sensor_touch_2.getState()) {
@@ -127,31 +128,31 @@ public class DriveSchnappi extends OpMode {
         if(gamepad1.right_stick_y == 0) {
             motor_addition_port3.setPower(0);
         }
-        if(!sensor_touch_1.getState() || !sensor_touch_2.getState()) {
+        /*if(!sensor_touch_1.getState() || !sensor_touch_2.getState()) {
             motor_addition_port3.setPower(0);
-        }
+        }*/
         /*if (gamepad1.right_stick_y != 0){
             motor_addition_port3.setPower(gamepad1.right_stick_y/1.5);
         }else{
             motor_addition_port3.setPower(0);
         }*/
         //arm claw
-        if(gamepad1.left_trigger != 0) {
-            motor_addition_hub2_port0.setPower(gamepad1.left_trigger * 0.4);
+        if(gamepad2.left_trigger != 0) {
+            motor_addition_hub2_port0.setPower(gamepad2.left_trigger * 0.4);
         }
-        if(gamepad1.right_trigger != 0) {
-            motor_addition_hub2_port0.setPower(- gamepad1.right_trigger * 0.4);
+        if(gamepad2.right_trigger != 0) {
+            motor_addition_hub2_port0.setPower(- gamepad2.right_trigger * 0.4);
         }
-        if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
+        if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
             motor_addition_hub2_port0.setPower(0);
         }
 
 
 
-        if (gamepad1.a) {
+        if (gamepad2.a) {
             servo_3.setPosition(0.9); //0.89
             servo_2.setPosition(0.3); //0.32
-        }else if(gamepad1.b){
+        }else if(gamepad2.b){
             servo_2.setPosition(0.8);
             servo_3.setPosition(0.3);
         }
